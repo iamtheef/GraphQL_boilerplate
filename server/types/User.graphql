@@ -1,0 +1,9 @@
+type User {
+  id: ID
+  fullName: String
+  password: String
+  email: String
+  isGoogle: Boolean
+  googleID: String
+  createdAt: String
+}

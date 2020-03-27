@@ -1,0 +1,7 @@
+overwrite: true
+schema: "./types/Error.graphql"
+documents: null
+generates:
+  ./generated/graphql.ts:
+    plugins:
+      - "typescript"

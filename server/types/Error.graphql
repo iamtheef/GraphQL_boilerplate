@@ -1,0 +1,4 @@
+type ErrorFormat {
+  path: String
+  message: String
+}

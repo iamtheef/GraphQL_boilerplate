@@ -1,9 +1,12 @@
-import { Errors } from '../../misc/errors';
+import { Errors } from "../../misc/errors";
 
-export interface RegistrationPayload {
-  fullName: string;
-  mail: string;
-  password: string;
+export interface RegistrationInput {
+  input: {
+    fullName: string;
+    email: string;
+    password: string;
+    isGoogle: boolean;
+  };
 }
 
 export interface GoogleRegistrationPayload {
@@ -15,4 +18,3 @@ export interface RegistrationResponse {
   success: boolean;
   errors: Errors;
 }
-

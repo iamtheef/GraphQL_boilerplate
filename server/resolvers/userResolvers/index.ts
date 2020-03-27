@@ -1,5 +1,5 @@
 export * from './login'
-export * from './addUser'
+export * from './register'
 
 
 export * as queries from './queries'

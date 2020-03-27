@@ -3,6 +3,12 @@ export interface Error {
   message: string;
 }
 
+export interface ErrorResponse {
+  token?: string;
+  success: boolean;
+  errors: Errors;
+}
+
 
 
 

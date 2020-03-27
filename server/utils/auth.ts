@@ -19,7 +19,6 @@ export const tokenGen = (payload: UserPayload): string => {
 
 // Access Upon Successful Login
 export const Access = (user: User) => {
-  console.log(tokenGen(payloadGen(user)).length)
   return {
     token: tokenGen(payloadGen(user)),
     success: true,

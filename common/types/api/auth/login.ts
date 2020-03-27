@@ -1,8 +1,9 @@
-import { Errors } from '../../misc/errors';
-
-export interface LoginPayload {
-  mail: string;
-  password: string;
+import { Errors } from "../../misc/errors";
+export interface LoginInput {
+  input: {
+    email: string;
+    password: string;
+  };
 }
 
 export interface GoogleLoginPayload {
@@ -14,4 +15,3 @@ export interface LoginResponse {
   success: boolean;
   errors: Errors;
 }
-
