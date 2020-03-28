@@ -5,7 +5,6 @@ export interface RegistrationInput {
     fullName: string;
     email: string;
     password: string;
-    isGoogle: boolean;
   };
 }
 
