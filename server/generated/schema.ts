@@ -68,7 +68,7 @@ export type Query = {
   client?: Maybe<Client>;
   clients: Array<Client>;
   isUserRegistered?: Maybe<Scalars['Boolean']>;
-  user: User;
+  user?: Maybe<Array<Maybe<User>>>;
   users: Array<User>;
 };
 
@@ -84,7 +84,7 @@ export type QueryIsUserRegisteredArgs = {
 
 
 export type QueryUserArgs = {
-  id?: Maybe<Scalars['ID']>;
+  input: UserQueryInput;
 };
 
 export type RegisterInput = {
@@ -109,6 +109,14 @@ export type User = {
   isGoogle?: Maybe<Scalars['Boolean']>;
   googleID?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['String']>;
+};
+
+export type UserQueryInput = {
+  id?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  googleID?: Maybe<Scalars['String']>;
 };
 
 
@@ -190,6 +198,7 @@ export type ResolversTypes = {
   Client: ResolverTypeWrapper<Client>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  UserQueryInput: UserQueryInput,
   User: ResolverTypeWrapper<User>,
   Mutation: ResolverTypeWrapper<{}>,
   LoginInput: LoginInput,
@@ -207,6 +216,7 @@ export type ResolversParentTypes = {
   Client: Client,
   Int: Scalars['Int'],
   Boolean: Scalars['Boolean'],
+  UserQueryInput: UserQueryInput,
   User: User,
   Mutation: {},
   LoginInput: LoginInput,
@@ -248,7 +258,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
   clients?: Resolver<Array<ResolversTypes['Client']>, ParentType, ContextType>,
   isUserRegistered?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsUserRegisteredArgs, 'email'>>,
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryUserArgs, never>>,
+  user?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUserArgs, 'input'>>,
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
 };
 

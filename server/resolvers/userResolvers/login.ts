@@ -1,14 +1,13 @@
-import { LoginInput } from "../../../common/types/api/auth/login";
-// import { ErrorResponse } from "../../../common/types/misc/errors";
 import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../../models/User";
 import { Access } from "../../utils/auth";
 import bcrypt from "bcryptjs";
 import { WrongCredits, error } from "../../utils/errors";
+import { MutationResolvers } from "generated/schema";
 
 const UserModel = getModelForClass(User);
 
-export const login = async (_: any, { input }: LoginInput) => {
+export const login: MutationResolvers["login"] = async (_, { input }) => {
   const { email, password } = input;
   try {
     const foundUser = await UserModel.findOne({ email });
@@ -22,7 +21,8 @@ export const login = async (_: any, { input }: LoginInput) => {
       }
     }
     return WrongCredits;
-  } catch {
+  } catch (e) {
+    console.log(e);
     return error;
   }
 };

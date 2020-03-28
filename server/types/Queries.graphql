@@ -1,0 +1,13 @@
+extend type Query {
+  isUserRegistered(email: String!): Boolean
+  users: [User!]!
+  user(input: UserQueryInput!): [User]
+}
+
+input UserQueryInput {
+  id: String
+  fullName: String
+  email: String
+  createdAt: String
+  googleID: String
+}

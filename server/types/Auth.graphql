@@ -3,10 +3,10 @@ extend type Mutation {
   login(input: LoginInput!): LoginResponse
 }
 
-extend type Query {
-  isUserRegistered(email: String!): Boolean
-  users: [User!]!
-  user(id: ID): User!
+input RegisterInput {
+  fullName: String!
+  password: String!
+  email: String!
 }
 
 type RegistrationResponse {
@@ -15,19 +15,13 @@ type RegistrationResponse {
   errors: [ErrorFormat]
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type LoginResponse {
   token: String
   success: Boolean
   errors: [ErrorFormat]
-}
-
-input RegisterInput {
-  fullName: String!
-  password: String!
-  email: String!
-}
-
-input LoginInput {
-  email: String!
-  password: String!
 }

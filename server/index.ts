@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "./resolvers/index";
 import { typeDefs } from "./types/index";
+// import { generateSchema } from "./generated/graph-generator";
 
 const db = dotenv.config().parsed.DB_STRING;
 const schema = makeExecutableSchema({
@@ -20,6 +21,7 @@ const schema = makeExecutableSchema({
     })
     .then(() => console.log("Connected to DB"))
     .catch(e => console.log(e));
+  // await generateSchema();
   await new ApolloServer({
     schema
   })

@@ -1,7 +1,7 @@
 import { getModelForClass } from "@typegoose/typegoose";
-import { userQuery } from "../../../common/types/queries/user";
 import { User } from "../../models/User";
 import { queryError } from "../../utils/errors";
+import { QueryResolvers } from "generated/schema";
 const UserModel = getModelForClass(User);
 
 export const users = async () => {
@@ -12,19 +12,16 @@ export const users = async () => {
   }
 };
 
-export const isUserRegistered = async (
-  _: any,
-  {
-    email
-  }: {
-    email: string;
-  }
+export const isUserRegistered: QueryResolvers["isUserRegistered"] = async (
+  _,
+  { email }
 ) => {
   if (await UserModel.findOne({ email })) return true;
   return false;
 };
 
-export const user = async (_: any, { googleID, email }: userQuery) => {
+export const user: QueryResolvers["user"] = async (_, { input }) => {
+  const { googleID, email } = input;
   console.log(googleID, email);
   return await UserModel.find();
 };
