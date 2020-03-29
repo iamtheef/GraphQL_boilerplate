@@ -1,10 +1,9 @@
-import { RegistrationInput } from "../../../common/types/api/auth/register";
 import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../../models/User";
 import { Access } from "../../utils/auth";
 import bcrypt from "bcryptjs";
-import { AlreadySigned, error } from "../../utils/errors";
-import { MutationResolvers } from "generated/schema";
+import { AlreadySigned, ValidationError } from "../../utils/errors";
+import { MutationResolvers } from "schema/schema";
 
 const UserModel = getModelForClass(User);
 
@@ -20,6 +19,6 @@ export const register: MutationResolvers["register"] = async (_, { input }) => {
     return Access(newUser);
   } catch (e) {
     console.log(e);
-    return error;
+    return ValidationError;
   }
 };

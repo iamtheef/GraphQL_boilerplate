@@ -3,7 +3,7 @@ import { User } from "../../models/User";
 import { Access } from "../../utils/auth";
 import bcrypt from "bcryptjs";
 import { WrongCredits, error } from "../../utils/errors";
-import { MutationResolvers } from "generated/schema";
+import { MutationResolvers } from "schema/schema";
 
 const UserModel = getModelForClass(User);
 

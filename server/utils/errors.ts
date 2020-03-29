@@ -1,32 +1,47 @@
-import { LoginResponse } from "../../common/types/api/auth/login";
-import { RegistrationResponse } from "../../common/types/api/auth/register";
-import { ErrorResponse } from "../../common/types/misc/errors";
+import { AuthResponse } from "../schema/schema";
 
-export const error: ErrorResponse = {
+export const ValidationError: AuthResponse = {
   token: null,
   success: false,
-  errors: [{ path: "DATABASE OR NETWORK", message: "Error" }]
+  errors: [
+    {
+      path: "VALIDATION",
+      message: "Validation failed, please check your form again!"
+    }
+  ]
 };
 
-export const WrongCredits: LoginResponse = {
+export const WrongCredits: AuthResponse = {
   token: null,
   success: false,
   errors: [{ path: "LOGIN", message: "Wrong Credentials" }]
 };
 
-export const AlreadySigned: RegistrationResponse = {
+export const AlreadySigned: AuthResponse = {
   token: null,
   success: false,
   errors: [{ path: "REGISTER", message: "Wow! You are already signed!" }]
 };
 
-export const queryError: RegistrationResponse = {
+export const queryError: AuthResponse = {
   token: null,
   success: false,
   errors: [
     {
-      path: "DB",
-      message: "Wooops, our database couldn't be reached. Try later"
+      path: "DATABASE",
+      message: "Our database couldn't be reached. Try later"
+    }
+  ]
+};
+
+export const error: AuthResponse = {
+  token: null,
+  success: false,
+  errors: [
+    {
+      path: "NETWORK",
+      message:
+        "Wooops, seems like we're having some trouble reaching the server. Try later"
     }
   ]
 };

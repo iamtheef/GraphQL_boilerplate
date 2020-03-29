@@ -1,6 +1,6 @@
 extend type Mutation {
-  register(input: RegisterInput): RegistrationResponse
-  login(input: LoginInput!): LoginResponse
+  register(input: RegisterInput): AuthResponse
+  login(input: LoginInput!): AuthResponse
 }
 
 input RegisterInput {
@@ -9,18 +9,12 @@ input RegisterInput {
   email: String!
 }
 
-type RegistrationResponse {
-  token: String
-  success: Boolean
-  errors: [ErrorFormat]
-}
-
 input LoginInput {
   email: String!
   password: String!
 }
 
-type LoginResponse {
+type AuthResponse {
   token: String
   success: Boolean
   errors: [ErrorFormat]

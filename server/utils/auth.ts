@@ -1,27 +1,25 @@
-import { UserPayload } from '../../common/types/entity/user';
-import { User } from '../models/User';
-import * as dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-import { Errors } from '../../common/types/misc/errors';
+import { User } from "../models/User";
+import * as dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+import { AuthResponse } from "../schema/schema";
 
 const secret = dotenv.config().parsed.SECRET;
 
 // Generate Payload
-export const payloadGen = ({ _id }: User): UserPayload => {
-  return { _id }
-
-}
+export const payloadGen = ({ _id }: User) => {
+  return { _id };
+};
 
 // Generate Tokens
-export const tokenGen = (payload: UserPayload): string => {
-  return jwt.sign(payload, secret, { expiresIn: '1h' });
-}
+export const tokenGen = (payload: {}): string => {
+  return jwt.sign(payload, secret, { expiresIn: "1h" });
+};
 
 // Access Upon Successful Login
-export const Access = (user: User) => {
+export const Access = (user: User): AuthResponse => {
   return {
     token: tokenGen(payloadGen(user)),
     success: true,
-    errors: [] as Errors
-  }
-}
+    errors: []
+  };
+};

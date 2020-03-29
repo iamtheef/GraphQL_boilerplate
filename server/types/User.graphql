@@ -5,5 +5,20 @@ type User {
   email: String
   isGoogle: Boolean
   googleID: String
-  createdAt: String
+  createdAt: Date
+}
+
+
+extend type Query {
+  isUserRegistered(email: String!): Boolean
+  users: [User]
+  user(input: UserQueryInput!): [User]
+}
+
+input UserQueryInput {
+  id: String
+  googleID: String
+  fullName: String
+  email: String
+  createdAt: Date
 }
