@@ -12,6 +12,7 @@ export const updateAcc: MutationResolvers["updateAcc"] = async (
   const { id, fullName, password } = input;
 
   try {
+    // checks which have been passed and updates accordingly
     if (fullName) {
       await UserModel.findByIdAndUpdate(id, {
         fullName
