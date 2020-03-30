@@ -1,6 +1,9 @@
-extend type Mutation {
-  register(input: RegisterInput): AuthResponse
-  login(input: LoginInput!): AuthResponse
+input UserQueryInput {
+  id: String
+  googleID: String
+  fullName: String
+  email: String
+  createdAt: Date
 }
 
 input RegisterInput {
@@ -18,4 +21,10 @@ type AuthResponse {
   token: String
   success: Boolean
   errors: [ErrorFormat]
+}
+
+input UserUpdates {
+  id: String!
+  fullName: String
+  password: String
 }

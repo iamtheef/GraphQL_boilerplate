@@ -1,5 +1,5 @@
 import { mergeResolvers } from "merge-graphql-schemas";
-import { login, register, queries } from "./userResolvers/index";
+import { mutations, queries } from "./userResolvers/index";
 
 const resolversArray = [
   {
@@ -8,8 +8,7 @@ const resolversArray = [
     },
 
     Mutation: {
-      register,
-      login
+      ...mutations
     }
   }
 ];

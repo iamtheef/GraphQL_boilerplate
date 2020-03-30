@@ -1,8 +1,8 @@
 import { getModelForClass } from "@typegoose/typegoose";
-import { User } from "../../models/User";
-import { Access } from "../../utils/auth";
+import { User } from "../../../models/User";
+import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
-import { AlreadySigned, ValidationError } from "../../utils/errors";
+import { AlreadySigned, ValidationError } from "../../../utils/errors";
 import { MutationResolvers } from "schema/schema";
 
 const UserModel = getModelForClass(User);

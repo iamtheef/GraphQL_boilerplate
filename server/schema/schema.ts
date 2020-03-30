@@ -42,8 +42,10 @@ export type Mutation = {
   /** @deprecated Field no longer supported */
   _?: Maybe<Scalars['String']>;
   addClient?: Maybe<Client>;
+  deleteAcc?: Maybe<Scalars['Boolean']>;
   login?: Maybe<AuthResponse>;
   register?: Maybe<AuthResponse>;
+  updateAcc?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -54,6 +56,11 @@ export type MutationAddClientArgs = {
 };
 
 
+export type MutationDeleteAccArgs = {
+  id?: Maybe<Scalars['String']>;
+};
+
+
 export type MutationLoginArgs = {
   input: LoginInput;
 };
@@ -61,6 +68,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   input?: Maybe<RegisterInput>;
+};
+
+
+export type MutationUpdateAccArgs = {
+  input: UserUpdates;
 };
 
 export type Query = {
@@ -112,6 +124,12 @@ export type UserQueryInput = {
   fullName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
+};
+
+export type UserUpdates = {
+  id: Scalars['String'];
+  fullName?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 
@@ -201,6 +219,7 @@ export type ResolversTypes = {
   AuthResponse: ResolverTypeWrapper<AuthResponse>,
   ErrorFormat: ResolverTypeWrapper<ErrorFormat>,
   RegisterInput: RegisterInput,
+  UserUpdates: UserUpdates,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -219,6 +238,7 @@ export type ResolversParentTypes = {
   AuthResponse: AuthResponse,
   ErrorFormat: ErrorFormat,
   RegisterInput: RegisterInput,
+  UserUpdates: UserUpdates,
 };
 
 export type AuthResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = {
@@ -248,8 +268,10 @@ export type ErrorFormatResolvers<ContextType = any, ParentType extends Resolvers
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   addClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationAddClientArgs, 'name' | 'age' | 'id'>>,
+  deleteAcc?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteAccArgs, never>>,
   login?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, never>>,
+  updateAcc?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationUpdateAccArgs, 'input'>>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

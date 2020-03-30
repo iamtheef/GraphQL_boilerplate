@@ -17,7 +17,8 @@ const schema = makeExecutableSchema({
     .connect(db, {
       useCreateIndex: true,
       useUnifiedTopology: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false
     })
     .then(() => console.log("Connected to DB"))
     .catch(e => console.log(e));
