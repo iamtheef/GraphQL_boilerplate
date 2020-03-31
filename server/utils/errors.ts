@@ -1,9 +1,22 @@
-import { AuthResponse } from "../schema/schema";
+import { AuthResponse, UpdateAccResponse } from "../schema/schema";
 
 // function for returning any custom error
-export const generateError = (path: string, message: string): AuthResponse => {
+export const generateAuthError = (
+  path: string,
+  message: string
+): AuthResponse => {
   return {
     token: null,
+    success: false,
+    errors: [{ path, message }]
+  };
+};
+
+export const generateUpdateError = (
+  path: string,
+  message: string
+): UpdateAccResponse => {
+  return {
     success: false,
     errors: [{ path, message }]
   };
@@ -21,6 +34,22 @@ export const ValidationError: AuthResponse = {
   ]
 };
 
+export const InvalidPassword: UpdateAccResponse = {
+  success: false,
+  errors: [
+    { path: "USER PASSWORD", message: "Password was invalid, try again." }
+  ]
+};
+
+export const MismatchedPasswords: UpdateAccResponse = {
+  success: false,
+  errors: [{ path: "PASSWORDS", message: "Passwords have to match!" }]
+};
+export const SuccessUpdated: UpdateAccResponse = {
+  success: true,
+  errors: []
+};
+
 export const WrongCredits: AuthResponse = {
   token: null,
   success: false,
@@ -31,15 +60,4 @@ export const AlreadySigned: AuthResponse = {
   token: null,
   success: false,
   errors: [{ path: "REGISTER", message: "Wow! You are already signed!" }]
-};
-
-export const queryError: AuthResponse = {
-  token: null,
-  success: false,
-  errors: [
-    {
-      path: "DATABASE",
-      message: "Our database couldn't be reached. Try later"
-    }
-  ]
 };

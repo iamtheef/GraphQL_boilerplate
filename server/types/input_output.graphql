@@ -1,3 +1,5 @@
+# INPUTS
+
 input UserQueryInput {
   id: String
   googleID: String
@@ -17,12 +19,6 @@ input LoginInput {
   password: String!
 }
 
-type AuthResponse {
-  token: String
-  success: Boolean
-  errors: [ErrorFormat]
-}
-
 input UserUpdates {
   id: String!
   fullName: String
@@ -33,4 +29,22 @@ input Password {
   oldPassword: String!
   newPassword: String
   confirmPassword: String
+}
+
+# RESPONSES
+
+union AuthResponse = Auth | ErrorResponse
+union UpdateAccResponse = UpdateAcc | ErrorResponse
+
+type Auth {
+  token: String
+  success: Boolean
+}
+
+type UpdateAcc {
+  success: Boolean
+}
+
+type ErrorResponse {
+  errors: [ErrorFormat]
 }

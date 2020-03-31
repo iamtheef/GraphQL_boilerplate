@@ -9,7 +9,10 @@ import { typeDefs } from "./types/index";
 const db = dotenv.config().parsed.DB_STRING;
 const schema = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers,
+  resolverValidationOptions: {
+    requireResolversForResolveType: false
+  }
 });
 
 (async () => {

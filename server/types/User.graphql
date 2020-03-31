@@ -17,6 +17,6 @@ extend type Query {
 extend type Mutation {
   register(input: RegisterInput): AuthResponse
   login(input: LoginInput!): AuthResponse
-  updateAcc(input: UserUpdates!): Boolean
+  updateAcc(input: UserUpdates!): UpdateAccResponse
   deleteAcc(id: String): Boolean
 }

@@ -528,7 +528,7 @@
               }
             ],
             "type": {
-              "kind": "OBJECT",
+              "kind": "UNION",
               "name": "AuthResponse",
               "ofType": null
             },
@@ -551,7 +551,7 @@
               }
             ],
             "type": {
-              "kind": "OBJECT",
+              "kind": "UNION",
               "name": "AuthResponse",
               "ofType": null
             },
@@ -578,8 +578,8 @@
               }
             ],
             "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
+              "kind": "UNION",
+              "name": "UpdateAccResponse",
               "ofType": null
             },
             "isDeprecated": false,
@@ -631,8 +631,29 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
+        "kind": "UNION",
         "name": "AuthResponse",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Auth",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ErrorResponse",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Auth",
         "description": "",
         "fields": [
           {
@@ -658,7 +679,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
-          },
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ErrorResponse",
+        "description": "",
+        "fields": [
           {
             "name": "errors",
             "description": "",
@@ -856,6 +888,50 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "UpdateAccResponse",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "UpdateAcc",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ErrorResponse",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UpdateAcc",
+        "description": "",
+        "fields": [
+          {
+            "name": "success",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },

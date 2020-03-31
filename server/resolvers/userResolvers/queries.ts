@@ -1,21 +1,20 @@
 import { getModelForClass } from "@typegoose/typegoose";
-import { User } from "../../models/User";
-import { queryError, generateError } from "../../utils/errors";
-import { QueryResolvers, QueryUserArgs } from "schema/schema";
-// import { GQL_QueryResolvers, GQL_User, Maybe } from "graphql-resolvers";
+import { User as DB_User } from "../../models/User";
 
-const UserModel = getModelForClass(User);
+import { GQL_QueryResolvers, Maybe, GQL_User } from "schema/schema";
 
-export const users = async () => {
+const UserModel = getModelForClass(DB_User);
+type User = DB_User & GQL_User;
+
+export const users: GQL_QueryResolvers["users"] = async () => {
   try {
     return await UserModel.find();
   } catch (e) {
-    console.log(e.message);
-    return queryError;
+    throw Error(e.message);
   }
 };
 
-export const isUserRegistered: QueryResolvers["isUserRegistered"] = async (
+export const isUserRegistered: GQL_QueryResolvers["isUserRegistered"] = async (
   _,
   { email }
 ) => {
@@ -24,20 +23,22 @@ export const isUserRegistered: QueryResolvers["isUserRegistered"] = async (
 };
 
 // multiple fields search for users
-export const user = async (_: undefined, { input }: QueryUserArgs) => {
-  try {
-    const { email, fullName, googleID, createdAt, id } = input;
-    if (id) return await UserModel.findById(id);
-    if (googleID) return await UserModel.find({ googleID: googleID });
-    if (email) return await UserModel.find({ email: email });
-    if (fullName && createdAt) {
-      return UserModel.find({ fullName: fullName, createdAt: createdAt });
-    }
-    if (fullName) return UserModel.find({ fullName: fullName });
-    if (createdAt) return await UserModel.find({ createdAt: createdAt });
-    return [];
-  } catch (e) {
-    console.log(e.message);
-    return generateError("USER QUERY", `${e.message}`);
-  }
-};
+// export const userResolver: GQL_QueryResolvers["user"] = async (
+//   _,
+//   { input }
+// ) => {
+//   try {
+//     const { email, fullName, googleID, createdAt, id } = input;
+//     if (id) return await UserModel.findById(id);
+//     if (googleID) return await UserModel.find({ googleID: googleID });
+//     if (email) return await UserModel.find({ email: email });
+//     if (fullName && createdAt) {
+//       return UserModel.find({ fullName: fullName, createdAt: createdAt });
+//     }
+//     if (fullName) return UserModel.find({ fullName: fullName });
+//     if (createdAt) return await UserModel.find({ createdAt: createdAt });
+//     return [] as <User>;
+//   } catch (e) {
+//     throw Error(e.message);
+//   }
+// };
