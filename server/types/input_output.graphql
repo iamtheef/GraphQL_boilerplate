@@ -26,5 +26,11 @@ type AuthResponse {
 input UserUpdates {
   id: String!
   fullName: String
-  password: String
+  password: Password
+}
+
+input Password {
+  oldPassword: String!
+  newPassword: String
+  confirmPassword: String
 }

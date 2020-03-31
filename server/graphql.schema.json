@@ -803,6 +803,51 @@
             "name": "password",
             "description": "",
             "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Password",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "Password",
+        "description": "",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "oldPassword",
+            "description": "",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "newPassword",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "confirmPassword",
+            "description": "",
+            "type": {
               "kind": "SCALAR",
               "name": "String",
               "ofType": null

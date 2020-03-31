@@ -18,11 +18,12 @@ export const updateAcc: MutationResolvers["updateAcc"] = async (
         fullName
       });
     }
-    if (password) {
-      await UserModel.findByIdAndUpdate(id, {
-        password: bcrypt.hashSync(password, 10)
-      });
-    }
+    console.log(password);
+    // if (password) {
+    //   await UserModel.findByIdAndUpdate(id, {
+    //     password: bcrypt.hashSync(password, 10)
+    //   });
+    // }
     return true;
   } catch (e) {
     console.log(e);

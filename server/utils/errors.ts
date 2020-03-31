@@ -1,5 +1,15 @@
 import { AuthResponse } from "../schema/schema";
 
+// function for returning any custom error
+export const generateError = (path: string, message: string): AuthResponse => {
+  return {
+    token: null,
+    success: false,
+    errors: [{ path, message }]
+  };
+};
+
+// fixed usual errors
 export const ValidationError: AuthResponse = {
   token: null,
   success: false,
@@ -30,18 +40,6 @@ export const queryError: AuthResponse = {
     {
       path: "DATABASE",
       message: "Our database couldn't be reached. Try later"
-    }
-  ]
-};
-
-export const error: AuthResponse = {
-  token: null,
-  success: false,
-  errors: [
-    {
-      path: "NETWORK",
-      message:
-        "Wooops, seems like we're having some trouble reaching the server. Try later"
     }
   ]
 };

@@ -75,6 +75,12 @@ export type MutationUpdateAccArgs = {
   input: UserUpdates;
 };
 
+export type Password = {
+  oldPassword: Scalars['String'];
+  newPassword?: Maybe<Scalars['String']>;
+  confirmPassword?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
    __typename?: 'Query';
   /** @deprecated Field no longer supported */
@@ -129,7 +135,7 @@ export type UserQueryInput = {
 export type UserUpdates = {
   id: Scalars['String'];
   fullName?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
+  password?: Maybe<Password>;
 };
 
 
@@ -220,6 +226,7 @@ export type ResolversTypes = {
   ErrorFormat: ResolverTypeWrapper<ErrorFormat>,
   RegisterInput: RegisterInput,
   UserUpdates: UserUpdates,
+  Password: Password,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -239,6 +246,7 @@ export type ResolversParentTypes = {
   ErrorFormat: ErrorFormat,
   RegisterInput: RegisterInput,
   UserUpdates: UserUpdates,
+  Password: Password,
 };
 
 export type AuthResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = {

@@ -1,7 +1,8 @@
 import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../../models/User";
-import { queryError, error } from "../../utils/errors";
+import { queryError, generateError } from "../../utils/errors";
 import { QueryResolvers, QueryUserArgs } from "schema/schema";
+// import { GQL_QueryResolvers, GQL_User, Maybe } from "graphql-resolvers";
 
 const UserModel = getModelForClass(User);
 
@@ -37,6 +38,6 @@ export const user = async (_: undefined, { input }: QueryUserArgs) => {
     return [];
   } catch (e) {
     console.log(e.message);
-    return error;
+    return generateError("USER QUERY", `${e.message}`);
   }
 };
