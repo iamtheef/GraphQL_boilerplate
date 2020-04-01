@@ -1,4 +1,4 @@
-import { MutationResolvers } from "schema/schema";
+import { GQL_MutationResolvers } from "schema/schema";
 import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../../../models/User";
 import bcrypt from "bcryptjs";
@@ -6,7 +6,7 @@ import { generateUpdateError } from "../../../utils/errors";
 
 const UserModel = getModelForClass(User);
 
-export const updateAcc: MutationResolvers["updateAcc"] = async (
+export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,
   { input }
 ) => {

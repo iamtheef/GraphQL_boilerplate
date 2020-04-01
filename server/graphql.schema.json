@@ -135,6 +135,33 @@
             "deprecationReason": null
           },
           {
+            "name": "userById",
+            "description": "",
+            "args": [
+              {
+                "name": "id",
+                "description": "",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "users",
             "description": "",
             "args": [],
@@ -254,26 +281,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "id",
-            "description": "",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "googleID",
-            "description": "",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
             "name": "fullName",
             "description": "",
             "type": {
@@ -285,6 +292,16 @@
           },
           {
             "name": "email",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "googleID",
             "description": "",
             "type": {
               "kind": "SCALAR",

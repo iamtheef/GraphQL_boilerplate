@@ -3,11 +3,14 @@ import { User } from "../../../models/User";
 import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
 import { AlreadySigned, generateAuthError } from "../../../utils/errors";
-import { MutationResolvers } from "schema/schema";
+import { GQL_MutationResolvers } from "schema/schema";
 
 const UserModel = getModelForClass(User);
 
-export const register: MutationResolvers["register"] = async (_, { input }) => {
+export const register: GQL_MutationResolvers["register"] = async (
+  _,
+  { input }
+) => {
   if (await UserModel.findOne({ email: input.email })) return AlreadySigned;
 
   try {

@@ -11,15 +11,15 @@ export type Scalars = {
   Date: any;
 };
 
-export type Auth = {
+export type GQL_Auth = {
    __typename?: 'Auth';
   token?: Maybe<Scalars['String']>;
   success?: Maybe<Scalars['Boolean']>;
 };
 
-export type AuthResponse = Auth | ErrorResponse; 
+export type GQL_AuthResponse = GQL_Auth | GQL_ErrorResponse;
 
-export type Client = {
+export type GQL_Client = {
    __typename?: 'Client';
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
@@ -27,106 +27,110 @@ export type Client = {
 };
 
 
-
-
-export type ErrorFormat = {
+export type GQL_ErrorFormat = {
    __typename?: 'ErrorFormat';
   path?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
 };
 
-export type ErrorResponse = {
+export type GQL_ErrorResponse = {
    __typename?: 'ErrorResponse';
-  errors?: Maybe<Array<Maybe<ErrorFormat>>>;
+  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
 
-export type LoginInput = {
+export type GQL_LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
-export type Mutation = {
+export type GQL_Mutation = {
    __typename?: 'Mutation';
   /** @deprecated Field no longer supported */
   _?: Maybe<Scalars['String']>;
-  addClient?: Maybe<Client>;
+  addClient?: Maybe<GQL_Client>;
   deleteAcc?: Maybe<Scalars['Boolean']>;
-  login?: Maybe<AuthResponse>;
-  register?: Maybe<AuthResponse>;
-  updateAcc?: Maybe<UpdateAccResponse>;
+  login?: Maybe<GQL_AuthResponse>;
+  register?: Maybe<GQL_AuthResponse>;
+  updateAcc?: Maybe<GQL_UpdateAccResponse>;
 };
 
 
-export type MutationAddClientArgs = {
+export type GQL_MutationAddClientArgs = {
   name: Scalars['String'];
   age: Scalars['Int'];
   id: Scalars['ID'];
 };
 
 
-export type MutationDeleteAccArgs = {
+export type GQL_MutationDeleteAccArgs = {
   id?: Maybe<Scalars['String']>;
 };
 
 
-export type MutationLoginArgs = {
-  input: LoginInput;
+export type GQL_MutationLoginArgs = {
+  input: GQL_LoginInput;
 };
 
 
-export type MutationRegisterArgs = {
-  input?: Maybe<RegisterInput>;
+export type GQL_MutationRegisterArgs = {
+  input?: Maybe<GQL_RegisterInput>;
 };
 
 
-export type MutationUpdateAccArgs = {
-  input: UserUpdates;
+export type GQL_MutationUpdateAccArgs = {
+  input: GQL_UserUpdates;
 };
 
-export type Password = {
+export type GQL_Password = {
   oldPassword: Scalars['String'];
   newPassword?: Maybe<Scalars['String']>;
   confirmPassword?: Maybe<Scalars['String']>;
 };
 
-export type Query = {
+export type GQL_Query = {
    __typename?: 'Query';
   /** @deprecated Field no longer supported */
   _?: Maybe<Scalars['String']>;
-  client?: Maybe<Client>;
-  clients: Array<Client>;
+  client?: Maybe<GQL_Client>;
+  clients: Array<GQL_Client>;
   isUserRegistered?: Maybe<Scalars['Boolean']>;
-  user?: Maybe<Array<Maybe<User>>>;
-  users?: Maybe<Array<Maybe<User>>>;
+  user?: Maybe<Array<Maybe<GQL_User>>>;
+  userById?: Maybe<GQL_User>;
+  users?: Maybe<Array<Maybe<GQL_User>>>;
 };
 
 
-export type QueryClientArgs = {
+export type GQL_QueryClientArgs = {
   id: Scalars['ID'];
 };
 
 
-export type QueryIsUserRegisteredArgs = {
+export type GQL_QueryIsUserRegisteredArgs = {
   email: Scalars['String'];
 };
 
 
-export type QueryUserArgs = {
-  input: UserQueryInput;
+export type GQL_QueryUserArgs = {
+  input: GQL_UserQueryInput;
 };
 
-export type RegisterInput = {
+
+export type GQL_QueryUserByIdArgs = {
+  id: Scalars['String'];
+};
+
+export type GQL_RegisterInput = {
   fullName: Scalars['String'];
   password: Scalars['String'];
   email: Scalars['String'];
 };
 
-export type UpdateAcc = {
+export type GQL_UpdateAcc = {
    __typename?: 'UpdateAcc';
   success?: Maybe<Scalars['Boolean']>;
 };
 
-export type UpdateAccResponse = UpdateAcc | ErrorResponse;
+export type GQL_UpdateAccResponse = GQL_UpdateAcc | GQL_ErrorResponse;
 
 export type GQL_User = {
    __typename?: 'User';
@@ -139,18 +143,17 @@ export type GQL_User = {
   createdAt?: Maybe<Scalars['Date']>;
 };
 
-export type UserQueryInput = {
-  id?: Maybe<Scalars['String']>;
-  googleID?: Maybe<Scalars['String']>;
+export type GQL_UserQueryInput = {
   fullName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  googleID?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
 };
 
-export type UserUpdates = {
+export type GQL_UserUpdates = {
   id: Scalars['String'];
   fullName?: Maybe<Scalars['String']>;
-  password?: Maybe<Password>;
+  password?: Maybe<GQL_Password>;
 };
 
 
@@ -225,140 +228,136 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
+export type GQL_ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
-  Client: ResolverTypeWrapper<Client>,
+  Client: ResolverTypeWrapper<GQL_Client>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  UserQueryInput: UserQueryInput,
+  UserQueryInput: GQL_UserQueryInput,
   Date: ResolverTypeWrapper<Scalars['Date']>,
-  User: ResolverTypeWrapper<User>,
+  User: ResolverTypeWrapper<GQL_User>,
   Mutation: ResolverTypeWrapper<{}>,
-  LoginInput: LoginInput,
-  AuthResponse: ResolversTypes['Auth'] | ResolversTypes['ErrorResponse'],
-  Auth: ResolverTypeWrapper<Auth>,
-  ErrorResponse: ResolverTypeWrapper<ErrorResponse>,
-  ErrorFormat: ResolverTypeWrapper<ErrorFormat>,
-  RegisterInput: RegisterInput,
-  UserUpdates: UserUpdates,
-  Password: Password,
-  UpdateAccResponse: ResolversTypes['UpdateAcc'] | ResolversTypes['ErrorResponse'],
-  UpdateAcc: ResolverTypeWrapper<UpdateAcc>,
+  LoginInput: GQL_LoginInput,
+  AuthResponse: GQL_ResolversTypes['Auth'] | GQL_ResolversTypes['ErrorResponse'],
+  Auth: ResolverTypeWrapper<GQL_Auth>,
+  ErrorResponse: ResolverTypeWrapper<GQL_ErrorResponse>,
+  ErrorFormat: ResolverTypeWrapper<GQL_ErrorFormat>,
+  RegisterInput: GQL_RegisterInput,
+  UserUpdates: GQL_UserUpdates,
+  Password: GQL_Password,
+  UpdateAccResponse: GQL_ResolversTypes['UpdateAcc'] | GQL_ResolversTypes['ErrorResponse'],
+  UpdateAcc: ResolverTypeWrapper<GQL_UpdateAcc>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
+export type GQL_ResolversParentTypes = {
   Query: {},
   String: Scalars['String'],
   ID: Scalars['ID'],
-  Client: Client,
+  Client: GQL_Client,
   Int: Scalars['Int'],
   Boolean: Scalars['Boolean'],
-  UserQueryInput: UserQueryInput,
+  UserQueryInput: GQL_UserQueryInput,
   Date: Scalars['Date'],
-  User: User,
+  User: GQL_User,
   Mutation: {},
-  LoginInput: LoginInput,
-  AuthResponse: ResolversParentTypes['Auth'] | ResolversParentTypes['ErrorResponse'],
-  Auth: Auth,
-  ErrorResponse: ErrorResponse,
-  ErrorFormat: ErrorFormat,
-  RegisterInput: RegisterInput,
-  UserUpdates: UserUpdates,
-  Password: Password,
-  UpdateAccResponse: ResolversParentTypes['UpdateAcc'] | ResolversParentTypes['ErrorResponse'],
-  UpdateAcc: UpdateAcc,
+  LoginInput: GQL_LoginInput,
+  AuthResponse: GQL_ResolversParentTypes['Auth'] | GQL_ResolversParentTypes['ErrorResponse'],
+  Auth: GQL_Auth,
+  ErrorResponse: GQL_ErrorResponse,
+  ErrorFormat: GQL_ErrorFormat,
+  RegisterInput: GQL_RegisterInput,
+  UserUpdates: GQL_UserUpdates,
+  Password: GQL_Password,
+  UpdateAccResponse: GQL_ResolversParentTypes['UpdateAcc'] | GQL_ResolversParentTypes['ErrorResponse'],
+  UpdateAcc: GQL_UpdateAcc,
 };
 
-export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
-  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+export type GQL_AuthResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Auth'] = GQL_ResolversParentTypes['Auth']> = {
+  token?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type AuthResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = {
+export type GQL_AuthResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['AuthResponse'] = GQL_ResolversParentTypes['AuthResponse']> = {
   __resolveType: TypeResolveFn<'Auth' | 'ErrorResponse', ParentType, ContextType>
 };
 
-export type ClientResolvers<ContextType = any, ParentType extends ResolversParentTypes['Client'] = ResolversParentTypes['Client']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+export type GQL_ClientResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Client'] = GQL_ResolversParentTypes['Client']> = {
+  id?: Resolver<GQL_ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  age?: Resolver<Maybe<GQL_ResolversTypes['Int']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+export interface GQL_DateScalarConfig extends GraphQLScalarTypeConfig<GQL_ResolversTypes['Date'], any> {
   name: 'Date'
 }
 
-export type ErrorFormatResolvers<ContextType = any, ParentType extends ResolversParentTypes['ErrorFormat'] = ResolversParentTypes['ErrorFormat']> = {
-  path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+export type GQL_ErrorFormatResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['ErrorFormat'] = GQL_ResolversParentTypes['ErrorFormat']> = {
+  path?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  message?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type ErrorResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ErrorResponse'] = ResolversParentTypes['ErrorResponse']> = {
-  errors?: Resolver<Maybe<Array<Maybe<ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+export type GQL_ErrorResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['ErrorResponse'] = GQL_ResolversParentTypes['ErrorResponse']> = {
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  addClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationAddClientArgs, 'name' | 'age' | 'id'>>,
-  deleteAcc?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteAccArgs, never>>,
-  login?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>,
-  register?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, never>>,
-  updateAcc?: Resolver<Maybe<ResolversTypes['UpdateAccResponse']>, ParentType, ContextType, RequireFields<MutationUpdateAccArgs, 'input'>>,
+export type GQL_MutationResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Mutation'] = GQL_ResolversParentTypes['Mutation']> = {
+  _?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  addClient?: Resolver<Maybe<GQL_ResolversTypes['Client']>, ParentType, ContextType, RequireFields<GQL_MutationAddClientArgs, 'name' | 'age' | 'id'>>,
+  deleteAcc?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_MutationDeleteAccArgs, never>>,
+  login?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationLoginArgs, 'input'>>,
+  register?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationRegisterArgs, never>>,
+  updateAcc?: Resolver<Maybe<GQL_ResolversTypes['UpdateAccResponse']>, ParentType, ContextType, RequireFields<GQL_MutationUpdateAccArgs, 'input'>>,
 };
 
-export type GQL_QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
-  clients?: Resolver<Array<ResolversTypes['Client']>, ParentType, ContextType>,
-  isUserRegistered?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsUserRegisteredArgs, 'email'>>,
-  user?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUserArgs, 'input'>>,
-  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
+export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Query'] = GQL_ResolversParentTypes['Query']> = {
+  _?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  client?: Resolver<Maybe<GQL_ResolversTypes['Client']>, ParentType, ContextType, RequireFields<GQL_QueryClientArgs, 'id'>>,
+  clients?: Resolver<Array<GQL_ResolversTypes['Client']>, ParentType, ContextType>,
+  isUserRegistered?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_QueryIsUserRegisteredArgs, 'email'>>,
+  user?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryUserArgs, 'input'>>,
+  userById?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType, RequireFields<GQL_QueryUserByIdArgs, 'id'>>,
+  users?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType>,
 };
 
-export type UpdateAccResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateAcc'] = ResolversParentTypes['UpdateAcc']> = {
-  success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+export type GQL_UpdateAccResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['UpdateAcc'] = GQL_ResolversParentTypes['UpdateAcc']> = {
+  success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type UpdateAccResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateAccResponse'] = ResolversParentTypes['UpdateAccResponse']> = {
+export type GQL_UpdateAccResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['UpdateAccResponse'] = GQL_ResolversParentTypes['UpdateAccResponse']> = {
   __resolveType: TypeResolveFn<'UpdateAcc' | 'ErrorResponse', ParentType, ContextType>
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  fullName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  isGoogle?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  googleID?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+export type GQL_UserResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['User'] = GQL_ResolversParentTypes['User']> = {
+  id?: Resolver<Maybe<GQL_ResolversTypes['ID']>, ParentType, ContextType>,
+  fullName?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  password?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  email?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  isGoogle?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
+  googleID?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  createdAt?: Resolver<Maybe<GQL_ResolversTypes['Date']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type Resolvers<ContextType = any> = {
-  Auth?: AuthResolvers<ContextType>,
-  AuthResponse?: AuthResponseResolvers,
-  Client?: ClientResolvers<ContextType>,
+export type GQL_Resolvers<ContextType = any> = {
+  Auth?: GQL_AuthResolvers<ContextType>,
+  AuthResponse?: GQL_AuthResponseResolvers,
+  Client?: GQL_ClientResolvers<ContextType>,
   Date?: GraphQLScalarType,
-  ErrorFormat?: ErrorFormatResolvers<ContextType>,
-  ErrorResponse?: ErrorResponseResolvers<ContextType>,
-  Mutation?: MutationResolvers<ContextType>,
+  ErrorFormat?: GQL_ErrorFormatResolvers<ContextType>,
+  ErrorResponse?: GQL_ErrorResponseResolvers<ContextType>,
+  Mutation?: GQL_MutationResolvers<ContextType>,
   Query?: GQL_QueryResolvers<ContextType>,
-  UpdateAcc?: UpdateAccResolvers<ContextType>,
-  UpdateAccResponse?: UpdateAccResponseResolvers,
-  User?: UserResolvers<ContextType>,
+  UpdateAcc?: GQL_UpdateAccResolvers<ContextType>,
+  UpdateAccResponse?: GQL_UpdateAccResponseResolvers,
+  User?: GQL_UserResolvers<ContextType>,
 };
 
 
-/**
- * @deprecated
- * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
-*/
-export type IResolvers<ContextType = any> = Resolvers<ContextType>;

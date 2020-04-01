@@ -1,10 +1,9 @@
 # INPUTS
 
 input UserQueryInput {
-  id: String
-  googleID: String
   fullName: String
   email: String
+  googleID: String
   createdAt: Date
 }
 

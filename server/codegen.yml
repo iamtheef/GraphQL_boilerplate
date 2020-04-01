@@ -3,6 +3,8 @@ schema: "./types/*.graphql"
 documents: null
 generates:
   ./schema/schema.ts:
+    config:
+      typesPrefix: GQL_
     plugins:
       - "typescript"
       - "typescript-resolvers"
