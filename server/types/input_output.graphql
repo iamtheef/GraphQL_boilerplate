@@ -32,18 +32,13 @@ input Password {
 
 # RESPONSES
 
-union AuthResponse = Auth | ErrorResponse
-union UpdateAccResponse = UpdateAcc | ErrorResponse
-
-type Auth {
+type AuthResponse {
   token: String
   success: Boolean
+  errors: [ErrorFormat]
 }
 
-type UpdateAcc {
+type UpdateAccResponse {
   success: Boolean
-}
-
-type ErrorResponse {
   errors: [ErrorFormat]
 }

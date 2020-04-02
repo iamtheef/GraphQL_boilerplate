@@ -1,7 +1,7 @@
 import { User } from "../models/User";
 import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { GQL_AuthResponse, GQL_Auth } from "../schema/schema";
+import { GQL_AuthResponse } from "../schema/schema";
 
 const secret = dotenv.config().parsed.SECRET;
 
@@ -16,7 +16,7 @@ export const tokenGen = (payload: {}): string => {
 };
 
 // Access Upon Successful Login
-export const Access = (user: User): GQL_Auth => {
+export const Access = (user: User): GQL_AuthResponse => {
   return {
     token: tokenGen(payloadGen(user)),
     success: true

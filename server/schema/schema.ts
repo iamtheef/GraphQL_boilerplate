@@ -11,13 +11,12 @@ export type Scalars = {
   Date: any;
 };
 
-export type GQL_Auth = {
-   __typename?: 'Auth';
+export type GQL_AuthResponse = {
+   __typename?: 'AuthResponse';
   token?: Maybe<Scalars['String']>;
   success?: Maybe<Scalars['Boolean']>;
+  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
-
-export type GQL_AuthResponse = GQL_Auth | GQL_ErrorResponse;
 
 export type GQL_Client = {
    __typename?: 'Client';
@@ -31,12 +30,6 @@ export type GQL_ErrorFormat = {
    __typename?: 'ErrorFormat';
   path?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
-};
-
-export type GQL_ErrorResponse = {
-   __typename?: 'ErrorResponse';
-   __isTypeOf?: 'ErrorResponse'
-  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
 
 export type GQL_LoginInput = {
@@ -126,12 +119,11 @@ export type GQL_RegisterInput = {
   email: Scalars['String'];
 };
 
-export type GQL_UpdateAcc = {
-   __typename?: 'UpdateAcc';
+export type GQL_UpdateAccResponse = {
+   __typename?: 'UpdateAccResponse';
   success?: Maybe<Scalars['Boolean']>;
+  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
-
-export type GQL_UpdateAccResponse = GQL_UpdateAcc | GQL_ErrorResponse;
 
 export type GQL_User = {
    __typename?: 'User';
@@ -241,15 +233,12 @@ export type GQL_ResolversTypes = {
   User: ResolverTypeWrapper<GQL_User>,
   Mutation: ResolverTypeWrapper<{}>,
   LoginInput: GQL_LoginInput,
-  AuthResponse: GQL_ResolversTypes['Auth'] | GQL_ResolversTypes['ErrorResponse'],
-  Auth: ResolverTypeWrapper<GQL_Auth>,
-  ErrorResponse: ResolverTypeWrapper<GQL_ErrorResponse>,
+  AuthResponse: ResolverTypeWrapper<GQL_AuthResponse>,
   ErrorFormat: ResolverTypeWrapper<GQL_ErrorFormat>,
   RegisterInput: GQL_RegisterInput,
   UserUpdates: GQL_UserUpdates,
   Password: GQL_Password,
-  UpdateAccResponse: GQL_ResolversTypes['UpdateAcc'] | GQL_ResolversTypes['ErrorResponse'],
-  UpdateAcc: ResolverTypeWrapper<GQL_UpdateAcc>,
+  UpdateAccResponse: ResolverTypeWrapper<GQL_UpdateAccResponse>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -265,25 +254,19 @@ export type GQL_ResolversParentTypes = {
   User: GQL_User,
   Mutation: {},
   LoginInput: GQL_LoginInput,
-  AuthResponse: GQL_ResolversParentTypes['Auth'] | GQL_ResolversParentTypes['ErrorResponse'],
-  Auth: GQL_Auth,
-  ErrorResponse: GQL_ErrorResponse,
+  AuthResponse: GQL_AuthResponse,
   ErrorFormat: GQL_ErrorFormat,
   RegisterInput: GQL_RegisterInput,
   UserUpdates: GQL_UserUpdates,
   Password: GQL_Password,
-  UpdateAccResponse: GQL_ResolversParentTypes['UpdateAcc'] | GQL_ResolversParentTypes['ErrorResponse'],
-  UpdateAcc: GQL_UpdateAcc,
-};
-
-export type GQL_AuthResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Auth'] = GQL_ResolversParentTypes['Auth']> = {
-  token?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
-  success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  UpdateAccResponse: GQL_UpdateAccResponse,
 };
 
 export type GQL_AuthResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['AuthResponse'] = GQL_ResolversParentTypes['AuthResponse']> = {
-  __resolveType: TypeResolveFn<'Auth' | 'ErrorResponse', ParentType, ContextType>
+  token?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type GQL_ClientResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Client'] = GQL_ResolversParentTypes['Client']> = {
@@ -300,11 +283,6 @@ export interface GQL_DateScalarConfig extends GraphQLScalarTypeConfig<GQL_Resolv
 export type GQL_ErrorFormatResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['ErrorFormat'] = GQL_ResolversParentTypes['ErrorFormat']> = {
   path?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   message?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type GQL_ErrorResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['ErrorResponse'] = GQL_ResolversParentTypes['ErrorResponse']> = {
-  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -327,13 +305,10 @@ export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_Resolve
   users?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType>,
 };
 
-export type GQL_UpdateAccResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['UpdateAcc'] = GQL_ResolversParentTypes['UpdateAcc']> = {
-  success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
 export type GQL_UpdateAccResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['UpdateAccResponse'] = GQL_ResolversParentTypes['UpdateAccResponse']> = {
-  __resolveType: TypeResolveFn<'UpdateAcc' | 'ErrorResponse', ParentType, ContextType>
+  success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type GQL_UserResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['User'] = GQL_ResolversParentTypes['User']> = {
@@ -348,16 +323,13 @@ export type GQL_UserResolvers<ContextType = any, ParentType extends GQL_Resolver
 };
 
 export type GQL_Resolvers<ContextType = any> = {
-  Auth?: GQL_AuthResolvers<ContextType>,
-  AuthResponse?: GQL_AuthResponseResolvers,
+  AuthResponse?: GQL_AuthResponseResolvers<ContextType>,
   Client?: GQL_ClientResolvers<ContextType>,
   Date?: GraphQLScalarType,
   ErrorFormat?: GQL_ErrorFormatResolvers<ContextType>,
-  ErrorResponse?: GQL_ErrorResponseResolvers<ContextType>,
   Mutation?: GQL_MutationResolvers<ContextType>,
   Query?: GQL_QueryResolvers<ContextType>,
-  UpdateAcc?: GQL_UpdateAccResolvers<ContextType>,
-  UpdateAccResponse?: GQL_UpdateAccResponseResolvers,
+  UpdateAccResponse?: GQL_UpdateAccResponseResolvers<ContextType>,
   User?: GQL_UserResolvers<ContextType>,
 };
 
