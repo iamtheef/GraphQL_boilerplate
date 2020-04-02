@@ -1,13 +1,15 @@
-import { GQL_AuthResponse, GQL_UpdateAccResponse } from "../schema/schema";
+import {
+  GQL_AuthResponse,
+  GQL_UpdateAccResponse,
+  GQL_ErrorResponse
+} from "../schema/schema";
 
 // function for returning any custom error
 export const generateAuthError = (
   path: string,
   message: string
-): GQL_AuthResponse => {
+): GQL_ErrorResponse => {
   return {
-    token: null,
-    success: false,
     errors: [{ path, message }]
   };
 };
@@ -50,9 +52,7 @@ export const SuccessUpdated: GQL_UpdateAccResponse = {
   errors: []
 };
 
-export const WrongCredits: GQL_AuthResponse = {
-  token: null,
-  success: false,
+export const WrongCredits: GQL_ErrorResponse = {
   errors: [{ path: "LOGIN", message: "Wrong Credentials" }]
 };
 

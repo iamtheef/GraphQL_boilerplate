@@ -35,6 +35,7 @@ export type GQL_ErrorFormat = {
 
 export type GQL_ErrorResponse = {
    __typename?: 'ErrorResponse';
+   __isTypeOf?: 'ErrorResponse'
   errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
 
