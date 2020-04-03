@@ -1,2 +1,2 @@
-export * as mutations from './mutations/index'
-export * as queries from './queries/index'
+export * as userMutations from './mutations/index'
+export * as userQueries from './queries/index'

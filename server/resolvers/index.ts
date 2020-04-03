@@ -1,14 +1,17 @@
 import { mergeResolvers } from "merge-graphql-schemas";
-import { mutations, queries } from "./userResolvers/index";
+import { userMutations, userQueries } from "./userResolvers/index";
+import { articleMutations } from "./articleResolvers/index";
 
 const resolversArray = [
   {
     Query: {
-      ...queries
+      ...userQueries
+      // ...articleQueries
     },
 
     Mutation: {
-      ...mutations
+      ...userMutations,
+      ...articleMutations
     }
   }
 ];

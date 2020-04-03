@@ -1,14 +1,11 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { getModelForClass } from "@typegoose/typegoose";
-import { User } from "../../../models/User";
+import { User } from "../../../models/index";
 import bcrypt from "bcryptjs";
 import {
   InvalidPassword,
   MismatchedPasswords,
   SuccessUpdated
 } from "../../../errors/index";
-
-const UserModel = getModelForClass(User);
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,
@@ -18,20 +15,20 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
 
   try {
     // checks which have been passed and updates accordingly (if the .oldPassword is right)
-    const user = await UserModel.findById(id);
+    const user = await User.findById(id);
 
     if (!(await bcrypt.compare(password.oldPassword, user.password.toString())))
       return InvalidPassword;
 
     if (fullName) {
-      await UserModel.findByIdAndUpdate(id, {
+      await User.findByIdAndUpdate(id, {
         fullName
       });
     }
 
     if (password.newPassword) {
       if (password.newPassword === password.confirmPassword) {
-        await UserModel.findByIdAndUpdate(id, {
+        await User.findByIdAndUpdate(id, {
           password: bcrypt.hashSync(password.newPassword, 10)
         });
       } else return MismatchedPasswords;

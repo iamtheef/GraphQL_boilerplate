@@ -6,18 +6,19 @@ type User {
   isGoogle: Boolean
   googleID: String
   createdAt: Date
+  articles: [Article]
 }
 
 extend type Query {
   isUserRegistered(email: String!): Boolean
   users: [User]
   findUser(input: UserQueryInput!): [User]
-  userById(id: String!): User
+  userById(id: ID!): User
 }
 
 extend type Mutation {
-  register(input: RegisterInput): AuthResponse
+  register(input: RegisterInput!): AuthResponse
   login(input: LoginInput!): AuthResponse
   updateAcc(input: UserUpdates!): UpdateAccResponse
-  deleteAcc(id: String): Boolean
+  deleteAcc(id: ID!): Boolean
 }

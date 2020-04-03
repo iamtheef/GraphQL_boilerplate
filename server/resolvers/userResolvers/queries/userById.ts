@@ -1,12 +1,9 @@
-import { getModelForClass } from "@typegoose/typegoose";
-import { User as DB_User } from "../../../models/User";
+import { User } from "../../../models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-
-const UserModel = getModelForClass(DB_User);
 
 export const userById: GQL_QueryResolvers["userById"] = async (_, { id }) => {
   try {
-    return await UserModel.findById(id);
+    return await User.findById(id);
   } catch (e) {
     return null;
   }

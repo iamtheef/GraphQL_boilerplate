@@ -5,7 +5,7 @@ import { isPasswordValid } from "../utils/isPasswordValid";
 
 const { isEmail, isEmpty } = validator;
 
-export class User {
+export class UserModel {
   public _id: String;
 
   @prop({ validate: fullName => isFullNameValid(fullName) })
@@ -25,4 +25,7 @@ export class User {
 
   @prop({ default: Date.now() })
   createdAt: Date;
+
+  @prop()
+  articles: String[];
 }

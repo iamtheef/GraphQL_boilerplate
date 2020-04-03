@@ -1,0 +1,31 @@
+# INPUTS
+
+input Body {
+  authorID: ID!
+  title: String!
+  body: String!
+}
+
+input Changes {
+  reqID: ID!
+  title: String
+  body: String
+}
+
+#RESPONSES
+
+type newArticleResponse {
+  success: Boolean
+  articleID: ID
+  errors: [ErrorFormat]
+}
+
+type editArticleResponse {
+  success: Boolean
+  errors: [ErrorFormat]
+}
+
+type removeArticleResponse {
+  success: Boolean
+  errors: [ErrorFormat]
+}

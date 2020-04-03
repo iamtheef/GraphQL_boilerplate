@@ -1,13 +1,12 @@
-import { User } from "../models/User";
 import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { GQL_AuthResponse } from "schema/schema";
+import { GQL_AuthResponse, GQL_User as User } from "schema/schema";
 
 const secret = dotenv.config().parsed.SECRET;
 
 // Generate Payload
-export const payloadGen = ({ _id }: User) => {
-  return { _id };
+export const payloadGen = ({ id }: User) => {
+  return { id };
 };
 
 // Generate Tokens

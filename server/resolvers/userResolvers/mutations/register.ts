@@ -1,20 +1,17 @@
-import { getModelForClass } from "@typegoose/typegoose";
-import { User } from "../../../models/User";
+import { User } from "../../../models/index";
 import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
 import { AlreadySigned, generateAuthError } from "../../../errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 
-const UserModel = getModelForClass(User);
-
 export const register: GQL_MutationResolvers["register"] = async (
   _,
   { input }
 ) => {
-  if (await UserModel.findOne({ email: input.email })) return AlreadySigned;
+  if (await User.findOne({ email: input.email })) return AlreadySigned;
 
   try {
-    const newUser = await UserModel.create({
+    const newUser = await User.create({
       ...input,
       password: bcrypt.hashSync(input.password, 10)
     });
