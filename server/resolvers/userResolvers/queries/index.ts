@@ -1,4 +1,4 @@
 export { isUserRegistered } from "./isUserRegistered";
-export { user } from "./user";
+export { findUser } from "./findUser";
 export { userById } from "./userById";
 export { users } from "./users";

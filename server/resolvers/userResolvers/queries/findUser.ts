@@ -6,7 +6,10 @@ import { GQL_QueryResolvers, GQL_User } from "schema/schema";
 const UserModel = getModelForClass(DB_User);
 
 // multiple fields search for users
-export const user: GQL_QueryResolvers["user"] = async (_, { input }) => {
+export const findUser: GQL_QueryResolvers["findUser"] = async (
+  _,
+  { input }
+) => {
   try {
     let foundUsers: Array<GQL_User & DB_User> | null = null;
     const { email, fullName, googleID, createdAt } = input;

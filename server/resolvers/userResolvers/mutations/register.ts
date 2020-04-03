@@ -2,7 +2,7 @@ import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../../../models/User";
 import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
-import { AlreadySigned, generateAuthError } from "../../../utils/errors";
+import { AlreadySigned, generateAuthError } from "../../../errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 
 const UserModel = getModelForClass(User);
@@ -21,7 +21,6 @@ export const register: GQL_MutationResolvers["register"] = async (
 
     return Access(newUser);
   } catch (e) {
-    console.log(e);
     return generateAuthError("REGISTER", `${e.message}`);
   }
 };

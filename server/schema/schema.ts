@@ -87,8 +87,8 @@ export type GQL_Query = {
   _?: Maybe<Scalars['String']>;
   client?: Maybe<GQL_Client>;
   clients: Array<GQL_Client>;
+  findUser?: Maybe<Array<Maybe<GQL_User>>>;
   isUserRegistered?: Maybe<Scalars['Boolean']>;
-  user?: Maybe<Array<Maybe<GQL_User>>>;
   userById?: Maybe<GQL_User>;
   users?: Maybe<Array<Maybe<GQL_User>>>;
 };
@@ -99,13 +99,13 @@ export type GQL_QueryClientArgs = {
 };
 
 
-export type GQL_QueryIsUserRegisteredArgs = {
-  email: Scalars['String'];
+export type GQL_QueryFindUserArgs = {
+  input: GQL_UserQueryInput;
 };
 
 
-export type GQL_QueryUserArgs = {
-  input: GQL_UserQueryInput;
+export type GQL_QueryIsUserRegisteredArgs = {
+  email: Scalars['String'];
 };
 
 
@@ -227,10 +227,10 @@ export type GQL_ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Client: ResolverTypeWrapper<GQL_Client>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   UserQueryInput: GQL_UserQueryInput,
   Date: ResolverTypeWrapper<Scalars['Date']>,
   User: ResolverTypeWrapper<GQL_User>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Mutation: ResolverTypeWrapper<{}>,
   LoginInput: GQL_LoginInput,
   AuthResponse: ResolverTypeWrapper<GQL_AuthResponse>,
@@ -248,10 +248,10 @@ export type GQL_ResolversParentTypes = {
   ID: Scalars['ID'],
   Client: GQL_Client,
   Int: Scalars['Int'],
-  Boolean: Scalars['Boolean'],
   UserQueryInput: GQL_UserQueryInput,
   Date: Scalars['Date'],
   User: GQL_User,
+  Boolean: Scalars['Boolean'],
   Mutation: {},
   LoginInput: GQL_LoginInput,
   AuthResponse: GQL_AuthResponse,
@@ -299,8 +299,8 @@ export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_Resolve
   _?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   client?: Resolver<Maybe<GQL_ResolversTypes['Client']>, ParentType, ContextType, RequireFields<GQL_QueryClientArgs, 'id'>>,
   clients?: Resolver<Array<GQL_ResolversTypes['Client']>, ParentType, ContextType>,
+  findUser?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindUserArgs, 'input'>>,
   isUserRegistered?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_QueryIsUserRegisteredArgs, 'email'>>,
-  user?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryUserArgs, 'input'>>,
   userById?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType, RequireFields<GQL_QueryUserByIdArgs, 'id'>>,
   users?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType>,
 };
