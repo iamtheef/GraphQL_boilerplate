@@ -8,6 +8,7 @@ export const login: GQL_MutationResolvers["login"] = async (_, { input }) => {
   const { email, password } = input;
 
   try {
+    console.log(User);
     const foundUser = await User.findOne({ email });
     console.log(foundUser);
     if (foundUser) {

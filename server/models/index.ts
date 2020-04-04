@@ -1,6 +1,6 @@
 import { getModelForClass } from "@typegoose/typegoose";
-import { ArticleModel } from "./Article";
 import { UserModel } from "./User";
+import { ArticleModel } from "./Article";
 
-export const Article = getModelForClass(ArticleModel);
 export const User = getModelForClass(UserModel);
+export const Article = getModelForClass(ArticleModel);

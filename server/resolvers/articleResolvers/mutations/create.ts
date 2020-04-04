@@ -8,16 +8,16 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
 ) => {
   try {
     const foundUser = await User.findById(input.authorID);
-    console.log(foundUser);
     if (!foundUser) return userNotFound;
     const newArticle = await Article.create({
-      ...input
+      ...input,
     });
-    foundUser.articles.push(newArticle._id.toString());
+    foundUser.articles.push(newArticle._id);
+    foundUser.save();
     return {
       success: true,
       articleID: newArticle._id,
-      errors: []
+      errors: [],
     };
   } catch (e) {
     throw Error(e.message);

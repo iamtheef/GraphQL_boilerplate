@@ -9,7 +9,6 @@ export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
     if (await User.findByIdAndDelete({ _id: id.trim() })) return true;
     return false;
   } catch (e) {
-    console.log(e);
-    return false;
+    throw Error(e.message);
   }
 };

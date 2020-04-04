@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import {
   InvalidPassword,
   MismatchedPasswords,
-  SuccessUpdated
+  SuccessUpdated,
 } from "../../../errors/index";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
@@ -22,14 +22,14 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
 
     if (fullName) {
       await User.findByIdAndUpdate(id, {
-        fullName
+        fullName,
       });
     }
 
     if (password.newPassword) {
       if (password.newPassword === password.confirmPassword) {
         await User.findByIdAndUpdate(id, {
-          password: bcrypt.hashSync(password.newPassword, 10)
+          password: bcrypt.hashSync(password.newPassword, 10),
         });
       } else return MismatchedPasswords;
     }

@@ -14,7 +14,7 @@ export const findUser: GQL_QueryResolvers["findUser"] = async (
     if (fullName && createdAt) {
       foundUsers = await User.find({
         fullName: fullName,
-        createdAt: createdAt
+        createdAt: createdAt,
       });
     }
     if (fullName) foundUsers = await User.find({ fullName: fullName });

@@ -7,10 +7,10 @@ export class ArticleModel {
   @prop()
   authorID: String;
 
-  @prop({ validate: title => validator.isLength(title, { max: 30, min: 3 }) })
+  @prop({ validate: (title) => validator.isLength(title, { max: 30, min: 3 }) })
   title: String;
 
-  @prop({ validate: title => validator.isLength(title, { min: 10 }) })
+  @prop({ validate: (title) => validator.isLength(title, { min: 10 }) })
   body: String;
 
   @prop({ default: Date.now() })
