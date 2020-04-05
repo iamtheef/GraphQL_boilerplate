@@ -1,7 +1,7 @@
 import { prop } from "@typegoose/typegoose";
 import validator from "validator";
 
-export class ArticleModel {
+export class Article {
   public _id: String;
 
   @prop()

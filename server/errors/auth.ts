@@ -25,12 +25,14 @@ export const WeakPassword: GQL_AuthResponse = {
   ],
 };
 
+// error for wrong credentials
 export const WrongCredits: GQL_AuthResponse = {
   token: null,
   success: false,
   errors: [{ path: "LOGIN", message: "Wrong Credentials" }],
 };
 
+// error for already singed user
 export const AlreadySigned: GQL_AuthResponse = {
   token: null,
   success: false,

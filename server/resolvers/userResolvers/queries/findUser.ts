@@ -1,4 +1,4 @@
-import { User } from "../../../models/index";
+import { UserCollection } from "../../../models/index";
 import { GQL_QueryResolvers, GQL_User } from "schema/schema";
 
 // multiple fields search for users
@@ -7,19 +7,27 @@ export const findUser: GQL_QueryResolvers["findUser"] = async (
   { input }
 ) => {
   try {
+    // if any of the fields is included return the corresponding results
     let foundUsers: Array<GQL_User> | null = null;
     const { email, fullName, googleID, createdAt } = input;
-    if (googleID) foundUsers = await User.find({ googleID: googleID });
-    if (email) foundUsers = await User.find({ email: email });
+    if (googleID)
+      // search with googleID
+      foundUsers = await UserCollection.find({ googleID: googleID });
+    if (email) foundUsers = await UserCollection.find({ email: email }); // search by email
+    // search by fullname & date
     if (fullName && createdAt) {
-      foundUsers = await User.find({
+      foundUsers = await UserCollection.find({
         fullName: fullName,
         createdAt: createdAt,
       });
     }
-    if (fullName) foundUsers = await User.find({ fullName: fullName });
-    if (createdAt) foundUsers = await User.find({ createdAt: createdAt });
-    return foundUsers;
+    // search only by full name
+    if (fullName)
+      foundUsers = await UserCollection.find({ fullName: fullName });
+    // search only by full date
+    if (createdAt)
+      foundUsers = await UserCollection.find({ createdAt: createdAt });
+    return foundUsers; // results array
   } catch (e) {
     throw Error(e.message);
   }

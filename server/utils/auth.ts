@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { GQL_AuthResponse, GQL_User as User } from "schema/schema";
 
-const secret = dotenv.config().parsed.SECRET;
+const secret = dotenv.config().parsed.SECRET; // loads encryption salt from enviroment variables
 
 // Generate Payload
 export const payloadGen = ({ id }: User) => {
@@ -19,6 +19,6 @@ export const Access = (user: User): GQL_AuthResponse => {
   return {
     token: tokenGen(payloadGen(user)),
     success: true,
-    errors: []
+    errors: [],
   };
 };

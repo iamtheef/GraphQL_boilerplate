@@ -1,12 +1,11 @@
 import { prop, arrayProp, Ref } from "@typegoose/typegoose";
+import { Article } from "./Article";
 import validator from "validator";
 import { isFullNameValid } from "../utils/isNameValid";
-import mongoose from "mongoose";
-import { ArticleModel } from "./Article";
 
 const { isEmail, isEmpty } = validator;
 
-export class UserModel {
+export class User {
   public _id: String;
 
   @prop({ validate: (fullName) => isFullNameValid(fullName) })
@@ -30,6 +29,6 @@ export class UserModel {
   @prop({ default: Date.now() })
   createdAt: Date;
 
-  @arrayProp({ items: ArticleModel })
-  public articles?: Ref<ArticleModel>[];
+  @arrayProp({ items: Article })
+  public articles?: Ref<Article>[];
 }
