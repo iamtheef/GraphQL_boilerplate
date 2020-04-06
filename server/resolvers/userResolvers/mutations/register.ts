@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { isPasswordValid } from "../../../utils/isPasswordValid";
 import {
   AlreadySigned,
-  generateAuthError,
+  throwNewError,
   WeakPassword,
 } from "../../../errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
@@ -13,10 +13,11 @@ export const register: GQL_MutationResolvers["register"] = async (
   _,
   { input }
 ) => {
+  // checks for duplicate email
   if (await UserCollection.findOne({ email: input.email }))
-    // check for duplicate email
-    return AlreadySigned; // if so, return
-  if (!isPasswordValid(input.password)) return WeakPassword; //check the password is strong enough (requirements in the function)
+    // if so, returns
+    return AlreadySigned.throwError();
+  if (!isPasswordValid(input.password)) return WeakPassword.throwError(); //checks if the password is strong enough (requirements in the function)
 
   try {
     // create new user
@@ -27,6 +28,6 @@ export const register: GQL_MutationResolvers["register"] = async (
 
     return Access(newUser); // return the token for the newly create user
   } catch (e) {
-    return generateAuthError("REGISTER", `${e.message}`); // handling errors
+    return throwNewError([{ path: "REGISTER", message: `${e.message}` }]); // handling errors
   }
 };

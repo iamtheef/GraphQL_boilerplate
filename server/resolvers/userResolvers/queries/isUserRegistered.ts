@@ -5,6 +5,10 @@ export const isUserRegistered: GQL_QueryResolvers["isUserRegistered"] = async (
   _,
   { email }
 ) => {
-  if (await UserCollection.findOne({ email })) return true;
-  return false;
+  try {
+    if (await UserCollection.findOne({ email })) return true;
+    return false;
+  } catch (e) {
+    throw Error(e.message);
+  }
 };

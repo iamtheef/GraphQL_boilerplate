@@ -1,6 +1,6 @@
 import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
-import { WrongCredits, generateAuthError } from "../../../errors/index";
+import { WrongCredits, throwNewError } from "../../../errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 import { UserCollection } from "../../../models/index";
 
@@ -19,8 +19,8 @@ export const login: GQL_MutationResolvers["login"] = async (_, { input }) => {
         return Access(foundUser); // if password matches return the token
       }
     }
-    return WrongCredits; // if email/password isn't right return error
+    return WrongCredits.throwError(); // if email/password isn't right return error
   } catch (e) {
-    return generateAuthError("LOGIN", `${e.message}`); // handling anything elese
+    return throwNewError([{ path: "LOGIN", message: `${e.message}` }]);
   }
 };

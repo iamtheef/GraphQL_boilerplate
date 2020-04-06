@@ -1,6 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import { ArticleCollection } from "../../../models/index";
-import { Unauthorized } from "../../../errors/index";
+import { Unauthorized, throwNewError } from "../../../errors/index";
 
 export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   _,
@@ -20,6 +20,6 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
 
     return { success: true, errors: [] }; // responds success edited
   } catch (e) {
-    throw Error(e.message);
+    return throwNewError([{ path: "EDIT", message: `${e.message}` }]);
   }
 };

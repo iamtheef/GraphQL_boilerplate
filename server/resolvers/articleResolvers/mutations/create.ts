@@ -1,5 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import { ArticleCollection, UserCollection } from "../../../models/index";
+import { throwNewError } from "../../../errors/index";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   _,
@@ -23,6 +24,6 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
       errors: [],
     };
   } catch (e) {
-    throw Error(e.message); // server error handling
+    return throwNewError([{ path: "NEW ARTICLE", message: `${e.message}` }]); // server error handling
   }
 };

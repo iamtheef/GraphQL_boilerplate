@@ -1,5 +1,6 @@
 import { UserCollection } from "../../../models/index";
 import { GQL_QueryResolvers, GQL_User } from "schema/schema";
+import { throwNewError } from "../../../errors/index";
 
 // multiple fields search for users
 export const findUser: GQL_QueryResolvers["findUser"] = async (
@@ -29,6 +30,6 @@ export const findUser: GQL_QueryResolvers["findUser"] = async (
       foundUsers = await UserCollection.find({ createdAt: createdAt });
     return foundUsers; // results array
   } catch (e) {
-    throw Error(e.message);
+    throw new Error(e.message);
   }
 };

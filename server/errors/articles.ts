@@ -1,4 +1,4 @@
-import { GQL_NewArticleResponse, GQL_EditArticleResponse } from "schema/schema";
+import { GQL_EditArticleResponse } from "schema/schema";
 import { Error } from "./ErrorInterface";
 
 class ArticleError {
@@ -6,10 +6,11 @@ class ArticleError {
   errors: [Error];
   constructor(error: Error) {
     this.errors = [error];
+    this.success = !this.errors;
   }
   throwError(): GQL_EditArticleResponse {
     return {
-      success: false,
+      success: this.success,
       errors: this.errors,
     };
   }
