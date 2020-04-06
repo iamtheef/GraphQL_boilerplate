@@ -1,5 +1,8 @@
-import { GQL_EditArticleResponse } from "schema/schema";
-import { Error } from "./ErrorInterface";
+import {
+  GQL_EditArticleResponse,
+  GQL_RemoveArticleResponse,
+} from "schema/schema";
+import { Error } from "./IError";
 
 class ArticleError {
   success: boolean;
@@ -8,7 +11,7 @@ class ArticleError {
     this.errors = [error];
     this.success = !this.errors;
   }
-  throwError(): GQL_EditArticleResponse {
+  throwError(): GQL_EditArticleResponse & GQL_RemoveArticleResponse {
     return {
       success: this.success,
       errors: this.errors,
@@ -24,6 +27,6 @@ export const UserNotFound = new ArticleError({
 
 // error if the request isn't coming from the author of the article
 export const Unauthorized = new ArticleError({
-  path: "EDIT",
+  path: "EDIT/DELETE",
   message: "You are unauthorized for this action.",
 });

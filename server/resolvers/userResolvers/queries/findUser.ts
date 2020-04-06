@@ -1,6 +1,5 @@
 import { UserCollection } from "../../../models/index";
 import { GQL_QueryResolvers, GQL_User } from "schema/schema";
-import { throwNewError } from "../../../errors/index";
 
 // multiple fields search for users
 export const findUser: GQL_QueryResolvers["findUser"] = async (

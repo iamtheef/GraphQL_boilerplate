@@ -1,5 +1,5 @@
 type Article {
-  id: ID!
+  id: ID
   authorID: String
   title: String
   body: String
@@ -8,13 +8,13 @@ type Article {
 
 extend type Query {
   allArticles: [Article]
-  findArticleByID(id: ID!): Article
-  searchArticle: [Article]
+  articleByID(id: ID!): Article
+  findArticle(input: ArticleQueryInput): [Article]
   userArticles: [Article]
 }
 
 extend type Mutation {
   createArticle(input: Body): newArticleResponse
   editArticle(id: ID!, changes: Changes!): editArticleResponse
-  removeArticle(id: ID!, authorID: ID): removeArticleResponse
+  removeArticle(id: ID!, reqID: ID!): removeArticleResponse
 }

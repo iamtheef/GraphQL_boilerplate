@@ -1,5 +1,5 @@
 import { GQL_UpdateAccResponse } from "../schema/schema";
-import { Error } from "./ErrorInterface";
+import { Error } from "./IError";
 
 // exporting custom messages in the form of update account response
 class UpdateAccError {

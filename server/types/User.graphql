@@ -10,8 +10,8 @@ type User {
 }
 
 extend type Query {
+  allUsers: [User]
   isUserRegistered(email: String!): Boolean
-  users: [User]
   findUser(input: UserQueryInput!): [User]
   userById(id: ID!): User
 }

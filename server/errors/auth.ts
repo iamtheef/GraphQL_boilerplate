@@ -1,5 +1,5 @@
 import { GQL_AuthResponse } from "../schema/schema";
-import { Error } from "./ErrorInterface";
+import { Error } from "./IError";
 
 class AuthError {
   token?: string = null;

@@ -13,10 +13,17 @@ export type Scalars = {
 
 export type GQL_Article = {
    __typename?: 'Article';
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   authorID?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+};
+
+export type GQL_ArticleQueryInput = {
+  title?: Maybe<Scalars['String']>;
+  authorID?: Maybe<Scalars['String']>;
+  keywords?: Maybe<Array<Maybe<Scalars['String']>>>;
   createdAt?: Maybe<Scalars['Date']>;
 };
 
@@ -99,7 +106,7 @@ export type GQL_MutationRegisterArgs = {
 
 export type GQL_MutationRemoveArticleArgs = {
   id: Scalars['ID'];
-  authorID?: Maybe<Scalars['ID']>;
+  reqID: Scalars['ID'];
 };
 
 
@@ -125,18 +132,23 @@ export type GQL_Query = {
   /** @deprecated Field no longer supported */
   _?: Maybe<Scalars['String']>;
   allArticles?: Maybe<Array<Maybe<GQL_Article>>>;
-  findArticleByID?: Maybe<GQL_Article>;
+  allUsers?: Maybe<Array<Maybe<GQL_User>>>;
+  articleByID?: Maybe<GQL_Article>;
+  findArticle?: Maybe<Array<Maybe<GQL_Article>>>;
   findUser?: Maybe<Array<Maybe<GQL_User>>>;
   isUserRegistered?: Maybe<Scalars['Boolean']>;
-  searchArticle?: Maybe<Array<Maybe<GQL_Article>>>;
   userArticles?: Maybe<Array<Maybe<GQL_Article>>>;
   userById?: Maybe<GQL_User>;
-  users?: Maybe<Array<Maybe<GQL_User>>>;
 };
 
 
-export type GQL_QueryFindArticleByIdArgs = {
+export type GQL_QueryArticleByIdArgs = {
   id: Scalars['ID'];
+};
+
+
+export type GQL_QueryFindArticleArgs = {
+  input?: Maybe<GQL_ArticleQueryInput>;
 };
 
 
@@ -275,9 +287,10 @@ export type GQL_ResolversTypes = {
   Article: ResolverTypeWrapper<GQL_Article>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Date: ResolverTypeWrapper<Scalars['Date']>,
-  UserQueryInput: GQL_UserQueryInput,
   User: ResolverTypeWrapper<GQL_User>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  ArticleQueryInput: GQL_ArticleQueryInput,
+  UserQueryInput: GQL_UserQueryInput,
   Mutation: ResolverTypeWrapper<{}>,
   Body: GQL_Body,
   newArticleResponse: ResolverTypeWrapper<GQL_NewArticleResponse>,
@@ -300,9 +313,10 @@ export type GQL_ResolversParentTypes = {
   Article: GQL_Article,
   ID: Scalars['ID'],
   Date: Scalars['Date'],
-  UserQueryInput: GQL_UserQueryInput,
   User: GQL_User,
   Boolean: Scalars['Boolean'],
+  ArticleQueryInput: GQL_ArticleQueryInput,
+  UserQueryInput: GQL_UserQueryInput,
   Mutation: {},
   Body: GQL_Body,
   newArticleResponse: GQL_NewArticleResponse,
@@ -319,7 +333,7 @@ export type GQL_ResolversParentTypes = {
 };
 
 export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Article'] = GQL_ResolversParentTypes['Article']> = {
-  id?: Resolver<GQL_ResolversTypes['ID'], ParentType, ContextType>,
+  id?: Resolver<Maybe<GQL_ResolversTypes['ID']>, ParentType, ContextType>,
   authorID?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   title?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   body?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
@@ -357,7 +371,7 @@ export type GQL_MutationResolvers<ContextType = any, ParentType extends GQL_Reso
   editArticle?: Resolver<Maybe<GQL_ResolversTypes['editArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationEditArticleArgs, 'id' | 'changes'>>,
   login?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationLoginArgs, 'input'>>,
   register?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationRegisterArgs, 'input'>>,
-  removeArticle?: Resolver<Maybe<GQL_ResolversTypes['removeArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationRemoveArticleArgs, 'id'>>,
+  removeArticle?: Resolver<Maybe<GQL_ResolversTypes['removeArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationRemoveArticleArgs, 'id' | 'reqID'>>,
   updateAcc?: Resolver<Maybe<GQL_ResolversTypes['UpdateAccResponse']>, ParentType, ContextType, RequireFields<GQL_MutationUpdateAccArgs, 'input'>>,
 };
 
@@ -371,13 +385,13 @@ export type GQL_NewArticleResponseResolvers<ContextType = any, ParentType extend
 export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Query'] = GQL_ResolversParentTypes['Query']> = {
   _?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   allArticles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
-  findArticleByID?: Resolver<Maybe<GQL_ResolversTypes['Article']>, ParentType, ContextType, RequireFields<GQL_QueryFindArticleByIdArgs, 'id'>>,
+  allUsers?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType>,
+  articleByID?: Resolver<Maybe<GQL_ResolversTypes['Article']>, ParentType, ContextType, RequireFields<GQL_QueryArticleByIdArgs, 'id'>>,
+  findArticle?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindArticleArgs, never>>,
   findUser?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindUserArgs, 'input'>>,
   isUserRegistered?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_QueryIsUserRegisteredArgs, 'email'>>,
-  searchArticle?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   userArticles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   userById?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType, RequireFields<GQL_QueryUserByIdArgs, 'id'>>,
-  users?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType>,
 };
 
 export type GQL_RemoveArticleResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['removeArticleResponse'] = GQL_ResolversParentTypes['removeArticleResponse']> = {

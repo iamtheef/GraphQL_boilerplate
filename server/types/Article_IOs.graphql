@@ -12,6 +12,13 @@ input Changes {
   body: String
 }
 
+input ArticleQueryInput {
+  title: String
+  authorID: String
+  keywords: [String]
+  createdAt: Date
+}
+
 #RESPONSES
 
 type newArticleResponse {
