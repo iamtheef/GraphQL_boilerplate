@@ -10,7 +10,6 @@ extend type Query {
   allArticles: [Article]
   articleByID(id: ID!): Article
   findArticle(input: ArticleQueryInput): [Article]
-  userArticles: [Article]
 }
 
 extend type Mutation {

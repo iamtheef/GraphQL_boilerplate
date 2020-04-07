@@ -14,6 +14,8 @@ extend type Query {
   isUserRegistered(email: String!): Boolean
   findUser(input: UserQueryInput!): [User]
   userById(id: ID!): User
+
+  userArticles: [Article]
 }
 
 extend type Mutation {
