@@ -9,16 +9,18 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   try {
     // if any of the fields is included return the corresponding results
     let foundArticles: Array<GQL_Article> | null = null;
-    const { title, keywords, authorID, createdAt } = input;
+    const { keywords, authorID, createdAt } = input;
 
-    console.log(
-      await ArticleCollection.find({
-        $text: {
-          $search: "lol",
-          $caseSensitive: true,
-        },
-      })
-    );
+    // if (keywords.length) {
+    //   const all = await ArticleCollection.find();
+    //   foundArticles = all.filter((article) => article.title.includes(title));
+    // }
+
+    if (keywords.length) {
+      foundArticles = await ArticleCollection.find({
+        $text: { $search: `${keywords}`, $caseSensitive: false },
+      });
+    }
 
     // // search with googleID
     // foundUsers = await UserCollection.find({ googleID: googleID });
@@ -36,7 +38,7 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
     // // search only by full date
     // if (createdAt)
     //   foundUsers = await UserCollection.find({ createdAt: createdAt });
-    return []; // results array
+    return foundArticles; // results array
   } catch (e) {
     throw new Error(e.message);
   }

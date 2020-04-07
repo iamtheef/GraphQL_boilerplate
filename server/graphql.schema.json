@@ -447,7 +447,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "title",
+            "name": "keywords",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -463,20 +463,6 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "keywords",
-            "description": "",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
             },
             "defaultValue": null
           },

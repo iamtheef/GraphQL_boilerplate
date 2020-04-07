@@ -21,9 +21,8 @@ export type GQL_Article = {
 };
 
 export type GQL_ArticleQueryInput = {
-  title?: Maybe<Scalars['String']>;
+  keywords?: Maybe<Scalars['String']>;
   authorID?: Maybe<Scalars['String']>;
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>;
   createdAt?: Maybe<Scalars['Date']>;
 };
 
