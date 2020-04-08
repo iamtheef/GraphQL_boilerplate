@@ -133,10 +133,10 @@ export type GQL_Query = {
   allArticles?: Maybe<Array<Maybe<GQL_Article>>>;
   allUsers?: Maybe<Array<Maybe<GQL_User>>>;
   articleByID?: Maybe<GQL_Article>;
+  articles?: Maybe<Array<Maybe<GQL_Article>>>;
   findArticle?: Maybe<Array<Maybe<GQL_Article>>>;
   findUser?: Maybe<Array<Maybe<GQL_User>>>;
   isUserRegistered?: Maybe<Scalars['Boolean']>;
-  userArticles?: Maybe<Array<Maybe<GQL_Article>>>;
   userById?: Maybe<GQL_User>;
 };
 
@@ -386,10 +386,10 @@ export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_Resolve
   allArticles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   allUsers?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType>,
   articleByID?: Resolver<Maybe<GQL_ResolversTypes['Article']>, ParentType, ContextType, RequireFields<GQL_QueryArticleByIdArgs, 'id'>>,
+  articles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   findArticle?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindArticleArgs, never>>,
   findUser?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindUserArgs, 'input'>>,
   isUserRegistered?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_QueryIsUserRegisteredArgs, 'email'>>,
-  userArticles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   userById?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType, RequireFields<GQL_QueryUserByIdArgs, 'id'>>,
 };
 

@@ -10,8 +10,11 @@ export interface mergeInput {
   resultsIndex: string[];
 }
 
-export const merge = (input: mergeInput): mergeUpdates => {
-  const { foundArticles, results, resultsIndex } = input;
+export const merge = ({
+  foundArticles,
+  results,
+  resultsIndex,
+}: mergeInput): mergeUpdates => {
   Object.values(foundArticles).forEach((article) => {
     if (resultsIndex.indexOf(article.id) < 0) {
       results.push(article);
