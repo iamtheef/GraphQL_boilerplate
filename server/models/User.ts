@@ -28,7 +28,4 @@ export class User {
 
   @prop({ default: Date.now() })
   createdAt: Date;
-
-  @arrayProp({ items: Article })
-  public articles?: Ref<Article>[];
 }

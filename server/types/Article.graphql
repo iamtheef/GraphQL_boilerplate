@@ -4,6 +4,7 @@ type Article {
   title: String
   body: String
   createdAt: Date
+  author: User
 }
 
 extend type Query {
