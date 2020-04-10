@@ -42,14 +42,3 @@ type UpdateAccResponse {
   success: Boolean
   errors: [ErrorFormat]
 }
-
-# user response to prevent from quering the user password
-type _user {
-  id: ID
-  fullName: String
-  email: String
-  isGoogle: Boolean
-  googleID: String
-  createdAt: Date
-  articles: [Article]
-}

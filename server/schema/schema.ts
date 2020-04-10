@@ -14,11 +14,11 @@ export type Scalars = {
 export type GQL_Article = {
    __typename?: 'Article';
   id?: Maybe<Scalars['ID']>;
-  author?: Maybe<GQL_User>;
   authorID?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
+  author?: Maybe<GQL_User>;
 };
 
 export type GQL_ArticleQueryInput = {
@@ -187,7 +187,6 @@ export type GQL_User = {
    __typename?: 'User';
   id?: Maybe<Scalars['ID']>;
   fullName?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   isGoogle?: Maybe<Scalars['Boolean']>;
   googleID?: Maybe<Scalars['String']>;
@@ -285,9 +284,9 @@ export type GQL_ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>,
   Article: ResolverTypeWrapper<GQL_Article>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
+  Date: ResolverTypeWrapper<Scalars['Date']>,
   User: ResolverTypeWrapper<GQL_User>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  Date: ResolverTypeWrapper<Scalars['Date']>,
   ArticleQueryInput: GQL_ArticleQueryInput,
   UserQueryInput: GQL_UserQueryInput,
   Mutation: ResolverTypeWrapper<{}>,
@@ -311,9 +310,9 @@ export type GQL_ResolversParentTypes = {
   String: Scalars['String'],
   Article: GQL_Article,
   ID: Scalars['ID'],
+  Date: Scalars['Date'],
   User: GQL_User,
   Boolean: Scalars['Boolean'],
-  Date: Scalars['Date'],
   ArticleQueryInput: GQL_ArticleQueryInput,
   UserQueryInput: GQL_UserQueryInput,
   Mutation: {},
@@ -333,11 +332,11 @@ export type GQL_ResolversParentTypes = {
 
 export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Article'] = GQL_ResolversParentTypes['Article']> = {
   id?: Resolver<Maybe<GQL_ResolversTypes['ID']>, ParentType, ContextType>,
-  author?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType>,
   authorID?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   title?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   body?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   createdAt?: Resolver<Maybe<GQL_ResolversTypes['Date']>, ParentType, ContextType>,
+  author?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -408,7 +407,6 @@ export type GQL_UpdateAccResponseResolvers<ContextType = any, ParentType extends
 export type GQL_UserResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['User'] = GQL_ResolversParentTypes['User']> = {
   id?: Resolver<Maybe<GQL_ResolversTypes['ID']>, ParentType, ContextType>,
   fullName?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
-  password?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   email?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   isGoogle?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   googleID?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,

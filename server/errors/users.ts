@@ -1,11 +1,11 @@
 import { GQL_User } from "schema/schema";
 
-export const DeletedUser: GQL_User = {
-  fullName: "DELETED",
-  id: "DELETED",
-  googleID: "DELETED",
+export const DeletedAccount: GQL_User = {
+  fullName: "DELETED ACCOUNT",
+  id: "DELETED ACCOUNT",
+  googleID: "DELETED ACCOUNT",
   isGoogle: null,
-  createdAt: "DELETED",
+  createdAt: "DELETED ACCOUNT",
 };
 
-export const PrivateField = "<Private Field>";
+// export const PrivateField = "<Private Field>";

@@ -3,7 +3,7 @@ import { userMutations, userQueries } from "./userResolvers/index";
 import { articleMutations, articleQueries } from "./articleResolvers/index";
 import { ArticleCollection, UserCollection } from "../models/index";
 import { GQL_User, GQL_Article } from "schema/schema";
-import { DeletedUser, PrivateField } from "../errors/index";
+import { DeletedAccount } from "../errors/index";
 
 const resolversArray = [
   {
@@ -17,17 +17,15 @@ const resolversArray = [
       ...articleMutations,
     },
     User: {
-      // protecting password from qurying it
-      password: () => PrivateField,
-
-      // grabs the id of the parent (User) to retried related articles
+      // grabs the id of the parent (User) to retrieve related articles
       articles: async ({ id }: GQL_User) => {
         return ArticleCollection.find({ authorID: id });
       },
     },
     Article: {
+      // grabs the authorID of the parent (Article) to retrieve all the author's fields
       author: async ({ authorID }: GQL_Article) => {
-        return (await UserCollection.findById(authorID)) || DeletedUser;
+        return (await UserCollection.findById(authorID)) || DeletedAccount;
       },
     },
   },
