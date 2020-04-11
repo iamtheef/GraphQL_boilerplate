@@ -27,7 +27,12 @@ const schema = makeExecutableSchema({
     .catch(e => console.log(e));
   // await generateSchema();
   await new ApolloServer({
-    schema
+    schema,
+    context: () => {
+      return {
+        name: "fkn lol!"
+      };
+    }
   })
     .listen()
     .then(({ url }) => {

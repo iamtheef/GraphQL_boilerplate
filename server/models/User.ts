@@ -1,4 +1,4 @@
-import { prop, arrayProp, Ref } from "@typegoose/typegoose";
+import { prop, Ref, Typegoose } from "@typegoose/typegoose";
 import { Article } from "./Article";
 import validator from "validator";
 import { isFullNameValid } from "../utils/isNameValid";
@@ -8,12 +8,12 @@ const { isEmail, isEmpty } = validator;
 export class User {
   public _id: String;
 
-  @prop({ validate: (fullName) => isFullNameValid(fullName) })
+  @prop({ validate: fullName => isFullNameValid(fullName) })
   fullName: String;
 
   @prop({
-    validate: (email) => isEmail(email) && !isEmpty(email),
-    unique: true,
+    validate: email => isEmail(email) && !isEmpty(email),
+    unique: true
   })
   email: String;
 
@@ -28,4 +28,7 @@ export class User {
 
   @prop({ default: Date.now() })
   createdAt: Date;
+
+  @prop({ ref: Article })
+  articles: Ref<Article>[];
 }

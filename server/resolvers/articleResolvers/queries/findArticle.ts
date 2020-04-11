@@ -1,11 +1,13 @@
 import { ArticleCollection } from "../../../models/index";
 import { GQL_QueryResolvers, GQL_Article } from "schema/schema";
-import { merge, mergeUpdates, mergeInput } from "../../../utils/mergeArticles";
+import { merge, mergeUpdates } from "../../../utils/mergeArticles";
 
 // multiple fields search for users
 export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   _,
-  { input }
+  { input },
+  ___,
+  info
 ) => {
   try {
     // if any of the fields is included return the corresponding results
@@ -17,8 +19,8 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
 
     if (keywords.length) {
       foundArticles = await ArticleCollection.find({
-        $text: { $search: `${keywords}`, $caseSensitive: false },
-      });
+        $text: { $search: `${keywords}`, $caseSensitive: false }
+      }).populate("author");
 
       // merging
       updates = merge({ foundArticles, results, resultsIndex });
