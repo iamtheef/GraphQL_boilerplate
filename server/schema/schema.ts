@@ -22,7 +22,7 @@ export type GQL_Article = {
 };
 
 export type GQL_ArticleQueryInput = {
-  keywords?: Maybe<Scalars['String']>;
+  keywords: Scalars['String'];
   authorID?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
 };

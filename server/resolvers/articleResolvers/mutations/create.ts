@@ -17,7 +17,7 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
     };
     const newArticleID = (await ArticleCollection.create(newArticle))._id;
     foundUser.articles.push(newArticleID);
-    foundUser.save();
+    await foundUser.save();
 
     // responds
     return {

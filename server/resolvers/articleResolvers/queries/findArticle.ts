@@ -1,52 +1,36 @@
 import { ArticleCollection } from "../../../models/index";
-import { GQL_QueryResolvers, GQL_Article } from "schema/schema";
-import { merge, mergeUpdates } from "../../../utils/mergeArticles";
+import { GQL_QueryResolvers } from "schema/schema";
+import { isFieldQueried } from "../../../utils/isFieldQueried";
+// import { merge, mergeUpdates } from "../../../utils/mergeArticles";
 
-// multiple fields search for users
+// filter search for articles
 export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   _,
-  { input },
+  __,
   ___,
   info
 ) => {
   try {
-    // if any of the fields is included return the corresponding results
-    let foundArticles: Array<GQL_Article> = []; // foundArticles is used to pick up the results from each query case and then merge them into results array
-    let results: Array<GQL_Article> = []; // results is used for merging everything togetther
-    const { keywords, authorID, createdAt } = input;
-    let resultsIndex: string[] = []; // keeps track of what articles are in the results array (based on ids)
-    let updates: mergeUpdates; // merge custom interface (returns updates for the results array and the index array)
+    const { keywords, authorID, createdAt } = __.input;
+    let Query;
 
     if (keywords.length) {
-      foundArticles = await ArticleCollection.find({
+      Query = ArticleCollection.find({
         $text: { $search: `${keywords}`, $caseSensitive: false }
-      }).populate("author");
-
-      // merging
-      updates = merge({ foundArticles, results, resultsIndex });
-      resultsIndex = updates.resultsIndex;
-      results = updates.results;
+      });
     }
 
     if (authorID) {
-      foundArticles = await ArticleCollection.find({ authorID });
-
-      //merging
-      updates = merge({ foundArticles, results, resultsIndex });
-      resultsIndex = updates.resultsIndex;
-      results = updates.results;
+      Query.find({ authorID });
     }
 
     if (createdAt) {
-      foundArticles = await ArticleCollection.find({ createdAt });
-
-      // merging
-      updates = merge({ foundArticles, results, resultsIndex });
-      resultsIndex = updates.resultsIndex;
-      results = updates.results;
+      Query.find({ createdAt });
     }
 
-    return results; // results array
+    isFieldQueried(info, "author") && Query.populate("author"); // checks if author is queried and populates
+
+    return await Query;
   } catch (e) {
     throw new Error(e.message);
   }
