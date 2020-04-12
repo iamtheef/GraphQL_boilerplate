@@ -6,7 +6,7 @@ export const articleByID: GQL_QueryResolvers["articleByID"] = async (
   { id }
 ) => {
   try {
-    return await ArticleCollection.findById(id).populate("author"); // returns all the users in the db
+    return await ArticleCollection.findById(id).populate("author");
   } catch (e) {
     throw Error(e.message);
   }

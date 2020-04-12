@@ -1,9 +1,17 @@
-import { UserCollection, ArticleCollection } from "../../../models/index";
+import { UserCollection } from "../../../models/index";
 import { GQL_QueryResolvers } from "schema/schema";
+import { isFieldQueried } from "../../../utils/isFieldQueried";
 
-export const allUsers: GQL_QueryResolvers["allUsers"] = async (_, args) => {
+export const allUsers: GQL_QueryResolvers["allUsers"] = async (
+  _,
+  __,
+  ___,
+  info
+) => {
   try {
-    return await UserCollection.find(); // returns all the users in the db
+    const Query = UserCollection.find();
+    isFieldQueried(info, "articles") && Query.populate("articles");
+    return await Query;
   } catch (e) {
     throw Error(e.message);
   }

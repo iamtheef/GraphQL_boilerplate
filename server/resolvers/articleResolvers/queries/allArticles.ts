@@ -10,10 +10,10 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
 ) => {
   try {
     if (graphqlFields(info).author) {
-      return await ArticleCollection.find().populate("author"); // returns all the articles with the author
+      return await ArticleCollection.find().populate("author");
     }
 
-    return await ArticleCollection.find(); // returns all the articles without the author
+    return await ArticleCollection.find();
   } catch (e) {
     throw Error(e.message);
   }

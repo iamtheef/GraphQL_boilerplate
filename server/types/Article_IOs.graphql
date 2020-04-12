@@ -13,7 +13,7 @@ input Changes {
 }
 
 input ArticleQueryInput {
-  keywords: String!
+  keywords: String
   authorID: String
   createdAt: Date
 }
