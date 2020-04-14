@@ -1,4 +1,4 @@
-import { UserCollection } from "../../../models/index";
+import { Users } from "../../../models/index";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isFieldQueried } from "../../../utils/isFieldQueried";
 
@@ -10,7 +10,7 @@ export const findUser: GQL_QueryResolvers["findUser"] = async (
   info
 ) => {
   try {
-    let Query = UserCollection.find(__.input);
+    let Query = Users.find(__.input);
 
     isFieldQueried(info, "articles") && Query.populate("articles");
 

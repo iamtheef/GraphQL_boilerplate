@@ -1,4 +1,4 @@
-import { prop, Ref, Typegoose } from "@typegoose/typegoose";
+import { prop, Ref, arrayProp } from "@typegoose/typegoose";
 import { Article } from "./Article";
 import validator from "validator";
 import { isFullNameValid } from "../utils/isNameValid";
@@ -29,6 +29,6 @@ export class User {
   @prop({ default: Date.now() })
   createdAt: Date;
 
-  @prop({ ref: Article })
+  @arrayProp({ ref: Article })
   articles: Ref<Article>[];
 }

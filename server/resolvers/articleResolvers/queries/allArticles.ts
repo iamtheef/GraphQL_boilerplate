@@ -1,6 +1,6 @@
-import { ArticleCollection } from "../../../models/index";
+import { Articles } from "../../../models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-const graphqlFields = require("graphql-fields");
+import { isFieldQueried } from "../../../utils/isFieldQueried";
 
 export const allArticles: GQL_QueryResolvers["allArticles"] = async (
   _,
@@ -9,11 +9,11 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
   info
 ) => {
   try {
-    if (graphqlFields(info).author) {
-      return await ArticleCollection.find().populate("author");
-    }
+    let Query = Articles.find();
 
-    return await ArticleCollection.find();
+    isFieldQueried(info, "author") && Query.populate("author");
+
+    return await Query;
   } catch (e) {
     throw Error(e.message);
   }

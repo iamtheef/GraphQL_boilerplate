@@ -28,9 +28,9 @@ const schema = makeExecutableSchema({
   // await generateSchema();
   await new ApolloServer({
     schema,
-    context: () => {
+    context: ({ req }) => {
       return {
-        name: "fkn lol!"
+        name: req
       };
     }
   })

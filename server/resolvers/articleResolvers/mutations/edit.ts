@@ -1,5 +1,5 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { ArticleCollection } from "../../../models/index";
+import { Articles } from "../../../models/index";
 import { Unauthorized, throwNewError } from "../../../errors/index";
 
 export const editArticle: GQL_MutationResolvers["editArticle"] = async (
@@ -7,18 +7,15 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   { id, changes }
 ) => {
   try {
-    const { reqID, body, title } = changes;
+    const { reqID } = changes;
 
-    let foundArticle = await ArticleCollection.findById(id); // throws server error if the id is wrong or changed
+    let foundArticle = await Articles.findById(id).populate("author"); // throws server error if the id is wrong or changed
+    console.log(foundArticle);
 
-    if (reqID !== foundArticle.authorID) return Unauthorized.throwError(); // checks if the changes were requested from the author of the article, if not returns error
+    // if (reqID !== foundArticle.author) return Unauthorized.throwError(); // checks if the changes were requested from the author of the article, if not returns error
+    foundArticle.set({ ...changes });
 
-    if (title) foundArticle.title = title; // update the title if one is passed in
-    if (body) foundArticle.body = body; // update the body if a new body is passed in
-
-    await foundArticle.save(); // saves the updated article
-
-    return { success: true, errors: [] }; // responds success edited
+    return { success: !!(await foundArticle.save()), errors: [] }; // responds success edited
   } catch (e) {
     return throwNewError([{ path: "EDIT", message: `${e.message}` }]);
   }

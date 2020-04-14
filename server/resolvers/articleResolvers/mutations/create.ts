@@ -1,5 +1,5 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { ArticleCollection, UserCollection } from "../../../models/index";
+import { Articles, Users } from "../../../models/index";
 import { throwNewError } from "../../../errors/index";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
@@ -8,14 +8,14 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
 ) => {
   try {
     // first make sure the id is right, if not found throws server error
-    const foundUser = await UserCollection.findById(input.authorID);
+    const foundUser = await Users.findById(input.authorID);
 
     //create the artcile
     const newArticle = {
       ...input,
       author: foundUser._id
     };
-    const newArticleID = (await ArticleCollection.create(newArticle))._id;
+    const newArticleID = (await Articles.create(newArticle))._id;
     foundUser.articles.push(newArticleID);
     await foundUser.save();
 

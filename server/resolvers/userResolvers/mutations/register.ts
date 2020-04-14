@@ -1,4 +1,4 @@
-import { UserCollection } from "../../../models/index";
+import { Users } from "../../../models/index";
 import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
 import { isPasswordValid } from "../../../utils/isPasswordValid";
@@ -14,14 +14,14 @@ export const register: GQL_MutationResolvers["register"] = async (
   { input }
 ) => {
   // checks for duplicate email
-  if (await UserCollection.findOne({ email: input.email }))
+  if (await Users.findOne({ email: input.email }))
     // if so, returns
     return AlreadySigned.throwError();
   if (!isPasswordValid(input.password)) return WeakPassword.throwError(); //checks if the password is strong enough (requirements in the function)
 
   try {
     // create new user
-    const newUser = await UserCollection.create({
+    const newUser = await Users.create({
       ...input,
       password: bcrypt.hashSync(input.password, 10) // password encryption
     });

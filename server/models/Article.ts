@@ -1,13 +1,10 @@
 import "reflect-metadata";
-import { prop, Ref, Typegoose } from "@typegoose/typegoose";
+import { prop, Ref } from "@typegoose/typegoose";
 import validator from "validator";
 import { User } from "./User";
 
 export class Article {
   public _id: String;
-
-  @prop()
-  authorID: String;
 
   @prop({ ref: "User" })
   public author: Ref<User>;

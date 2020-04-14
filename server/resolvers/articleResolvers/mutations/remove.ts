@@ -1,4 +1,4 @@
-import { ArticleCollection } from "../../../models/index";
+import { Articles } from "../../../models/index";
 import { GQL_MutationResolvers } from "schema/schema";
 import { Unauthorized, throwNewError } from "../../../errors/index";
 
@@ -7,8 +7,8 @@ export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   { id, reqID }
 ) => {
   try {
-    const toBeDeleted = await ArticleCollection.findById(id);
-    if (toBeDeleted.authorID !== reqID) return Unauthorized.throwError();
+    const toBeDeleted = await Articles.findById(id);
+    if (toBeDeleted.id !== reqID) return Unauthorized.throwError();
     toBeDeleted.remove();
     return { success: true, errors: [] };
   } catch (e) {

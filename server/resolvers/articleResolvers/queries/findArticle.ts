@@ -1,4 +1,4 @@
-import { ArticleCollection } from "../../../models/index";
+import { Articles } from "../../../models/index";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isFieldQueried } from "../../../utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
@@ -15,20 +15,21 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
     let Query;
 
     if (keywords) {
-      Query = ArticleCollection.find({
+      Query = Articles.find({
         $text: { $search: `${keywords}`, $caseSensitive: false }
       });
     }
 
     if (authorID) {
-      if (!keywords) Query = ArticleCollection.find({ authorID });
-      else Query.find({ authorID });
+      keywords
+        ? Query.find({ authorID })
+        : (Query = Articles.find({ authorID }));
     }
 
     if (createdAt) {
       keywords || authorID
         ? Query.find({ createdAt })
-        : (Query = ArticleCollection.find({ createdAt }));
+        : (Query = Articles.find({ createdAt }));
     }
 
     isFieldQueried(info, "author") && Query.populate("author"); // checks if author is queried and populates
