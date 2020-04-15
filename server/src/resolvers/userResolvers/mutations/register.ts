@@ -5,8 +5,8 @@ import { isPasswordValid } from "../../../utils/isPasswordValid";
 import {
   AlreadySigned,
   throwNewError,
-  WeakPassword
-} from "../../../errors/index";
+  WeakPassword,
+} from "../../../../errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 
 export const register: GQL_MutationResolvers["register"] = async (
@@ -23,7 +23,7 @@ export const register: GQL_MutationResolvers["register"] = async (
     // create new user
     const newUser = await Users.create({
       ...input,
-      password: bcrypt.hashSync(input.password, 10) // password encryption
+      password: bcrypt.hashSync(input.password, 10), // password encryption
     });
 
     return Access(newUser); // return the token for the newly create user

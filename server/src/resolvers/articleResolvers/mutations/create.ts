@@ -1,6 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import { Articles, Users } from "../../../models/index";
-import { throwNewError } from "../../../errors/index";
+import { throwNewError } from "../../../../errors/index";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   _,
@@ -13,7 +13,7 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
     //create the artcile
     const newArticle = {
       ...input,
-      author: foundUser._id
+      author: foundUser._id,
     };
     const newArticleID = (await Articles.create(newArticle))._id;
     foundUser.articles.push(newArticleID);
@@ -23,7 +23,7 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
     return {
       success: true,
       articleID: newArticleID,
-      errors: []
+      errors: [],
     };
   } catch (e) {
     return throwNewError([{ path: "NEW ARTICLE", message: `${e.message}` }]); // server error handling

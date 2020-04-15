@@ -8,8 +8,8 @@ import {
   InvalidPassword,
   MismatchedPasswords,
   throwNewError,
-  WeakPassword
-} from "../../../errors/index";
+  WeakPassword,
+} from "../../../../errors/index";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,

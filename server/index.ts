@@ -1,41 +1,43 @@
-import { ApolloServer } from "apollo-server";
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import { makeExecutableSchema } from "graphql-tools";
-import { resolvers } from "./resolvers/index";
+import { resolvers } from "./src/resolvers/index";
 import { typeDefs } from "./types/index";
-// import { generateSchema } from "./generated/graph-generator";
 
-const db = dotenv.config().parsed.DB_STRING;
+const app = express();
+
+const { DB_STRING } = dotenv.config().parsed;
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
   resolverValidationOptions: {
-    requireResolversForResolveType: false
-  }
+    requireResolversForResolveType: false,
+  },
 });
 
 (async () => {
   await mongoose
-    .connect(db, {
+    .connect(DB_STRING, {
       useCreateIndex: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     })
     .then(() => console.log("Connected to DB"))
-    .catch(e => console.log(e));
-  // await generateSchema();
-  await new ApolloServer({
+    .catch((e) => console.log(e));
+
+  const server = new ApolloServer({
     schema,
     context: ({ req }) => {
       return {
-        name: req
+        name: req,
       };
-    }
-  })
-    .listen()
-    .then(({ url }) => {
-      console.log(`🚀 --- ${url}`);
-    });
+    },
+  });
+
+  server.applyMiddleware({ app });
+
+  app.listen({ port: 4000 }, () => console.log(`🚀 --- 4000/graphql`));
 })();

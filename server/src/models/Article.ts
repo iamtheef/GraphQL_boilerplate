@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { prop, Ref } from "@typegoose/typegoose";
 import validator from "validator";
 import { User } from "./User";
@@ -9,10 +8,13 @@ export class Article {
   @prop({ ref: "User" })
   public author: Ref<User>;
 
-  @prop({ validate: title => validator.isLength(title, { max: 30, min: 3 }) })
+  @prop()
+  authorID: String;
+
+  @prop({ validate: (title) => validator.isLength(title, { max: 30, min: 3 }) })
   title: String;
 
-  @prop({ validate: title => validator.isLength(title, { min: 10 }) })
+  @prop({ validate: (title) => validator.isLength(title, { min: 10 }) })
   body: String;
 
   @prop({ default: Date.now() })

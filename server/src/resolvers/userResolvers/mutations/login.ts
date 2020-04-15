@@ -1,8 +1,10 @@
 import { Access } from "../../../utils/auth";
 import bcrypt from "bcryptjs";
-import { WrongCredits, throwNewError } from "../../../errors/index";
+import { WrongCredits, throwNewError } from "../../../../errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 import { Users } from "../../../models/index";
+const redis = require("redis");
+const client = redis.createClient();
 
 export const login: GQL_MutationResolvers["login"] = async (_, { input }) => {
   const { email, password } = input;
