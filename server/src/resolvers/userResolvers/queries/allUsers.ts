@@ -1,6 +1,6 @@
-import { Users } from "../../../models/index";
+import { Users } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "../../../utils/isFieldQueried";
+import { isFieldQueried } from "@utils/isFieldQueried";
 
 export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   _,

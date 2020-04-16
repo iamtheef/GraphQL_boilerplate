@@ -1,6 +1,6 @@
-import { Articles } from "../../../models/index";
+import { Articles } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "../../../utils/isFieldQueried";
+import { isFieldQueried } from "@utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
 
 // filter search for articles
@@ -16,7 +16,7 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
 
     if (keywords) {
       Query = Articles.find({
-        $text: { $search: `${keywords}`, $caseSensitive: false }
+        $text: { $search: `${keywords}`, $caseSensitive: false },
       });
     }
 

@@ -41,6 +41,7 @@
     "redis": "^3.0.2",
     "redis-server": "^1.2.2",
     "reflect-metadata": "^0.1.13",
+    "tsconfig-paths": "^3.9.0",
     "typegoose": "^5.9.1",
     "typescript": "^3.8.3",
     "validator": "^13.0.0"

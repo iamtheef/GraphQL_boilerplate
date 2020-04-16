@@ -1,5 +1,5 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { Users } from "../../../models/index";
+import { Users } from "@models/index";
 
 export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
   _,

@@ -1,7 +1,7 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { Users } from "../../../models/index";
+import { Users } from "@models/index";
 import bcrypt from "bcryptjs";
-import { isPasswordValid } from "../../../utils/isPasswordValid";
+import { isPasswordValid } from "@utils/isPasswordValid";
 
 // importing the errors used
 import {
@@ -9,7 +9,7 @@ import {
   MismatchedPasswords,
   throwNewError,
   WeakPassword,
-} from "../../../../errors/index";
+} from "@errors/index";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,

@@ -1,6 +1,6 @@
-import { Articles } from "../../../models/index";
+import { Articles } from "@models/index";
 import { GQL_MutationResolvers } from "schema/schema";
-import { Unauthorized, throwNewError } from "../../../../errors/index";
+import { Unauthorized, throwNewError } from "@errors/index";
 
 export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   _,

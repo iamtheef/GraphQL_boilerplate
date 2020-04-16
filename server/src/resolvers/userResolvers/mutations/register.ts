@@ -1,12 +1,8 @@
-import { Users } from "../../../models/index";
-import { Access } from "../../../utils/auth";
+import { Users } from "@models/index";
+import { Access } from "@utils/auth";
 import bcrypt from "bcryptjs";
-import { isPasswordValid } from "../../../utils/isPasswordValid";
-import {
-  AlreadySigned,
-  throwNewError,
-  WeakPassword,
-} from "../../../../errors/index";
+import { isPasswordValid } from "@utils/isPasswordValid";
+import { AlreadySigned, throwNewError, WeakPassword } from "@errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 
 export const register: GQL_MutationResolvers["register"] = async (

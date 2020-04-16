@@ -1,6 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { Articles, Users } from "../../../models/index";
-import { throwNewError } from "../../../../errors/index";
+import { Articles, Users } from "@models/index";
+import { throwNewError } from "@errors/index";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   _,

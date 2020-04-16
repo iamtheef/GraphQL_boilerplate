@@ -1,4 +1,4 @@
-import { Articles } from "../../../models/index";
+import { Articles } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
 
 export const articleByID: GQL_QueryResolvers["articleByID"] = async (

@@ -1,6 +1,6 @@
-import { Articles } from "../../../models/index";
+import { Articles } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "../../../utils/isFieldQueried";
+import { isFieldQueried } from "@utils/isFieldQueried";
 
 export const allArticles: GQL_QueryResolvers["allArticles"] = async (
   _,

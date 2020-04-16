@@ -1,8 +1,8 @@
-import { Access } from "../../../utils/auth";
-import bcrypt from "bcryptjs";
-import { WrongCredits, throwNewError } from "../../../../errors/index";
+import { Access } from "@utils/auth";
+import { WrongCredits, throwNewError } from "@errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
-import { Users } from "../../../models/index";
+import { Users } from "@models/index";
+import bcrypt from "bcryptjs";
 
 const redis = require("redis");
 
