@@ -35,7 +35,7 @@ export type GQL_AuthResponse = {
 };
 
 export type GQL_Body = {
-  authorID: Scalars['ID'];
+  authorID?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
   body: Scalars['String'];
 };

@@ -1,7 +1,7 @@
 # INPUTS
 
 input Body {
-  authorID: ID!
+  authorID: ID
   title: String!
   body: String!
 }
