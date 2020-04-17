@@ -3,7 +3,8 @@ import { Users } from "@models/index";
 
 export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
   _,
-  { id }
+  { id },
+  ___
 ) => {
   try {
     if (await Users.findByIdAndDelete({ _id: id.trim() })) return true;

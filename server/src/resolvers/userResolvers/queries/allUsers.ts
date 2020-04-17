@@ -5,14 +5,17 @@ import { isFieldQueried } from "@utils/isFieldQueried";
 export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   _,
   __,
-  ___,
+  { req, client },
   info
 ) => {
   try {
-    let Query = Users.find();
-
-    isFieldQueried(info, "articles") && Query.populate("articles");
-    return await Query;
+    if (req.isAuthenticated()) {
+      let Query = Users.find();
+      isFieldQueried(info, "articles") && Query.populate("articles");
+      return await Query;
+    } else {
+      return null;
+    }
   } catch (e) {
     throw Error(e.message);
   }

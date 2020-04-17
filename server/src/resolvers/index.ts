@@ -6,14 +6,14 @@ const resolversArray = [
   {
     Query: {
       ...userQueries,
-      ...articleQueries
+      ...articleQueries,
     },
 
     Mutation: {
       ...userMutations,
-      ...articleMutations
-    }
-  }
+      ...articleMutations,
+    },
+  },
 ];
 
 export const resolvers = mergeResolvers(resolversArray);

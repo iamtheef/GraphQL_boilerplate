@@ -25,7 +25,8 @@
       "@models/*": ["./src/models/*"],
       "@utils/*": ["./src/utils/*"],
       "@resolvers/*": ["./src/resolvers/*"],
-      "@errors/*": ["./errors/*"]
+      "@errors/*": ["./errors/*"],
+      "@config/*": ["./config/*"]
     }
   },
   "exclude": ["node_modules"]
