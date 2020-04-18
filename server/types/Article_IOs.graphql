@@ -7,7 +7,6 @@ input Body {
 }
 
 input Changes {
-  reqID: ID!
   title: String
   body: String
 }

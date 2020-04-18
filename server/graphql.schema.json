@@ -1016,18 +1016,6 @@
         "description": "",
         "fields": [
           {
-            "name": "token",
-            "description": "",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "success",
             "description": "",
             "args": [],

@@ -7,26 +7,23 @@ import bcrypt from "bcryptjs";
 export const login: GQL_MutationResolvers["login"] = async (
   _,
   { input },
-  ___
+  { req }
 ) => {
   const { email, password } = input;
 
   try {
-    const foundUser = await Users.findOne({ email }); // check the email exists in the db
+    const foundUser = await Users.findOne({ email });
     if (foundUser) {
+      req.logout();
       const passwordMatch = await bcrypt.compare(
         password,
         foundUser.password.toString()
       );
       if (passwordMatch) {
-        ___.req.login(foundUser, (err: any) => {
-          if (err) console.log(err);
-        });
-
-        return { success: true }; // if password matches return the token
+        return Access(req, foundUser);
       }
     }
-    return WrongCredits.throwError(); // if email/password isn't right return error
+    return WrongCredits.throwError();
   } catch (e) {
     return throwNewError([{ path: "LOGIN", message: `${e.message}` }]);
   }

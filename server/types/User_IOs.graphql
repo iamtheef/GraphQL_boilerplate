@@ -33,7 +33,6 @@ input Password {
 # RESPONSES
 
 type AuthResponse {
-  token: String
   success: Boolean
   errors: [ErrorFormat]
 }

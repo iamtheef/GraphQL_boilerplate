@@ -2,22 +2,19 @@ import { GQL_AuthResponse } from "../schema/schema";
 import { Error } from "./IError";
 
 class AuthError {
-  token?: string = null;
-  success: boolean = !!this.token;
+  success: boolean;
   errors: [Error];
   constructor(error: Error) {
     this.errors = [error];
   }
   throwError(): GQL_AuthResponse {
     return {
-      token: this.token,
-      success: this.success,
+      success: false,
       errors: this.errors,
     };
   }
 }
 
-// fixed usual errors
 // error for weak password
 export const WeakPassword = new AuthError({
   path: "PASSWORD",

@@ -28,3 +28,8 @@ export const MismatchedPasswords = new UpdateAccError({
   path: "PASSWORDS",
   message: "Passwords have to match!",
 });
+
+export const Unauthorized = new UpdateAccError({
+  path: "UPDATE ACCOUNT",
+  message: "You are unauthorized for this action, please login in first.",
+});

@@ -26,7 +26,13 @@ export const UserNotFound = new ArticleError({
 });
 
 // error if the request isn't coming from the author of the article
-export const Unauthorized = new ArticleError({
+export const UnauthorizedAction = new ArticleError({
   path: "EDIT/DELETE",
   message: "You are unauthorized for this action.",
+});
+
+// login first
+export const notLoggedIn = new ArticleError({
+  path: "CREATE ARTICLE",
+  message: "Please login first to create articles",
 });

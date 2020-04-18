@@ -29,7 +29,6 @@ export type GQL_ArticleQueryInput = {
 
 export type GQL_AuthResponse = {
    __typename?: 'AuthResponse';
-  token?: Maybe<Scalars['String']>;
   success?: Maybe<Scalars['Boolean']>;
   errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
@@ -341,7 +340,6 @@ export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_Resol
 };
 
 export type GQL_AuthResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['AuthResponse'] = GQL_ResolversParentTypes['AuthResponse']> = {
-  token?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,

@@ -2,18 +2,18 @@ import { GQL_MutationResolvers } from "schema/schema";
 import { Users } from "@models/index";
 import bcrypt from "bcryptjs";
 import { isPasswordValid } from "@utils/isPasswordValid";
-
-// importing the errors used
 import {
   InvalidPassword,
   MismatchedPasswords,
   throwNewError,
   WeakPassword,
+  UnauthorizedAction,
 } from "@errors/index";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,
-  { input }
+  { input },
+  { req }
 ) => {
   const { id, fullName, password } = input;
   const { oldPassword, newPassword, confirmPassword } = password;
@@ -21,8 +21,8 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   try {
     // checks which have been passed and updates accordingly (if the .oldPassword is right)
     // prevents updating user profile from forgotten login account
-    const foundUser = await Users.findById(id);
-
+    const foundUser = await Users.findById(req.user._id);
+    if (req.user.id !== foundUser.id) return UnauthorizedAction.throwError();
     if (!(await bcrypt.compare(oldPassword, foundUser.password.toString())))
       return InvalidPassword.throwError(); // return error if the in use password is wrong
 
