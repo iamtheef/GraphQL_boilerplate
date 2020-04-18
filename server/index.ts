@@ -3,7 +3,6 @@ import express from "express";
 import { Request, Response } from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
-import passport from "passport";
 import * as dotenv from "dotenv";
 import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "./src/resolvers/index";
@@ -12,6 +11,8 @@ import { corsOpts } from "./config/server-config";
 import cors from "cors";
 import helmet from "helmet";
 import { sessionMiddleware, db_opts } from "@config/server-config";
+import passport from "passport";
+import cookieParser from "cookie-parser";
 import "./config/passport-config";
 
 interface IGraphQLContext {
@@ -20,7 +21,6 @@ interface IGraphQLContext {
 }
 
 const app = express();
-
 const { DB_STRING, PORT } = dotenv.config().parsed;
 
 const schema = makeExecutableSchema({
@@ -34,10 +34,11 @@ const schema = makeExecutableSchema({
 (async () => {
   app.use(cors(corsOpts));
   app.use(helmet());
-  // app.use(express.urlencoded({ extended: true }));
-  app.use(require("cookie-parser")());
-  app.use(require("body-parser").urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
   app.use(sessionMiddleware());
+  app.use(cookieParser());
+
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -49,6 +50,7 @@ const schema = makeExecutableSchema({
   const server = new ApolloServer({
     schema,
     context: ({ req, res }: IGraphQLContext) => {
+      console.log(req.session);
       return {
         req,
         res,

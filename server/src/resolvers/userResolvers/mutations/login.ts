@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 export const login: GQL_MutationResolvers["login"] = async (
   _,
   { input },
-  { req }
+  ___
 ) => {
   const { email, password } = input;
 
@@ -19,8 +19,10 @@ export const login: GQL_MutationResolvers["login"] = async (
         foundUser.password.toString()
       );
       if (passwordMatch) {
-        req.session.userID = foundUser._id;
-        console.log(req.session);
+        ___.req.login(foundUser, (err: any) => {
+          if (err) console.log(err);
+        });
+
         return { success: true }; // if password matches return the token
       }
     }

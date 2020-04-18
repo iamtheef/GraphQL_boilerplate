@@ -1,18 +1,13 @@
 import * as dotenv from "dotenv";
 import session from "express-session";
-import redis from "redis";
-
-let RedisStore = require("connect-redis")(session);
-let redisClient = redis.createClient();
 const { SECRET, PORT, ENV } = dotenv.config().parsed;
 
 export const sessionMiddleware = () => {
   return session({
     name: "qid",
     secret: SECRET,
-    saveUninitialized: true,
-    resave: true,
-    // store: new RedisStore({ client: redisClient }),
+    saveUninitialized: false,
+    resave: false,
 
     cookie: {
       httpOnly: true,
@@ -31,5 +26,5 @@ export const db_opts = {
 
 export const corsOpts = {
   credentials: true,
-  origin: `http://localhost:${PORT}`,
+  origin: `http://localhost:${PORT}/graphql`,
 };

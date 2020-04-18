@@ -10,8 +10,6 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
 ) => {
   try {
     let Query = Articles.find();
-
-    console.log(___.req.session);
     isFieldQueried(info, "author") && Query.populate("author");
 
     return await Query;
