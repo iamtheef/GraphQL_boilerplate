@@ -15,16 +15,20 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   { input },
   { req }
 ) => {
-  const { id, fullName, password } = input;
+  const { fullName, password } = input;
   const { oldPassword, newPassword, confirmPassword } = password;
 
   try {
     // checks which have been passed and updates accordingly (if the .oldPassword is right)
-    // prevents updating user profile from forgotten login account
+    if (!req.isAuthenticated()) throw new Error("Not logged in!");
+
     const foundUser = await Users.findById(req.user._id);
+
     if (req.user.id !== foundUser.id) return UnauthorizedAction.throwError();
-    if (!(await bcrypt.compare(oldPassword, foundUser.password.toString())))
+
+    if (!(await bcrypt.compare(oldPassword, foundUser.password.toString()))) {
       return InvalidPassword.throwError(); // return error if the in use password is wrong
+    }
 
     if (fullName) {
       foundUser.fullName = fullName;
@@ -32,12 +36,14 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
 
     if (newPassword) {
       if (!isPasswordValid(newPassword)) return { ...WeakPassword }; // checks for weak password
-      //checks if the password matches the confirm (preventing mistyping the password)
-      if (newPassword !== confirmPassword)
+
+      if (newPassword !== confirmPassword) {
         return MismatchedPasswords.throwError();
+      }
       // if all ok, updates the user
       foundUser.password = bcrypt.hashSync(password.newPassword, 10);
     }
+
     await foundUser.save();
 
     return { success: true, errors: [] }; // Account Updated

@@ -9,7 +9,7 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
   info
 ) => {
   try {
-    if (!req.user) return []; // returns empty if no user is logged in
+    if (!req.user) throw new Error("Please login first"); // returns empty if no user is logged in
 
     let Query = Articles.find();
     isFieldQueried(info, "author") && Query.populate("author");

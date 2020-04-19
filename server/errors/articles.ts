@@ -30,9 +30,3 @@ export const UnauthorizedAction = new ArticleError({
   path: "EDIT/DELETE",
   message: "You are unauthorized for this action.",
 });
-
-// login first
-export const notLoggedIn = new ArticleError({
-  path: "CREATE ARTICLE",
-  message: "Please login first to create articles",
-});

@@ -16,5 +16,5 @@ extend type Query {
 extend type Mutation {
   createArticle(input: Body): newArticleResponse
   editArticle(id: ID!, changes: Changes!): editArticleResponse
-  removeArticle(id: ID!, reqID: ID!): removeArticleResponse
+  removeArticle(id: ID!): removeArticleResponse
 }

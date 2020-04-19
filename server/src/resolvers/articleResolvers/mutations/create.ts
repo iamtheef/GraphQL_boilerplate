@@ -1,6 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import { Articles, Users } from "@models/index";
-import { throwNewError, notLoggedIn } from "@errors/index";
+import { throwNewError } from "@errors/index";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   _,
@@ -8,15 +8,15 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   { req }
 ) => {
   try {
-    if (!req.user) return notLoggedIn.throwError();
-    // first make sure the id is right, if not found throws server error
+    if (!req.isAuthenticated()) throw new Error("Not logged in!");
+
     const foundUser = await Users.findById(req.user.id);
 
-    //create the artcile
     const newArticle = {
       ...input,
       author: req.user.id,
     };
+
     const newArticleID = (await Articles.create(newArticle))._id;
     foundUser.articles.push(newArticleID);
     await foundUser.save();

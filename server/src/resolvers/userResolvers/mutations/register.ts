@@ -10,8 +10,10 @@ export const register: GQL_MutationResolvers["register"] = async (
   { input },
   { req }
 ) => {
-  if (await Users.findOne({ email: input.email }))
+  if (await Users.findOne({ email: input.email })) {
     return AlreadySigned.throwError();
+  }
+
   if (!isPasswordValid(input.password)) return WeakPassword.throwError();
 
   try {

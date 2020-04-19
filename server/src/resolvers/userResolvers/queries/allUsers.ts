@@ -5,17 +5,16 @@ import { isFieldQueried } from "@utils/isFieldQueried";
 export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   _,
   __,
-  { req, client },
+  { req },
   info
 ) => {
   try {
-    if (req.isAuthenticated()) {
-      let Query = Users.find();
-      isFieldQueried(info, "articles") && Query.populate("articles");
-      return await Query;
-    } else {
-      return null;
-    }
+    if (!req.isAuthenticated()) throw new Error("Not logged in!");
+
+    let Query = Users.find();
+    isFieldQueried(info, "articles") && Query.populate("articles");
+
+    return await Query;
   } catch (e) {
     throw Error(e.message);
   }

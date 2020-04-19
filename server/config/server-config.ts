@@ -10,8 +10,8 @@ export const sessionMiddleware = () => {
   return session({
     name: "qid",
     secret: SECRET,
-    saveUninitialized: true,
-    resave: true,
+    saveUninitialized: false,
+    resave: false,
 
     cookie: {
       httpOnly: true,
