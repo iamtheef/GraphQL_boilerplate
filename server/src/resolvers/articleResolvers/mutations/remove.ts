@@ -1,6 +1,6 @@
 import { Articles } from "@models/index";
 import { GQL_MutationResolvers } from "schema/schema";
-import { UnauthorizedAction, throwNewError } from "@errors/index";
+import { UnauthorizedAction, throwNewError, NotLoggedIn } from "@errors/index";
 
 export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   _,
@@ -8,7 +8,7 @@ export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   { req }
 ) => {
   try {
-    if (!req.isAuthenticated()) throw new Error("Not logged in.");
+    if (!req.isAuthenticated()) return NotLoggedIn.throwError();
 
     const toBeDeleted = await Articles.findById(id);
     if (toBeDeleted.authorID !== req.user.id) {

@@ -30,3 +30,9 @@ export const UnauthorizedAction = new ArticleError({
   path: "EDIT/DELETE",
   message: "You are unauthorized for this action.",
 });
+
+// error if no user is logged in
+export const NotLoggedIn = new ArticleError({
+  path: "EDIT/DELETE",
+  message: "You are not logged in.",
+});

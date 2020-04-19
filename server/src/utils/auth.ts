@@ -23,6 +23,7 @@ export const Access = (req: Request, user: GQL_User): GQL_AuthResponse => {
       console.log(err);
     }
   });
+
   return {
     success: true,
     errors: [],

@@ -1,6 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import { Articles } from "@models/index";
-import { UnauthorizedAction, throwNewError } from "@errors/index";
+import { UnauthorizedAction, throwNewError, NotLoggedIn } from "@errors/index";
 
 export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   _,
@@ -8,7 +8,7 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   { req }
 ) => {
   try {
-    if (!req.isAuthenticated()) throw new Error("Not logged in.");
+    if (!req.isAuthenticated()) return NotLoggedIn.throwError();
     let foundArticle = await Articles.findById(id).populate("author"); // throws server error if the id is wrong or changed
 
     if (req.user.id !== foundArticle.authorID) {

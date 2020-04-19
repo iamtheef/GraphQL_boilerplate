@@ -34,7 +34,6 @@ export type GQL_AuthResponse = {
 };
 
 export type GQL_Body = {
-  authorID?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
   body: Scalars['String'];
 };
@@ -70,6 +69,7 @@ export type GQL_Mutation = {
   deleteAcc?: Maybe<Scalars['Boolean']>;
   editArticle?: Maybe<GQL_EditArticleResponse>;
   login?: Maybe<GQL_AuthResponse>;
+  logout?: Maybe<Scalars['Boolean']>;
   register?: Maybe<GQL_AuthResponse>;
   removeArticle?: Maybe<GQL_RemoveArticleResponse>;
   updateAcc?: Maybe<GQL_UpdateAccResponse>;
@@ -360,6 +360,7 @@ export type GQL_MutationResolvers<ContextType = any, ParentType extends GQL_Reso
   deleteAcc?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   editArticle?: Resolver<Maybe<GQL_ResolversTypes['editArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationEditArticleArgs, 'id' | 'changes'>>,
   login?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationLoginArgs, 'input'>>,
+  logout?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   register?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationRegisterArgs, 'input'>>,
   removeArticle?: Resolver<Maybe<GQL_ResolversTypes['removeArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationRemoveArticleArgs, 'id'>>,
   updateAcc?: Resolver<Maybe<GQL_ResolversTypes['UpdateAccResponse']>, ParentType, ContextType, RequireFields<GQL_MutationUpdateAccArgs, 'input'>>,
