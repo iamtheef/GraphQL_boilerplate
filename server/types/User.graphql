@@ -13,11 +13,12 @@ extend type Query {
   isUserRegistered(email: String!): Boolean
   findUser(input: UserQueryInput!): [User]
   userById(id: ID!): User
+  me: User
 }
 
 extend type Mutation {
   register(input: RegisterInput!): AuthResponse
   login(input: LoginInput!): AuthResponse
   updateAcc(input: UserUpdates!): UpdateAccResponse
-  deleteAcc(id: ID!): Boolean
+  deleteAcc: Boolean
 }

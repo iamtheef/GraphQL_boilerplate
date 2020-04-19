@@ -33,3 +33,9 @@ export const AlreadySigned = new AuthError({
   path: "REGISTER",
   message: "Wow! You are already signed!",
 });
+
+// error for already authenticated user
+export const Authenticated = new AuthError({
+  path: "REGISTER/LOGIN",
+  message: "You are authenticated.",
+});
