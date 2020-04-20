@@ -8,12 +8,12 @@ const { isEmail, isEmpty } = validator;
 export class User {
   public _id: String;
 
-  @prop({ validate: fullName => isFullNameValid(fullName) })
+  @prop({ validate: (fullName) => isFullNameValid(fullName) })
   fullName: String;
 
   @prop({
-    validate: email => isEmail(email) && !isEmpty(email),
-    unique: true
+    validate: (email) => isEmail(email) && !isEmpty(email),
+    unique: true,
   })
   email: String;
 
@@ -31,4 +31,7 @@ export class User {
 
   @arrayProp({ ref: Article })
   articles: Ref<Article>[];
+
+  @prop({ default: false })
+  isAdmin: Boolean;
 }

@@ -185,6 +185,7 @@ export type GQL_User = {
   googleID?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
   articles?: Maybe<Array<Maybe<GQL_Article>>>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
 };
 
 export type GQL_UserQueryInput = {
@@ -405,6 +406,7 @@ export type GQL_UserResolvers<ContextType = any, ParentType extends GQL_Resolver
   googleID?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   createdAt?: Resolver<Maybe<GQL_ResolversTypes['Date']>, ParentType, ContextType>,
   articles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
+  isAdmin?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

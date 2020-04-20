@@ -6,6 +6,7 @@ type User {
   googleID: String
   createdAt: Date
   articles: [Article]
+  isAdmin: Boolean
 }
 
 extend type Query {

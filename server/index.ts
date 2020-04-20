@@ -7,10 +7,10 @@ import passport from "passport";
 import cors from "cors";
 import helmet from "helmet";
 import * as dotenv from "dotenv";
-import { makeExecutableSchema } from "graphql-tools";
-import { resolvers } from "./src/resolvers/index";
-import { typeDefs } from "./types/index";
+import { schema } from "./schema";
+
 import { sessionMiddleware, db_opts } from "@config/server-config";
+
 import "./config/passport-config";
 
 interface IGraphQLContext {
@@ -20,14 +20,6 @@ interface IGraphQLContext {
 
 const app = express();
 const { DB_STRING, PORT } = dotenv.config().parsed;
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-  resolverValidationOptions: {
-    requireResolversForResolveType: false,
-  },
-});
 
 (async () => {
   app.use(cors());
@@ -43,6 +35,7 @@ const schema = makeExecutableSchema({
 
   const server = new ApolloServer({
     schema,
+
     context: ({ req, res }: IGraphQLContext) => {
       return {
         req,

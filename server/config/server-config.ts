@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import session from "express-session";
 import redis from "redis";
 
-const { SECRET, ENV, REDIS_SECRET, REDIS_PORT } = dotenv.config().parsed;
+const { SECRET, ENV, REDIS_PORT } = dotenv.config().parsed;
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient({
   port: Number(REDIS_PORT),

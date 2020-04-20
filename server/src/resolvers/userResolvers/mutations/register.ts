@@ -17,6 +17,7 @@ export const register: GQL_MutationResolvers["register"] = async (
 ) => {
   //error handling
   if (req.user) return Authenticated.throwError();
+
   if (await Users.findOne({ email: input.email })) {
     return AlreadySigned.throwError();
   }
