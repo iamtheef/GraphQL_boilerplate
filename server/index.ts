@@ -9,6 +9,7 @@ import helmet from "helmet";
 import * as dotenv from "dotenv";
 import { schema } from "./schema";
 import compression from "compression";
+import depthLimit from "graphql-depth-limit";
 
 import { sessionMiddleware, db_opts } from "@config/server-config";
 
@@ -37,7 +38,7 @@ const { DB_STRING, PORT } = dotenv.config().parsed;
 
   const server = new ApolloServer({
     schema,
-
+    validationRules: [depthLimit(5)],
     context: ({ req }: IGraphQLContext) => {
       return {
         req,

@@ -8,9 +8,8 @@ export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   { req }
 ) => {
   try {
-    if (!req.isAuthenticated()) return NotLoggedIn.throwError();
-
     const toBeDeleted = await Articles.findById(id);
+
     if (toBeDeleted.authorID !== req.user.id) {
       return UnauthorizedAction.throwError();
     }

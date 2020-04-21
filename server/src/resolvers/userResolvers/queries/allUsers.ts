@@ -9,8 +9,6 @@ export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   info
 ) => {
   try {
-    if (!req.isAuthenticated()) throw new Error("Not logged in!");
-
     let Query = Users.find();
     isFieldQueried(info, "articles") && Query.populate("articles");
 

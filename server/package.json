@@ -62,6 +62,7 @@
     "@graphql-codegen/typescript-document-nodes": "1.13.1",
     "@graphql-codegen/typescript-mongodb": "1.13.1",
     "@graphql-codegen/typescript-resolvers": "1.13.1",
+    "@types/graphql-depth-limit": "^1.1.2",
     "@types/mongoose": "^5.7.6",
     "dotenv": "^8.2.0",
     "mongoose": "^5.9.5",

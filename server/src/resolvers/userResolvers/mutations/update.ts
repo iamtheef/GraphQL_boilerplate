@@ -20,8 +20,6 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
 
   try {
     // checks which have been passed and updates accordingly (if the .oldPassword is right)
-    if (!req.isAuthenticated()) throw new Error("Not logged in.");
-
     const foundUser = await Users.findById(req.user._id);
 
     if (req.user.id !== foundUser.id) return UnauthorizedAction.throwError();

@@ -8,13 +8,12 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   { req }
 ) => {
   try {
-    if (!req.isAuthenticated()) return NotLoggedIn.throwError();
-
     const foundUser = await Users.findById(req.user.id);
 
     const newArticle = {
       ...input,
       author: req.user.id,
+      authorID: req.user.id,
     };
 
     const newArticleID = (await Articles.create(newArticle))._id;

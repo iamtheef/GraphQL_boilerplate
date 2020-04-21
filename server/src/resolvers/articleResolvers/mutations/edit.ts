@@ -8,7 +8,6 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   { req }
 ) => {
   try {
-    if (!req.isAuthenticated()) return NotLoggedIn.throwError();
     let foundArticle = await Articles.findById(id).populate("author"); // throws server error if the id is wrong or changed
 
     if (req.user.id !== foundArticle.authorID) {
