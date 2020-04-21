@@ -6,8 +6,7 @@ export const isUserRegistered: GQL_QueryResolvers["isUserRegistered"] = async (
   { email }
 ) => {
   try {
-    if (await Users.findOne({ email })) return true;
-    return false;
+    return !!(await Users.findOne({ email }));
   } catch (e) {
     throw Error(e.message);
   }

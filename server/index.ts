@@ -8,6 +8,7 @@ import cors from "cors";
 import helmet from "helmet";
 import * as dotenv from "dotenv";
 import { schema } from "./schema";
+import compression from "compression";
 
 import { sessionMiddleware, db_opts } from "@config/server-config";
 
@@ -24,6 +25,7 @@ const { DB_STRING, PORT } = dotenv.config().parsed;
 (async () => {
   app.use(cors());
   app.use(helmet());
+  app.use(compression());
   app.use(sessionMiddleware());
   app.use(passport.initialize());
   app.use(passport.session());
@@ -36,10 +38,9 @@ const { DB_STRING, PORT } = dotenv.config().parsed;
   const server = new ApolloServer({
     schema,
 
-    context: ({ req, res }: IGraphQLContext) => {
+    context: ({ req }: IGraphQLContext) => {
       return {
         req,
-        res,
       };
     },
   });
