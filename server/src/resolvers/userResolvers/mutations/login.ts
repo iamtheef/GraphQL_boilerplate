@@ -10,6 +10,7 @@ export const login: GQL_MutationResolvers["login"] = async (
   { req }
 ) => {
   if (req.user) return Authenticated.throwError();
+
   const { email, password } = input;
 
   try {

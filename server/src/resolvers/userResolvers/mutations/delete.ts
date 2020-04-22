@@ -8,7 +8,7 @@ export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
 ) => {
   try {
     const user = await Users.findById(req.user.id);
-    if (req.user.id !== user.id) return false;
+    if (req.user.id !== user.id) return false; // checks the owner
 
     user.remove();
 

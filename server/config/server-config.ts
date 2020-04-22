@@ -4,7 +4,7 @@ import redis from "redis";
 
 const { SECRET, ENV, REDIS_PORT } = dotenv.config().parsed;
 let RedisStore = require("connect-redis")(session);
-let redisClient = redis.createClient({
+export let redisClient = redis.createClient({
   port: Number(REDIS_PORT),
 });
 
