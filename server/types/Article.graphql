@@ -8,6 +8,7 @@ type Article {
 }
 
 extend type Query {
+  publicFeed: [Article]
   allArticles: [Article]
   articleByID(id: ID!): Article
   findArticle(input: ArticleQueryInput): [Article]

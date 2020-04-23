@@ -1,5 +1,5 @@
 import { Access } from "@utils/auth";
-import { WrongCredits, throwNewError, Authenticated } from "@errors/index";
+import { WrongCredits, throwNewError } from "@errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 import { Users } from "@models/index";
 import bcrypt from "bcryptjs";
@@ -9,8 +9,6 @@ export const login: GQL_MutationResolvers["login"] = async (
   { input },
   { req }
 ) => {
-  if (req.user) return Authenticated.throwError();
-
   const { email, password } = input;
 
   try {

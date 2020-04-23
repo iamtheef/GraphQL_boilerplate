@@ -15,6 +15,7 @@ extend type Query {
   findUser(input: UserQueryInput!): [User]
   userById(id: ID!): User
   me: User
+  userFeed: [Article] # not persomilized feed for the user
 }
 
 extend type Mutation {
@@ -22,5 +23,5 @@ extend type Mutation {
   login(input: LoginInput!): AuthResponse
   logout: Boolean
   updateAcc(input: UserUpdates!): UpdateAccResponse
-  deleteAcc: Boolean
+  deleteAcc(id: String): Boolean
 }

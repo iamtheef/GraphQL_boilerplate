@@ -3,16 +3,10 @@ import { Users } from "@models/index";
 
 export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
   _,
-  __,
-  { req }
+  { id }
 ) => {
   try {
-    const user = await Users.findById(req.user.id);
-    if (req.user.id !== user.id) return false; // checks the owner
-
-    user.remove();
-
-    return true;
+    return !!(await Users.findByIdAndDelete(id));
   } catch (e) {
     throw Error(e.message);
   }

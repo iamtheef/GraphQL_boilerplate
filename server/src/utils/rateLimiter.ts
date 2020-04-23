@@ -3,9 +3,9 @@ import { Request } from "express";
 import { GraphQLResolveInfo } from "graphql";
 
 const ONE_DAY = 60 * 60 * 24;
-const LIMIT = 50;
+const LIMIT = 8;
 
-const increaseKeyAndReturn = async (key: string) => {
+const incrementKey = async (key: string) => {
   return new Promise((resolve, reject) => {
     redisClient.incr(key, (err, value) => {
       if (err) reject(err);
@@ -19,8 +19,7 @@ export const exceedsRateLimit = async (
   info: GraphQLResolveInfo
 ) => {
   const key = `rate-limit:${info.fieldName}:${req.ip}`;
-  const current = await increaseKeyAndReturn(key);
-  console.log(current);
+  const current = await incrementKey(key);
 
   if (current > LIMIT) return true;
   if (current === 1) redisClient.expire(key, ONE_DAY);
