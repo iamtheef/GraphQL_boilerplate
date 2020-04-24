@@ -1,6 +1,6 @@
 import { Articles } from "@models/index";
 import { GQL_MutationResolvers } from "schema/schema";
-import { UnauthorizedAction, throwNewError, NotLoggedIn } from "@errors/index";
+import { UnauthorizedAction, throwNewError } from "@errors/index";
 
 export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   _,
@@ -10,13 +10,9 @@ export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   try {
     const toBeDeleted = await Articles.findById(id);
 
-    if (toBeDeleted.authorID !== req.user.id) {
-      return UnauthorizedAction.throwError();
-    }
+    if (toBeDeleted.authorID !== req.user.id) return UnauthorizedAction;
 
-    await toBeDeleted.remove();
-
-    return { success: true, errors: [] };
+    return { success: !!(await toBeDeleted.remove()), errors: [] };
   } catch (e) {
     return throwNewError([{ path: "DELETE ARTICLE", message: `${e.message}` }]);
   }

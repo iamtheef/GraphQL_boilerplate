@@ -66,7 +66,7 @@ export type GQL_Mutation = {
   /** @deprecated Field no longer supported */
   _?: Maybe<Scalars['String']>;
   createArticle?: Maybe<GQL_NewArticleResponse>;
-  deleteAcc?: Maybe<Scalars['Boolean']>;
+  deleteAcc?: Maybe<GQL_UpdateAccResponse>;
   editArticle?: Maybe<GQL_EditArticleResponse>;
   login?: Maybe<GQL_AuthResponse>;
   logout?: Maybe<Scalars['Boolean']>;
@@ -293,6 +293,7 @@ export type GQL_ResolversTypes = {
   Body: GQL_Body,
   newArticleResponse: ResolverTypeWrapper<GQL_NewArticleResponse>,
   ErrorFormat: ResolverTypeWrapper<GQL_ErrorFormat>,
+  UpdateAccResponse: ResolverTypeWrapper<GQL_UpdateAccResponse>,
   Changes: GQL_Changes,
   editArticleResponse: ResolverTypeWrapper<GQL_EditArticleResponse>,
   LoginInput: GQL_LoginInput,
@@ -301,7 +302,6 @@ export type GQL_ResolversTypes = {
   removeArticleResponse: ResolverTypeWrapper<GQL_RemoveArticleResponse>,
   UserUpdates: GQL_UserUpdates,
   Password: GQL_Password,
-  UpdateAccResponse: ResolverTypeWrapper<GQL_UpdateAccResponse>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -319,6 +319,7 @@ export type GQL_ResolversParentTypes = {
   Body: GQL_Body,
   newArticleResponse: GQL_NewArticleResponse,
   ErrorFormat: GQL_ErrorFormat,
+  UpdateAccResponse: GQL_UpdateAccResponse,
   Changes: GQL_Changes,
   editArticleResponse: GQL_EditArticleResponse,
   LoginInput: GQL_LoginInput,
@@ -327,7 +328,6 @@ export type GQL_ResolversParentTypes = {
   removeArticleResponse: GQL_RemoveArticleResponse,
   UserUpdates: GQL_UserUpdates,
   Password: GQL_Password,
-  UpdateAccResponse: GQL_UpdateAccResponse,
 };
 
 export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Article'] = GQL_ResolversParentTypes['Article']> = {
@@ -365,7 +365,7 @@ export type GQL_ErrorFormatResolvers<ContextType = any, ParentType extends GQL_R
 export type GQL_MutationResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Mutation'] = GQL_ResolversParentTypes['Mutation']> = {
   _?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   createArticle?: Resolver<Maybe<GQL_ResolversTypes['newArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationCreateArticleArgs, never>>,
-  deleteAcc?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_MutationDeleteAccArgs, never>>,
+  deleteAcc?: Resolver<Maybe<GQL_ResolversTypes['UpdateAccResponse']>, ParentType, ContextType, RequireFields<GQL_MutationDeleteAccArgs, never>>,
   editArticle?: Resolver<Maybe<GQL_ResolversTypes['editArticleResponse']>, ParentType, ContextType, RequireFields<GQL_MutationEditArticleArgs, 'id' | 'changes'>>,
   login?: Resolver<Maybe<GQL_ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<GQL_MutationLoginArgs, 'input'>>,
   logout?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,

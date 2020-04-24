@@ -1,17 +1,27 @@
 import { rule, shield, and, or, not } from "graphql-shield";
 import { exceedsRateLimit } from "@utils/rateLimiter";
+import { rateLimitError, AuthenticatedError } from "@errors/index";
 
 // user must not exceeds rate limit, if so throws error
 const notExceedsRateLimit = rule({ cache: "no_cache" })(
   async (_, __, { req }, info) => {
     if (await exceedsRateLimit(req, info)) {
-      return new Error("Rate Limit has been exceeded!");
+      return rateLimitError;
     }
     return true;
   }
 );
 
-const isAuthenticated = rule()(async (_, __, { req }) => !!req.user);
+// if a user is logged in but requests "login" or "register" an error is thrown
+// elsehow if they are not logged in they are authorized to query those fields
+const isAuthenticated = rule()(async (_, __, { req }, { fieldName }) => {
+  let resp;
+  if (fieldName === "register" || fieldName === "login") {
+    req.user ? (resp = AuthenticatedError) : (resp = true);
+  }
+
+  return resp || !!req.user;
+});
 
 const isAdmin = rule()(async (_, __, { req: { user } }) => user.isAdmin);
 
@@ -23,8 +33,8 @@ export const permissions = shield({
     me: isAuthenticated,
   },
   Mutation: {
-    login: not(isAuthenticated),
-    register: and(notExceedsRateLimit, not(isAuthenticated)),
+    login: isAuthenticated,
+    register: and(notExceedsRateLimit, isAuthenticated),
     updateAcc: or(isAdmin, and(isAuthenticated, notExceedsRateLimit)),
     deleteAcc: or(isAuthenticated, isAdmin),
     createArticle: or(isAdmin, and(isAuthenticated, notExceedsRateLimit)),
