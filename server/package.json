@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"nodemon index.ts\" \"npm run generate\" \"start-redis \"",
+    "start": "concurrently \"nodemon index.ts\" \"npm run generate\"",
     "generate": "graphql-codegen --config codegen.yml --watch",
-    "graphql-codegen init": "./node_modules/.bin/graphql-codegen init",
-    "redis-up": "cd ../redis-5.0.8 && src/redis-server"
+    "graphql-codegen init": "./node_modules/.bin/graphql-codegen init"
   },
   "author": "th",
   "license": "ISC",

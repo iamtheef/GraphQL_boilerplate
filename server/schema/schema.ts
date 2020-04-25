@@ -44,8 +44,9 @@ export type GQL_Changes = {
 };
 
 export type GQL_Cursors = {
-  from: Scalars['Int'];
-  to: Scalars['Int'];
+  nodesPerPage: Scalars['Int'];
+  pageNumber: Scalars['Int'];
+  sorting?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -128,9 +129,8 @@ export type GQL_PageInfo = {
   nodes?: Maybe<Array<Maybe<GQL_Article>>>;
   hasNextPage: Scalars['Boolean'];
   hasPreviousPage: Scalars['Boolean'];
-  from: Scalars['Int'];
-  to: Scalars['Int'];
-  total: Scalars['Int'];
+  totalNodes: Scalars['Int'];
+  numberOfPages: Scalars['Int'];
 };
 
 export type GQL_Password = {
@@ -412,9 +412,8 @@ export type GQL_PageInfoResolvers<ContextType = any, ParentType extends GQL_Reso
   nodes?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   hasNextPage?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>,
   hasPreviousPage?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>,
-  from?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
-  to?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
-  total?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
+  totalNodes?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
+  numberOfPages?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

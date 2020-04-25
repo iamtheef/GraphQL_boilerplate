@@ -17,8 +17,9 @@ input ArticleQueryInput {
 }
 
 input Cursors {
-  from: Int!
-  to: Int!
+  nodesPerPage: Int!
+  pageNumber: Int!
+  sorting: Boolean
 }
 
 #RESPONSES
@@ -43,7 +44,6 @@ type PageInfo {
   nodes: [Article]
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
-  from: Int!
-  to: Int!
-  total: Int!
+  totalNodes: Int!
+  numberOfPages: Int!
 }

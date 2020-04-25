@@ -606,7 +606,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "from",
+            "name": "nodesPerPage",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -620,7 +620,7 @@
             "defaultValue": null
           },
           {
-            "name": "to",
+            "name": "pageNumber",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -630,6 +630,16 @@
                 "name": "Int",
                 "ofType": null
               }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "sorting",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "defaultValue": null
           }
@@ -702,7 +712,7 @@
             "deprecationReason": null
           },
           {
-            "name": "from",
+            "name": "totalNodes",
             "description": "",
             "args": [],
             "type": {
@@ -718,23 +728,7 @@
             "deprecationReason": null
           },
           {
-            "name": "to",
-            "description": "",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "total",
+            "name": "numberOfPages",
             "description": "",
             "args": [],
             "type": {
