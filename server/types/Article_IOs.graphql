@@ -16,7 +16,7 @@ input ArticleQueryInput {
   createdAt: Date
 }
 
-input Cursors {
+input pageSpecs {
   nodesPerPage: Int!
   pageNumber: Int!
   sorting: Boolean

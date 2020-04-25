@@ -43,12 +43,6 @@ export type GQL_Changes = {
   body?: Maybe<Scalars['String']>;
 };
 
-export type GQL_Cursors = {
-  nodesPerPage: Scalars['Int'];
-  pageNumber: Scalars['Int'];
-  sorting?: Maybe<Scalars['Boolean']>;
-};
-
 
 export type GQL_EditArticleResponse = {
    __typename?: 'editArticleResponse';
@@ -133,6 +127,12 @@ export type GQL_PageInfo = {
   numberOfPages: Scalars['Int'];
 };
 
+export type GQL_PageSpecs = {
+  nodesPerPage: Scalars['Int'];
+  pageNumber: Scalars['Int'];
+  sorting?: Maybe<Scalars['Boolean']>;
+};
+
 export type GQL_Password = {
   oldPassword: Scalars['String'];
   newPassword?: Maybe<Scalars['String']>;
@@ -178,7 +178,7 @@ export type GQL_QueryIsUserRegisteredArgs = {
 
 
 export type GQL_QueryPageArticlesArgs = {
-  cursors: GQL_Cursors;
+  pageSpecs: GQL_PageSpecs;
 };
 
 
@@ -310,7 +310,7 @@ export type GQL_ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   ArticleQueryInput: GQL_ArticleQueryInput,
   UserQueryInput: GQL_UserQueryInput,
-  Cursors: GQL_Cursors,
+  pageSpecs: GQL_PageSpecs,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   PageInfo: ResolverTypeWrapper<GQL_PageInfo>,
   Mutation: ResolverTypeWrapper<{}>,
@@ -339,7 +339,7 @@ export type GQL_ResolversParentTypes = {
   Boolean: Scalars['Boolean'],
   ArticleQueryInput: GQL_ArticleQueryInput,
   UserQueryInput: GQL_UserQueryInput,
-  Cursors: GQL_Cursors,
+  pageSpecs: GQL_PageSpecs,
   Int: Scalars['Int'],
   PageInfo: GQL_PageInfo,
   Mutation: {},
@@ -426,7 +426,7 @@ export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_Resolve
   findUser?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindUserArgs, 'input'>>,
   isUserRegistered?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_QueryIsUserRegisteredArgs, 'email'>>,
   me?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType>,
-  pageArticles?: Resolver<Maybe<GQL_ResolversTypes['PageInfo']>, ParentType, ContextType, RequireFields<GQL_QueryPageArticlesArgs, 'cursors'>>,
+  pageArticles?: Resolver<Maybe<GQL_ResolversTypes['PageInfo']>, ParentType, ContextType, RequireFields<GQL_QueryPageArticlesArgs, 'pageSpecs'>>,
   publicFeed?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   userById?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType, RequireFields<GQL_QueryUserByIdArgs, 'id'>>,
   userFeed?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,

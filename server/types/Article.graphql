@@ -12,7 +12,7 @@ extend type Query {
   allArticles: [Article]
   articleByID(id: ID!): Article
   findArticle(input: ArticleQueryInput): [Article]
-  pageArticles(cursors: Cursors!): PageInfo
+  pageArticles(pageSpecs: pageSpecs!): PageInfo
 }
 
 extend type Mutation {

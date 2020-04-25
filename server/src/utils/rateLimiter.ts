@@ -1,18 +1,11 @@
 import { redisClient } from "../../config/server-config";
+import { incrementKey } from "@utils/redis";
 import { Request } from "express";
+
 import { GraphQLResolveInfo } from "graphql";
 
 const ONE_DAY = 60 * 60 * 24;
 const LIMIT = 8;
-
-const incrementKey = async (key: string) => {
-  return new Promise((resolve, reject) => {
-    redisClient.incr(key, (err, value) => {
-      if (err) reject(err);
-      resolve(value);
-    });
-  });
-};
 
 export const exceedsRateLimit = async (
   req: Request,

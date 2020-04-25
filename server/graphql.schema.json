@@ -186,14 +186,14 @@
             "description": "",
             "args": [
               {
-                "name": "cursors",
+                "name": "pageSpecs",
                 "description": "",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "Cursors",
+                    "name": "pageSpecs",
                     "ofType": null
                   }
                 },
@@ -601,7 +601,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Cursors",
+        "name": "pageSpecs",
         "description": "",
         "fields": null,
         "inputFields": [
