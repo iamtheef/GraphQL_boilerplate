@@ -1,20 +1,14 @@
 import { Articles } from "@models/index";
 import { GQL_QueryResolvers, GQL_PageInfo } from "schema/schema";
-import { getKey } from "@utils/redis";
-import { redisClient } from "@config/server-config";
+import { getArticles } from "@utils/getAllArticles";
 
 export const pageArticles: GQL_QueryResolvers["pageArticles"] = async (
   _,
   { pageSpecs: { nodesPerPage, pageNumber, sorting } }
 ) => {
-  // caching the length of all the articles
-  if (!(await getKey("articles"))) {
-    redisClient.set("articles", `${(await Articles.find()).length}`);
-    redisClient.expire("articles", 60 * 2); // for 2 minutes
-  }
-
   try {
-    let allArticles = Number(await getKey("articles"));
+    const allArticles = await getArticles(); // getting the length of all the articles in the db
+
     let Query = Articles.find();
 
     if (pageNumber > 1) {
@@ -29,9 +23,9 @@ export const pageArticles: GQL_QueryResolvers["pageArticles"] = async (
     return {
       nodes: articles,
       hasNextPage: allArticles / nodesPerPage > pageNumber,
-      hasPreviousPage: allArticles / nodesPerPage <= pageNumber,
+      hasPreviousPage: allArticles / nodesPerPage < pageNumber,
       totalNodes: allArticles,
-      numberOfPages: Math.floor(allArticles / nodesPerPage),
+      numberOfPages: Math.ceil(allArticles / nodesPerPage),
     } as GQL_PageInfo;
   } catch (e) {
     throw Error(e.message);
