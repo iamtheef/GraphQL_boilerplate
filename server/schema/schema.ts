@@ -43,6 +43,11 @@ export type GQL_Changes = {
   body?: Maybe<Scalars['String']>;
 };
 
+export type GQL_Cursors = {
+  from: Scalars['Int'];
+  to: Scalars['Int'];
+};
+
 
 export type GQL_EditArticleResponse = {
    __typename?: 'editArticleResponse';
@@ -118,6 +123,16 @@ export type GQL_NewArticleResponse = {
   errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
 };
 
+export type GQL_PageInfo = {
+   __typename?: 'PageInfo';
+  nodes?: Maybe<Array<Maybe<GQL_Article>>>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  from: Scalars['Int'];
+  to: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
 export type GQL_Password = {
   oldPassword: Scalars['String'];
   newPassword?: Maybe<Scalars['String']>;
@@ -135,6 +150,7 @@ export type GQL_Query = {
   findUser?: Maybe<Array<Maybe<GQL_User>>>;
   isUserRegistered?: Maybe<Scalars['Boolean']>;
   me?: Maybe<GQL_User>;
+  pageArticles?: Maybe<GQL_PageInfo>;
   publicFeed?: Maybe<Array<Maybe<GQL_Article>>>;
   userById?: Maybe<GQL_User>;
   userFeed?: Maybe<Array<Maybe<GQL_Article>>>;
@@ -158,6 +174,11 @@ export type GQL_QueryFindUserArgs = {
 
 export type GQL_QueryIsUserRegisteredArgs = {
   email: Scalars['String'];
+};
+
+
+export type GQL_QueryPageArticlesArgs = {
+  cursors: GQL_Cursors;
 };
 
 
@@ -289,6 +310,9 @@ export type GQL_ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   ArticleQueryInput: GQL_ArticleQueryInput,
   UserQueryInput: GQL_UserQueryInput,
+  Cursors: GQL_Cursors,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  PageInfo: ResolverTypeWrapper<GQL_PageInfo>,
   Mutation: ResolverTypeWrapper<{}>,
   Body: GQL_Body,
   newArticleResponse: ResolverTypeWrapper<GQL_NewArticleResponse>,
@@ -315,6 +339,9 @@ export type GQL_ResolversParentTypes = {
   Boolean: Scalars['Boolean'],
   ArticleQueryInput: GQL_ArticleQueryInput,
   UserQueryInput: GQL_UserQueryInput,
+  Cursors: GQL_Cursors,
+  Int: Scalars['Int'],
+  PageInfo: GQL_PageInfo,
   Mutation: {},
   Body: GQL_Body,
   newArticleResponse: GQL_NewArticleResponse,
@@ -381,6 +408,16 @@ export type GQL_NewArticleResponseResolvers<ContextType = any, ParentType extend
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type GQL_PageInfoResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['PageInfo'] = GQL_ResolversParentTypes['PageInfo']> = {
+  nodes?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
+  hasNextPage?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>,
+  hasPreviousPage?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>,
+  from?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
+  to?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
+  total?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Query'] = GQL_ResolversParentTypes['Query']> = {
   _?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   allArticles?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
@@ -390,6 +427,7 @@ export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_Resolve
   findUser?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<GQL_QueryFindUserArgs, 'input'>>,
   isUserRegistered?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<GQL_QueryIsUserRegisteredArgs, 'email'>>,
   me?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType>,
+  pageArticles?: Resolver<Maybe<GQL_ResolversTypes['PageInfo']>, ParentType, ContextType, RequireFields<GQL_QueryPageArticlesArgs, 'cursors'>>,
   publicFeed?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
   userById?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType, RequireFields<GQL_QueryUserByIdArgs, 'id'>>,
   userFeed?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['Article']>>>, ParentType, ContextType>,
@@ -427,6 +465,7 @@ export type GQL_Resolvers<ContextType = any> = {
   ErrorFormat?: GQL_ErrorFormatResolvers<ContextType>,
   Mutation?: GQL_MutationResolvers<ContextType>,
   newArticleResponse?: GQL_NewArticleResponseResolvers<ContextType>,
+  PageInfo?: GQL_PageInfoResolvers<ContextType>,
   Query?: GQL_QueryResolvers<ContextType>,
   removeArticleResponse?: GQL_RemoveArticleResponseResolvers<ContextType>,
   UpdateAccResponse?: GQL_UpdateAccResponseResolvers<ContextType>,

@@ -16,6 +16,11 @@ input ArticleQueryInput {
   createdAt: Date
 }
 
+input Cursors {
+  from: Int!
+  to: Int!
+}
+
 #RESPONSES
 
 type newArticleResponse {
@@ -32,4 +37,13 @@ type editArticleResponse {
 type removeArticleResponse {
   success: Boolean
   errors: [ErrorFormat]
+}
+
+type PageInfo {
+  nodes: [Article]
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  from: Int!
+  to: Int!
+  total: Int!
 }
