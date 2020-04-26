@@ -9,10 +9,9 @@ type Article {
 
 extend type Query {
   publicFeed: [Article]
-  allArticles: [Article]
+  allArticles(pageSpecs: pageSpecs!): PageInfo
   articleByID(id: ID!): Article
   findArticle(input: ArticleQueryInput, pageSpecs: pageSpecs!): PageInfo
-  pageArticles(pageSpecs: pageSpecs!): PageInfo
 }
 
 extend type Mutation {

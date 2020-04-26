@@ -5,7 +5,7 @@ import { isFieldQueried } from "@utils/isFieldQueried";
 export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   _,
   __,
-  { req },
+  ___,
   info
 ) => {
   try {

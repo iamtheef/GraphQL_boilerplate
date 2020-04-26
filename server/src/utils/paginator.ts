@@ -1,7 +1,7 @@
 import { GQL_PageInfo } from "schema/schema";
 import { getArticles } from "@utils/getArticles";
 
-export interface paginatorInput {
+interface paginatorInput {
   reqIP: string;
   Query: any;
   pageNumber: number;
@@ -20,6 +20,7 @@ export const paginator = async (input: paginatorInput) => {
   Query.limit(nodesPerPage);
 
   if (sorting) Query.sort({ createdAt: -1 });
+
   const articles = await Query;
 
   return {
