@@ -11,7 +11,7 @@ extend type Query {
   publicFeed: [Article]
   allArticles: [Article]
   articleByID(id: ID!): Article
-  findArticle(input: ArticleQueryInput): [Article]
+  findArticle(input: ArticleQueryInput, pageSpecs: pageSpecs!): PageInfo
   pageArticles(pageSpecs: pageSpecs!): PageInfo
 }
 

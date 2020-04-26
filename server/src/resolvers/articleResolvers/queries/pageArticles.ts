@@ -1,32 +1,22 @@
 import { Articles } from "@models/index";
-import { GQL_QueryResolvers, GQL_PageInfo } from "schema/schema";
-import { getArticles } from "@utils/getAllArticles";
+import { GQL_QueryResolvers } from "schema/schema";
+import { paginator, paginatorInput } from "@utils/paginator";
 
 export const pageArticles: GQL_QueryResolvers["pageArticles"] = async (
   _,
-  { pageSpecs: { nodesPerPage, pageNumber, sorting } }
+  { pageSpecs: { nodesPerPage, pageNumber, sorting } },
+  { req: { ip } }
 ) => {
   try {
-    const allArticles = await getArticles(); // getting the length of all the articles in the db
+    const input: paginatorInput = {
+      reqIP: ip,
+      Query: Articles.find(),
+      pageNumber,
+      nodesPerPage,
+      sorting,
+    };
 
-    let Query = Articles.find();
-
-    if (pageNumber > 1) {
-      Query.skip((pageNumber - 1) * nodesPerPage);
-    }
-
-    Query.limit(nodesPerPage);
-
-    if (sorting) Query.sort({ createdAt: -1 });
-    const articles = await Query;
-
-    return {
-      nodes: articles,
-      hasNextPage: allArticles / nodesPerPage > pageNumber,
-      hasPreviousPage: allArticles / nodesPerPage < pageNumber,
-      totalNodes: allArticles,
-      numberOfPages: Math.ceil(allArticles / nodesPerPage),
-    } as GQL_PageInfo;
+    return paginator(input);
   } catch (e) {
     throw Error(e.message);
   }
