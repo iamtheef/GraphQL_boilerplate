@@ -30,3 +30,8 @@ export const db_opts = {
   useNewUrlParser: true,
   useFindAndModify: false,
 };
+
+export const corsOptions = {
+  origin: "http://localhost:4000/graphql",
+  credentials: true,
+};

@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "../src/resolvers/index";
-import { typeDefs } from "../types/index";
+import { typeDefs } from "./typeDefs/index";
 import { applyMiddleware } from "graphql-middleware";
 import { permissions } from "../config/graphql-shield-rules";
 

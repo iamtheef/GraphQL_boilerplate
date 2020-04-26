@@ -11,7 +11,7 @@ import { schema } from "./schema";
 import compression from "compression";
 import depthLimit from "graphql-depth-limit";
 
-import { sessionMiddleware, db_opts } from "@config/server-config";
+import { sessionMiddleware, db_opts, corsOptions } from "@config/server-config";
 
 import "./config/passport-config";
 
@@ -21,10 +21,10 @@ interface IGraphQLContext {
 }
 
 const app = express();
-const { DB_STRING, PORT } = dotenv.config().parsed;
+const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
 
 (async () => {
-  app.use(cors());
+  app.use(cors(corsOptions));
   app.use(helmet());
   app.use(compression());
   app.use(sessionMiddleware());
@@ -37,6 +37,8 @@ const { DB_STRING, PORT } = dotenv.config().parsed;
     .catch((e) => console.log(e));
 
   const server = new ApolloServer({
+    introspection: ENV === "prod",
+    playground: ENV === "prod",
     schema,
     validationRules: [depthLimit(5)],
     context: ({ req }: IGraphQLContext) => {
