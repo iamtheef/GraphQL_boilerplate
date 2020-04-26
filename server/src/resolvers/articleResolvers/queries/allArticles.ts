@@ -1,6 +1,6 @@
 import { Articles } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "@utils/isFieldQueried";
+import { isAuthorQueried } from "@utils/isFieldQueried";
 import { paginator } from "@utils/paginator";
 
 export const allArticles: GQL_QueryResolvers["allArticles"] = async (
@@ -13,10 +13,9 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
     const { nodesPerPage, pageNumber, sorting } = __.pageSpecs;
 
     let Query = Articles.find();
-    isFieldQueried(info, "author") && Query.populate("author");
+    isAuthorQueried(info) && Query.populate("author");
 
     return paginator({
-      reqIP: ___.req.ip,
       Query,
       nodesPerPage,
       pageNumber,

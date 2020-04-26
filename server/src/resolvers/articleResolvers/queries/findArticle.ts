@@ -1,6 +1,6 @@
 import { Articles } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "@utils/isFieldQueried";
+import { isAuthorQueried } from "@utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
 import { paginator } from "@utils/paginator";
 
@@ -34,10 +34,9 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
         : (Query = Articles.find({ createdAt }));
     }
 
-    isFieldQueried(info, "author") && Query.populate("author"); // checks if author is queried and populates
+    isAuthorQueried(info) && Query.populate("author"); // checks if author is queried and populates
 
     return paginator({
-      reqIP: req.ip,
       Query,
       pageNumber,
       nodesPerPage,

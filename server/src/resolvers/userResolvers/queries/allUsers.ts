@@ -1,6 +1,6 @@
 import { Users } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "@utils/isFieldQueried";
+import { isArticleQueried } from "@utils/isFieldQueried";
 
 export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   _,
@@ -10,7 +10,7 @@ export const allUsers: GQL_QueryResolvers["allUsers"] = async (
 ) => {
   try {
     let Query = Users.find();
-    isFieldQueried(info, "articles") && Query.populate("articles");
+    isArticleQueried(info) && Query.populate("articles");
 
     return await Query;
   } catch (e) {

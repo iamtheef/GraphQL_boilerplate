@@ -1,6 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import { Articles } from "@models/index";
-import { UnauthorizedAction, throwNewError, NotLoggedIn } from "@errors/index";
+import { UnauthorizedAction, throwNewError } from "@errors/index";
 
 export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   _,

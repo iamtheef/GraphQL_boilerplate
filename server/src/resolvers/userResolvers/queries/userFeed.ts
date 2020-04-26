@@ -1,6 +1,6 @@
 import { Articles } from "@models/index";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isFieldQueried } from "@utils/isFieldQueried";
+import { isAuthorQueried } from "@utils/isFieldQueried";
 
 export const userFeed: GQL_QueryResolvers["userFeed"] = async (
   _,
@@ -10,7 +10,7 @@ export const userFeed: GQL_QueryResolvers["userFeed"] = async (
 ) => {
   try {
     let Query = Articles.find().sort({ createdAt: -1 });
-    isFieldQueried(info, "author") && Query.populate("author");
+    isAuthorQueried(info) && Query.populate("author");
 
     return await Query;
   } catch (e) {
