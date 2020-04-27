@@ -1,6 +1,6 @@
 import "tsconfig-paths/register";
+import "./config/passport-config";
 import express from "express";
-import { Request, Response } from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 import passport from "passport";
@@ -10,17 +10,10 @@ import * as dotenv from "dotenv";
 import { schema } from "./schema";
 import compression from "compression";
 import depthLimit from "graphql-depth-limit";
-
 import { sessionMiddleware, db_opts, corsOptions } from "@config/server-config";
 
-import "./config/passport-config";
-
-interface IGraphQLContext {
-  req: Request;
-  res: Response;
-}
-
 const app = express();
+const maintenance = require("./src/routes/maintenance");
 const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
 
 (async () => {
@@ -37,11 +30,11 @@ const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
     .catch((e) => console.log(e));
 
   const server = new ApolloServer({
-    introspection: ENV === "prod",
-    playground: ENV === "prod",
+    introspection: ENV === "dev",
+    playground: ENV === "dev",
     schema,
     validationRules: [depthLimit(5)],
-    context: ({ req }: IGraphQLContext) => {
+    context: ({ req }) => {
       return {
         req,
       };
@@ -49,5 +42,6 @@ const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
   });
   server.applyMiddleware({ app });
 
-  app.listen(PORT, () => console.log(`🚀 --- ${PORT}/graphql`));
+  app.listen(PORT, () => console.log(`🚀 --- :${PORT}`));
+  app.use("/", maintenance);
 })();
