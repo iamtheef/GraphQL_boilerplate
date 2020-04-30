@@ -10,6 +10,7 @@ import * as dotenv from "dotenv";
 import { schema } from "./schema";
 import compression from "compression";
 import depthLimit from "graphql-depth-limit";
+import morgan from "morgan";
 import { sessionMiddleware, db_opts, corsOptions } from "@config/server-config";
 
 const app = express();
@@ -19,6 +20,7 @@ const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
 (async () => {
   app.use(cors(corsOptions));
   app.use(helmet());
+  app.use(morgan("short"));
   app.use(compression());
   app.use(sessionMiddleware());
   app.use(passport.initialize());

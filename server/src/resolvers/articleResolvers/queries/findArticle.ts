@@ -8,7 +8,7 @@ import { paginator } from "@utils/paginator";
 export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   _,
   __,
-  { req },
+  ___,
   info
 ) => {
   try {

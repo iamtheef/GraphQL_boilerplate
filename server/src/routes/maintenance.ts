@@ -6,7 +6,7 @@ const router = express.Router();
 const { DB_STRING, PORT } = dotenv.config().parsed;
 
 router.get("/status", async (_, __) => {
-  __.send({
+  __.json({
     status: "OK",
     protocol: "http",
     host: "localhost",
@@ -19,6 +19,7 @@ router.get("/status", async (_, __) => {
 const checkDB = async () => {
   try {
     const db = await mongoose.connect(DB_STRING, db_opts);
+    console.log("Health check performed at: ", Date.now());
     if (!!db) return "CONNECTED";
   } catch (e) {
     return e.message;
