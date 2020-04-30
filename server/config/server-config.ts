@@ -5,7 +5,8 @@ import redis from "redis";
 const { SECRET, ENV, REDIS_PORT } = dotenv.config().parsed;
 let RedisStore = require("connect-redis")(session);
 export let redisClient = redis.createClient({
-  port: Number(REDIS_PORT),
+  port: Number(process.env.REDIS_PORT || REDIS_PORT),
+  host: process.env.REDIS_HOST || "localhost",
 });
 
 export const sessionMiddleware = () => {
@@ -17,7 +18,7 @@ export const sessionMiddleware = () => {
 
     cookie: {
       httpOnly: true,
-      secure: ENV === "prod",
+      secure: process.env.ENV === "prod",
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
     store: new RedisStore({ client: redisClient }),

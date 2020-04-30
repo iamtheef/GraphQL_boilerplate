@@ -27,7 +27,7 @@ const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
   app.use(passport.session());
 
   await mongoose
-    .connect(DB_STRING, db_opts)
+    .connect(DB_STRING || process.env.DB_HOST, db_opts)
     .then(() => console.log("Connected to DB"))
     .catch((e) => console.log(e));
 
