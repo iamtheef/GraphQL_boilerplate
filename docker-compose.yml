@@ -5,17 +5,19 @@ services:
     container_name: back-end
     build: ./
     depends_on:
+      - redis
       - db
     command: npm start
     restart: always
     working_dir: /graphql-boilerplate-mongo
     environment:
       REDIS_HOST: redis
-      DB_HOST: mongodb://localhost/local:mongodb://localhost/local
+      MONGO_HOST: "mongodb://host.docker.internal/local"
+
     ports:
       - "4000:4000"
     volumes:
-      - ./graphql-boilerplate-mongo
+      - ./server:/graphql-boilerplate-mongo
       - /graphql-boilerplate-mongo/node_modules
     links:
       - redis

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "boo": "nodemon index.ts",
-    "start": "concurrently \"nodemon index.ts\" \"npm run generate\"",
+    "start": "concurrently \"nodemon index.ts\"",
     "generate": "graphql-codegen --config codegen.yml --watch",
     "graphql-codegen init": "./node_modules/.bin/graphql-codegen init"
   },

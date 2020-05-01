@@ -9,7 +9,7 @@ router.get("/status", async (_, __) => {
   __.json({
     status: "OK",
     protocol: "http",
-    host: "localhost",
+    host: process.env.host,
     port: PORT,
     time: new Date().getTime(),
     db: await checkDB(),
@@ -18,7 +18,10 @@ router.get("/status", async (_, __) => {
 
 const checkDB = async () => {
   try {
-    const db = await mongoose.connect(DB_STRING, db_opts);
+    const db = await mongoose.connect(
+      process.env.MONGO_HOST || DB_STRING,
+      db_opts
+    );
     console.log("Health check performed at: ", Date.now());
     if (!!db) return "CONNECTED";
   } catch (e) {
