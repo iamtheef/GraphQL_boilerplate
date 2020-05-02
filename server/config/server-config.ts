@@ -1,18 +1,16 @@
-import * as dotenv from "dotenv";
 import session from "express-session";
 import redis from "redis";
 
-const { SECRET, ENV, REDIS_PORT } = dotenv.config().parsed;
 let RedisStore = require("connect-redis")(session);
 export let redisClient = redis.createClient({
-  port: Number(process.env.REDIS_PORT || REDIS_PORT),
+  port: Number(process.env.REDIS_PORT),
   host: process.env.REDIS_HOST || "local",
 });
 
 export const sessionMiddleware = () => {
   return session({
     name: "qid",
-    secret: SECRET,
+    secret: process.env.SECRET,
     saveUninitialized: false,
     resave: false,
 
@@ -26,10 +24,11 @@ export const sessionMiddleware = () => {
 };
 
 export const db_opts = {
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useFindAndModify: false,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
+  host: process.env.POSTGRES_HOST,
+  port: 5432,
 };
 
 export const corsOptions = {

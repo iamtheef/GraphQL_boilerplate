@@ -2,20 +2,18 @@ import "tsconfig-paths/register";
 import "./config/passport-config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import mongoose from "mongoose";
 import passport from "passport";
 import cors from "cors";
 import helmet from "helmet";
-import * as dotenv from "dotenv";
 import { schema } from "./schema";
 import compression from "compression";
 import depthLimit from "graphql-depth-limit";
 import morgan from "morgan";
 import { sessionMiddleware, db_opts, corsOptions } from "@config/server-config";
+const { Client } = require("pg");
 
 const app = express();
 const maintenance = require("./src/routes/maintenance");
-const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
 
 (async () => {
   app.use(cors(corsOptions));
@@ -26,14 +24,18 @@ const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
   app.use(passport.initialize());
   app.use(passport.session());
 
-  await mongoose
-    .connect(process.env.MONGO_HOST || DB_STRING, db_opts)
-    .then(() => console.log("Connected to DB"))
-    .catch((e) => console.log(e));
+  const client = new Client(db_opts);
+
+  client
+    .connect()
+    .then(() => {
+      console.log("Connected to db!");
+    })
+    .catch((e: Error) => console.log(e.message));
 
   const server = new ApolloServer({
-    introspection: ENV === "dev",
-    playground: ENV === "dev",
+    introspection: process.env.ENV !== "prod",
+    playground: process.env.ENV !== "prod",
     schema,
     validationRules: [depthLimit(5)],
     context: ({ req }) => {
@@ -44,6 +46,8 @@ const { DB_STRING, PORT, ENV } = dotenv.config().parsed;
   });
   server.applyMiddleware({ app });
 
-  app.listen(PORT, () => console.log(`🚀 --- :${PORT}`));
+  app.listen(process.env.PORT, () =>
+    console.log(`🚀 --- :${process.env.PORT}`)
+  );
   app.use("/", maintenance);
 })();
