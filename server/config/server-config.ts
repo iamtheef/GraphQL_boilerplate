@@ -6,7 +6,7 @@ const { SECRET, ENV, REDIS_PORT } = dotenv.config().parsed;
 let RedisStore = require("connect-redis")(session);
 export let redisClient = redis.createClient({
   port: Number(process.env.REDIS_PORT || REDIS_PORT),
-  host: process.env.REDIS_HOST || "localhost",
+  host: process.env.REDIS_HOST || "local",
 });
 
 export const sessionMiddleware = () => {
