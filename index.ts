@@ -9,8 +9,8 @@ import { schema } from "./schema";
 import compression from "compression";
 import depthLimit from "graphql-depth-limit";
 import morgan from "morgan";
-import { sessionMiddleware, db_opts, corsOptions } from "@config/server-config";
-const { Client } = require("pg");
+import { sessionMiddleware, corsOptions } from "@config/server-config";
+import { client } from "config/pg_client";
 
 const app = express();
 const maintenance = require("./src/routes/maintenance");
@@ -23,8 +23,6 @@ const maintenance = require("./src/routes/maintenance");
   app.use(sessionMiddleware());
   app.use(passport.initialize());
   app.use(passport.session());
-
-  const client = new Client(db_opts);
 
   client
     .connect()

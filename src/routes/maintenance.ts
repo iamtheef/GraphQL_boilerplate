@@ -1,16 +1,13 @@
 import express from "express";
-import mongoose from "mongoose";
-import * as dotenv from "dotenv";
-import { db_opts } from "@config/server-config";
-const router = express.Router();
-const { DB_STRING, PORT } = dotenv.config().parsed;
+import { client } from "config/pg_client";
 
+const router = express.Router();
 router.get("/status", async (_, __) => {
   __.json({
     status: "OK",
     protocol: "http",
     host: process.env.host,
-    port: PORT,
+    port: process.env.PORT,
     time: new Date().getTime(),
     db: await checkDB(),
   });
@@ -18,10 +15,8 @@ router.get("/status", async (_, __) => {
 
 const checkDB = async () => {
   try {
-    const db = await mongoose.connect(
-      process.env.MONGO_HOST || DB_STRING,
-      db_opts
-    );
+    const db = await client.query("SELECT NOW()");
+
     console.log("Health check performed at: ", Date.now());
     if (!!db) return "CONNECTED";
   } catch (e) {

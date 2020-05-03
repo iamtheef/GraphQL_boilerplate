@@ -31,7 +31,6 @@
     "concurrently": "^5.1.0",
     "connect-redis": "^4.0.4",
     "cors": "^2.8.5",
-    "es-cache": "^1.0.40",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^14.6.0",

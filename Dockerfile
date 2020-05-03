@@ -1,10 +1,11 @@
 FROM node:13.13.0-alpine3.11
 
-WORKDIR /graphql-boilerplate-postgres
+WORKDIR /usr/src/app
 
-COPY ./server/ ./
+COPY . ./
 
 RUN npm install
+
 
 EXPOSE 4000
 
