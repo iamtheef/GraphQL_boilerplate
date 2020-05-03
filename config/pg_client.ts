@@ -1,5 +1,11 @@
 import { db_opts } from "@config/server-config";
+import Knex from "knex";
 
-const { Client } = require("pg");
-
-export const client = new Client(db_opts);
+export const client = Knex({
+  client: "postgres",
+  connection: async () => {
+    return {
+      ...db_opts,
+    };
+  },
+});

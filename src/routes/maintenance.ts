@@ -1,5 +1,5 @@
 import express from "express";
-import { client } from "config/pg_client";
+import { pingDB } from "@utils/pingDB";
 
 const router = express.Router();
 router.get("/status", async (_, __) => {
@@ -15,10 +15,9 @@ router.get("/status", async (_, __) => {
 
 const checkDB = async () => {
   try {
-    const db = await client.query("SELECT NOW()");
-
+    const db = await pingDB();
     console.log("Health check performed at: ", Date.now());
-    if (!!db) return "CONNECTED";
+    if (db) return "CONNECTED";
   } catch (e) {
     return e.message;
   }

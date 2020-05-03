@@ -10,12 +10,12 @@ import compression from "compression";
 import depthLimit from "graphql-depth-limit";
 import morgan from "morgan";
 import { sessionMiddleware, corsOptions } from "@config/server-config";
-import { client } from "config/pg_client";
+import { pingDB } from "@utils/pingDB";
 
 const app = express();
 const maintenance = require("./src/routes/maintenance");
 
-(async () => {
+(() => {
   app.use(cors(corsOptions));
   app.use(helmet());
   app.use(morgan("short"));
@@ -24,8 +24,7 @@ const maintenance = require("./src/routes/maintenance");
   app.use(passport.initialize());
   app.use(passport.session());
 
-  client
-    .connect()
+  pingDB()
     .then(() => {
       console.log("Connected to db!");
     })
