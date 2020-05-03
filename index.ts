@@ -24,11 +24,11 @@ const maintenance = require("./src/routes/maintenance");
   app.use(passport.initialize());
   app.use(passport.session());
 
-  pingDB()
-    .then(() => {
-      console.log("Connected to db!");
-    })
-    .catch((e: Error) => console.log(e.message));
+  pingDB().then((res) => {
+    res.isConnected
+      ? console.log("Connected to db!")
+      : console.log(res.message);
+  });
 
   const server = new ApolloServer({
     introspection: process.env.ENV !== "prod",

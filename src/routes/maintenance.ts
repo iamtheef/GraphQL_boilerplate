@@ -15,9 +15,9 @@ router.get("/status", async (_, __) => {
 
 const checkDB = async () => {
   try {
-    const db = await pingDB();
     console.log("Health check performed at: ", Date.now());
-    if (db) return "CONNECTED";
+
+    return await pingDB();
   } catch (e) {
     return e.message;
   }
