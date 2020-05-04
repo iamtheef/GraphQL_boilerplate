@@ -3,7 +3,7 @@ import { Users } from "@models/index";
 import passport from "passport";
 
 passport.serializeUser((user: User, done) => {
-  done(null, user._id);
+  done(null, user.id);
 });
 
 // "userId" is the serialized value from the "serializeUser" function above

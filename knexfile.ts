@@ -1,6 +1,5 @@
 import "tsconfig-paths/register";
 import { Config, MySqlConnectionConfig } from "knex";
-import "pg";
 
 const connectionConfig: MySqlConnectionConfig = {
   user: process.env.POSTGRES_USER,

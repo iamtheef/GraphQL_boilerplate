@@ -11,16 +11,16 @@ export async function seed(knex: Knex): Promise<any> {
           id: 1,
           title: "lol",
           body: "random text here, lorem ipsum",
-          authorID: "1",
+          authorID: 1,
         },
         {
           id: 2,
           title: "lol2",
           body: "random textsa here, lorem ipsum",
-          authorID: "2",
+          authorID: 2,
         },
-        { id: 3, title: "lol3", body: "lorem ipsum333", authorID: "1" },
-        { id: 4, title: "lol4", body: "random 444lorem ipsum", authorID: "3" },
+        { id: 3, title: "lol3", body: "lorem ipsum333", authorID: 1 },
+        { id: 4, title: "lol4", body: "random 444lorem ipsum", authorID: 3 },
       ]);
     });
 }

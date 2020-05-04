@@ -1,7 +1,7 @@
 export class User {
   static tableName = "users";
 
-  _id!: string;
+  id!: string;
   fullName!: String;
   email!: String;
   password!: String;
