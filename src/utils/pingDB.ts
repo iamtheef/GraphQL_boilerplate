@@ -1,8 +1,8 @@
-import { client } from "@config/pg_client";
+import knex from "@config/knex";
 
 export const pingDB = async () => {
   try {
-    const res = await client.raw("select 1+1 as result");
+    const res = await knex.raw("select 1+1 as result");
     return {
       isConnected: !!res,
       message: res && "CONNECTED",

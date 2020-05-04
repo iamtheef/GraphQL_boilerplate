@@ -1,4 +1,4 @@
-import { Users } from "@models/index";
+import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isArticleQueried } from "@utils/isFieldQueried";
 
@@ -9,8 +9,8 @@ export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   info
 ) => {
   try {
-    let Query = Users.find();
-    isArticleQueried(info) && Query.populate("articles");
+    let Query = knex.select("*").from("users");
+    // isArticleQueried(info) && Query.populate("articles");
 
     return await Query;
   } catch (e) {
