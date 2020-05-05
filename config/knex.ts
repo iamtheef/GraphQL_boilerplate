@@ -1,4 +1,6 @@
 import config from "../knexfile";
-import Knex from "knex";
 
-export default Knex(config);
+const knex = require("knex")(config);
+console.log(config);
+
+export default knex;
