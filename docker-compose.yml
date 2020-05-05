@@ -18,6 +18,7 @@ services:
       # db config
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
+      POSTGRES_HOST: db
 
     ports:
       - "4000:4000"

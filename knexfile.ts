@@ -4,7 +4,8 @@ import { Config, MySqlConnectionConfig } from "knex";
 const connectionConfig: MySqlConnectionConfig = {
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
-  host: "localhost",
+  host: process.env.POSTGRES_HOST,
+  port: 5432,
 };
 
 const config: Config = {
