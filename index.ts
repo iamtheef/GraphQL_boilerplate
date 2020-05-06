@@ -12,6 +12,7 @@ import morgan from "morgan";
 import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { pingDB } from "@utils/pingDB";
 import { initDB } from "config/server-config";
+import knex from "@config/knex";
 
 const app = express();
 const maintenance = require("./src/routes/maintenance");
@@ -31,7 +32,7 @@ const maintenance = require("./src/routes/maintenance");
       : console.log(res.message);
   });
 
-  initDB();
+  await initDB();
 
   const server = new ApolloServer({
     introspection: process.env.ENV !== "prod",

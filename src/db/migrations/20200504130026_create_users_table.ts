@@ -7,10 +7,11 @@ export async function up(knex: Knex): Promise<any> {
 
   if (!tableExists) {
     await knex.schema.createTable(TABLE_NAME, (t) => {
-      t.integer("id")
+      t.uuid("id")
         .primary()
         .notNullable()
         .unique();
+
       t.string("fullName", 100).notNullable();
       t.string("email", 100)
         .unique()
@@ -19,7 +20,7 @@ export async function up(knex: Knex): Promise<any> {
       t.boolean("isAdmin").defaultTo(false);
       t.string("googleID").defaultTo(null);
       t.boolean("isGoogle").defaultTo(false);
-      t.timestamp("createdAt").defaultTo(Date.now());
+      t.timestamp("createdAt");
       t.timestamp("updatedAd").defaultTo(null);
     });
   }

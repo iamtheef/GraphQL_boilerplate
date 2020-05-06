@@ -7,7 +7,7 @@ passport.serializeUser((user: User, done) => {
 });
 
 // "userId" is the serialized value from the "serializeUser" function above
-passport.deserializeUser(async (userID: Number, done) => {
+passport.deserializeUser(async (userID: string, done) => {
   try {
     const authenticatedUser = await knex("users")
       .where("id", userID)

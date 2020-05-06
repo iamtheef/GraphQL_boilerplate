@@ -7,12 +7,12 @@ export async function up(knex: Knex): Promise<any> {
 
   if (!tableExists) {
     await knex.schema.createTable(TABLE_NAME, (t) => {
-      t.integer("id").primary();
+      t.uuid("id").primary();
       t.string("title", 100);
       t.text("body");
       t.timestamps();
 
-      t.integer("authorID")
+      t.uuid("authorID")
         .references("id")
         .inTable("users");
     });

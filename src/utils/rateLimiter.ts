@@ -5,7 +5,7 @@ import { Request } from "express";
 import { GraphQLResolveInfo } from "graphql";
 
 const ONE_DAY = 60 * 60 * 24;
-const LIMIT = 8;
+const LIMIT = 30;
 
 export const exceedsRateLimit = async (
   req: Request,
