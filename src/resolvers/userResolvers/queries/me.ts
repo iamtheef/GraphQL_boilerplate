@@ -1,4 +1,4 @@
-import { Users } from "@models/index";
+import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
 
 export const me: GQL_QueryResolvers["me"] = async (
@@ -11,7 +11,9 @@ export const me: GQL_QueryResolvers["me"] = async (
   }
 ) => {
   try {
-    return await Users.findById(id).populate("articles");
+    return await knex("users")
+      .where("id", id)
+      .first();
   } catch (e) {
     throw Error(e.message);
   }

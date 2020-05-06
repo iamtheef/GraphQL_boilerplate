@@ -1,4 +1,4 @@
-import { Articles } from "@models/index";
+import knex from "knex";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isAuthorQueried } from "@utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
@@ -12,36 +12,37 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   info
 ) => {
   try {
-    const { keywords, authorID, createdAt } = __.input;
-    const { pageNumber, nodesPerPage, sorting } = __.pageSpecs;
-    let Query;
+    // const { keywords, authorID, createdAt } = __.input;
+    // const { pageNumber, nodesPerPage, sorting } = __.pageSpecs;
+    // let Query;
 
-    if (keywords) {
-      Query = Articles.find({
-        $text: { $search: `${keywords}`, $caseSensitive: false },
-      });
-    }
+    // if (keywords) {
+    //   Query = Articles.find({
+    //     $text: { $search: `${keywords}`, $caseSensitive: false },
+    //   });
+    // }
 
-    if (authorID) {
-      keywords
-        ? Query.find({ authorID })
-        : (Query = Articles.find({ authorID }));
-    }
+    // if (authorID) {
+    //   keywords
+    //     ? Query.find({ authorID })
+    //     : (Query = Articles.find({ authorID }));
+    // }
 
-    if (createdAt) {
-      keywords || authorID
-        ? Query.find({ createdAt })
-        : (Query = Articles.find({ createdAt }));
-    }
+    // if (createdAt) {
+    //   keywords || authorID
+    //     ? Query.find({ createdAt })
+    //     : (Query = Articles.find({ createdAt }));
+    // }
 
-    isAuthorQueried(info) && Query.populate("author"); // checks if author is queried and populates
+    // isAuthorQueried(info) && Query.populate("author"); // checks if author is queried and populates
 
-    return paginator({
-      Query,
-      pageNumber,
-      nodesPerPage,
-      sorting,
-    });
+    // return paginator({
+    //   Query,
+    //   pageNumber,
+    //   nodesPerPage,
+    //   sorting,
+    // });
+    return null;
   } catch (e) {
     throw new Error(e.message);
   }

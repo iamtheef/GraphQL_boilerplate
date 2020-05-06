@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<any> {
       t.text("body");
       t.timestamps();
 
-      t.string("authorID")
+      t.integer("authorID")
         .references("id")
         .inTable("users");
     });

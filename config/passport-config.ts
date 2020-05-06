@@ -1,5 +1,5 @@
 import { User } from "@models/User";
-import { Users } from "@models/index";
+import knex from "@config/knex";
 import passport from "passport";
 
 passport.serializeUser((user: User, done) => {
@@ -7,9 +7,12 @@ passport.serializeUser((user: User, done) => {
 });
 
 // "userId" is the serialized value from the "serializeUser" function above
-passport.deserializeUser(async (userID: String, done) => {
+passport.deserializeUser(async (userID: Number, done) => {
   try {
-    const authenticatedUser = await Users.findById(userID);
+    const authenticatedUser = await knex("users")
+      .where("id", userID)
+      .first();
+    console.log("auth user : ", authenticatedUser);
     done(null, authenticatedUser);
   } catch (err) {
     done(err, null);

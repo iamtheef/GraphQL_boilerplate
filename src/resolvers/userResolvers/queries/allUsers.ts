@@ -9,10 +9,11 @@ export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   info
 ) => {
   try {
-    let Query = knex.select("*").from("users");
+    // let Query = knex.select("*").from("users");
     // isArticleQueried(info) && Query.populate("articles");
 
-    return await Query;
+    // return await Query;
+    return null;
   } catch (e) {
     throw Error(e.message);
   }

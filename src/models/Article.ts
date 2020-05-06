@@ -5,8 +5,8 @@ import { User } from "./User";
 export class Article {
   public _id: String;
 
-  @prop({ ref: "User" })
-  public author: Ref<User>;
+  // @prop({ ref: "User" })
+  // public author: Ref<User>;
 
   @prop()
   authorID: String;

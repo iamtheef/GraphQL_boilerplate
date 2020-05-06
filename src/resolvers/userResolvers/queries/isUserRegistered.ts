@@ -1,4 +1,4 @@
-import { Users } from "@models/index";
+import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
 
 export const isUserRegistered: GQL_QueryResolvers["isUserRegistered"] = async (
@@ -6,7 +6,7 @@ export const isUserRegistered: GQL_QueryResolvers["isUserRegistered"] = async (
   { email }
 ) => {
   try {
-    return !!(await Users.findOne({ email }));
+    return !!(await knex("users").where("email", email));
   } catch (e) {
     throw Error(e.message);
   }

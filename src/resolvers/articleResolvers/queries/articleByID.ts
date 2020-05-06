@@ -1,4 +1,4 @@
-import { Articles } from "@models/index";
+import knex from "knex";
 import { GQL_QueryResolvers } from "schema/schema";
 
 export const articleByID: GQL_QueryResolvers["articleByID"] = async (
@@ -6,7 +6,8 @@ export const articleByID: GQL_QueryResolvers["articleByID"] = async (
   { id }
 ) => {
   try {
-    return await Articles.findById(id).populate("author");
+    // return await Articles.findById(id).populate("author");
+    return null;
   } catch (e) {
     throw Error(e.message);
   }
