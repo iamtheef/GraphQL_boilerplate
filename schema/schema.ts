@@ -30,7 +30,7 @@ export type GQL_ArticleQueryInput = {
 export type GQL_AuthResponse = {
    __typename?: 'AuthResponse';
   success?: Maybe<Scalars['Boolean']>;
-  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
+  errors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type GQL_Body = {
@@ -47,13 +47,13 @@ export type GQL_Changes = {
 export type GQL_EditArticleResponse = {
    __typename?: 'editArticleResponse';
   success?: Maybe<Scalars['Boolean']>;
-  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
+  errors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type GQL_ErrorFormat = {
    __typename?: 'ErrorFormat';
   path?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
+  message?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type GQL_LoginInput = {
@@ -117,7 +117,7 @@ export type GQL_NewArticleResponse = {
    __typename?: 'newArticleResponse';
   success?: Maybe<Scalars['Boolean']>;
   articleID?: Maybe<Scalars['ID']>;
-  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
+  errors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type GQL_PageInfo = {
@@ -197,13 +197,13 @@ export type GQL_RegisterInput = {
 export type GQL_RemoveArticleResponse = {
    __typename?: 'removeArticleResponse';
   success?: Maybe<Scalars['Boolean']>;
-  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
+  errors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type GQL_UpdateAccResponse = {
    __typename?: 'UpdateAccResponse';
   success?: Maybe<Scalars['Boolean']>;
-  errors?: Maybe<Array<Maybe<GQL_ErrorFormat>>>;
+  errors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type GQL_User = {
@@ -318,7 +318,6 @@ export type GQL_ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>,
   Body: GQL_Body,
   newArticleResponse: ResolverTypeWrapper<GQL_NewArticleResponse>,
-  ErrorFormat: ResolverTypeWrapper<GQL_ErrorFormat>,
   UpdateAccResponse: ResolverTypeWrapper<GQL_UpdateAccResponse>,
   Changes: GQL_Changes,
   editArticleResponse: ResolverTypeWrapper<GQL_EditArticleResponse>,
@@ -328,6 +327,7 @@ export type GQL_ResolversTypes = {
   removeArticleResponse: ResolverTypeWrapper<GQL_RemoveArticleResponse>,
   UserUpdates: GQL_UserUpdates,
   Password: GQL_Password,
+  ErrorFormat: ResolverTypeWrapper<GQL_ErrorFormat>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -347,7 +347,6 @@ export type GQL_ResolversParentTypes = {
   Mutation: {},
   Body: GQL_Body,
   newArticleResponse: GQL_NewArticleResponse,
-  ErrorFormat: GQL_ErrorFormat,
   UpdateAccResponse: GQL_UpdateAccResponse,
   Changes: GQL_Changes,
   editArticleResponse: GQL_EditArticleResponse,
@@ -357,6 +356,7 @@ export type GQL_ResolversParentTypes = {
   removeArticleResponse: GQL_RemoveArticleResponse,
   UserUpdates: GQL_UserUpdates,
   Password: GQL_Password,
+  ErrorFormat: GQL_ErrorFormat,
 };
 
 export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['Article'] = GQL_ResolversParentTypes['Article']> = {
@@ -371,7 +371,7 @@ export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_Resol
 
 export type GQL_AuthResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['AuthResponse'] = GQL_ResolversParentTypes['AuthResponse']> = {
   success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
-  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -381,13 +381,13 @@ export interface GQL_DateScalarConfig extends GraphQLScalarTypeConfig<GQL_Resolv
 
 export type GQL_EditArticleResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['editArticleResponse'] = GQL_ResolversParentTypes['editArticleResponse']> = {
   success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
-  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type GQL_ErrorFormatResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['ErrorFormat'] = GQL_ResolversParentTypes['ErrorFormat']> = {
   path?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
-  message?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
+  message?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -408,7 +408,7 @@ export type GQL_MutationResolvers<ContextType = any, ParentType extends GQL_Reso
 export type GQL_NewArticleResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['newArticleResponse'] = GQL_ResolversParentTypes['newArticleResponse']> = {
   success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
   articleID?: Resolver<Maybe<GQL_ResolversTypes['ID']>, ParentType, ContextType>,
-  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -437,13 +437,13 @@ export type GQL_QueryResolvers<ContextType = any, ParentType extends GQL_Resolve
 
 export type GQL_RemoveArticleResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['removeArticleResponse'] = GQL_ResolversParentTypes['removeArticleResponse']> = {
   success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
-  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type GQL_UpdateAccResponseResolvers<ContextType = any, ParentType extends GQL_ResolversParentTypes['UpdateAccResponse'] = GQL_ResolversParentTypes['UpdateAccResponse']> = {
   success?: Resolver<Maybe<GQL_ResolversTypes['Boolean']>, ParentType, ContextType>,
-  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['ErrorFormat']>>>, ParentType, ContextType>,
+  errors?: Resolver<Maybe<Array<Maybe<GQL_ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

@@ -12,7 +12,7 @@ passport.deserializeUser(async (userID: Number, done) => {
     const authenticatedUser = await knex("users")
       .where("id", userID)
       .first();
-    console.log("auth user : ", authenticatedUser);
+
     done(null, authenticatedUser);
   } catch (err) {
     done(err, null);

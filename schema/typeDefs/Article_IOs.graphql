@@ -27,17 +27,17 @@ input pageSpecs {
 type newArticleResponse {
   success: Boolean
   articleID: ID
-  errors: [ErrorFormat]
+  errors: [String]
 }
 
 type editArticleResponse {
   success: Boolean
-  errors: [ErrorFormat]
+  errors: [String]
 }
 
 type removeArticleResponse {
   success: Boolean
-  errors: [ErrorFormat]
+  errors: [String]
 }
 
 type PageInfo {

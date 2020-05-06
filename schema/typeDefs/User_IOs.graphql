@@ -33,10 +33,10 @@ input Password {
 
 type AuthResponse {
   success: Boolean
-  errors: [ErrorFormat]
+  errors: [String]
 }
 
 type UpdateAccResponse {
   success: Boolean
-  errors: [ErrorFormat]
+  errors: [String]
 }

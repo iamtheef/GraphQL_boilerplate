@@ -1,10 +1,11 @@
 export interface User {
-  id: Number;
-  fullName: String;
-  email: String;
-  password: String;
-  isGoogle: Boolean;
-  googleID: String;
+  id: number;
+  fullName: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+  isGoogle: boolean;
+  googleID: string;
   createdAt: Date;
-  isAdmin: Boolean;
+  updatedAt: Date;
 }

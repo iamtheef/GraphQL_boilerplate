@@ -15,6 +15,6 @@ export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
 
     // return { success: !!(await toBeDeleted.remove()), errors: [] };
   } catch (e) {
-    return throwNewError([{ path: "DELETE ARTICLE", message: `${e.message}` }]);
+    return throwNewError([`${e.message}`]);
   }
 };

@@ -47,6 +47,6 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
     // return { success: true, errors: [] }; // Account Updated
     return null;
   } catch (e) {
-    return throwNewError([{ path: "UPDATE ACCOUNT", message: `${e.message}` }]); // server error handling
+    return throwNewError([`${e.message}`]); // server error handling
   }
 };

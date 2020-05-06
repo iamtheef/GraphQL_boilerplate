@@ -1,5 +1,8 @@
 import session from "express-session";
 import redis from "redis";
+import knex from "@config/knex";
+import { up as create_users } from "../src/db/migrations/20200504130026_create_users_table";
+import { migrateUp } from "../src/resolvers/db_control";
 
 let RedisStore = require("connect-redis")(session);
 export let redisClient = redis.createClient({
@@ -26,4 +29,16 @@ export const sessionMiddleware = () => {
 export const corsOptions = {
   origin: "http://localhost:4000/graphql",
   credentials: true,
+};
+
+// initialising db
+export const initDB = async () => {
+  if (!(await knex.schema.hasTable("users")) && process.env.ENV === "dev") {
+    await migrateUp();
+    console.log("DB CREATED AND SEEDED");
+  } else if (
+    !((await knex.schema.hasTable("users")) && process.env.ENV === "prod")
+  ) {
+    await create_users(knex);
+  }
 };

@@ -6,7 +6,7 @@ import { throwNewError } from "@errors/index";
 export const Access = (req: Request, user: GQL_User): GQL_AuthResponse => {
   req.login(user, (err: Error) => {
     if (err) {
-      throw throwNewError([{ message: `${err}`, path: "LOGIN" }]);
+      throw throwNewError([`${err}`]);
     }
   });
 

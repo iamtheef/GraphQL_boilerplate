@@ -11,9 +11,7 @@ import depthLimit from "graphql-depth-limit";
 import morgan from "morgan";
 import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { pingDB } from "@utils/pingDB";
-import knex from "@config/knex";
-import { migrateUp } from "@resolvers/db_control";
-import { up as create_users_table } from "./src/db/migrations/20200504130026_create_users_table";
+import { initDB } from "config/server-config";
 
 const app = express();
 const maintenance = require("./src/routes/maintenance");
@@ -33,15 +31,7 @@ const maintenance = require("./src/routes/maintenance");
       : console.log(res.message);
   });
 
-  // initialising db
-  if (!(await knex.schema.hasTable("users")) && process.env.ENV === "dev") {
-    await migrateUp();
-    console.log("DB CREATED AND SEEDED");
-  } else if (
-    !((await knex.schema.hasTable("users")) && process.env.ENV === "prod")
-  ) {
-    await create_users_table(knex);
-  }
+  initDB();
 
   const server = new ApolloServer({
     introspection: process.env.ENV !== "prod",

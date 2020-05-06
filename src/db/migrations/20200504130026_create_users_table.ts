@@ -16,10 +16,11 @@ export async function up(knex: Knex): Promise<any> {
         .unique()
         .notNullable();
       t.string("password", 100).notNullable();
-      t.boolean("isAdmin");
-      t.string("googleID");
-      t.boolean("isGoogle");
-      t.timestamps();
+      t.boolean("isAdmin").defaultTo(false);
+      t.string("googleID").defaultTo(null);
+      t.boolean("isGoogle").defaultTo(false);
+      t.timestamp("createdAt").defaultTo(Date.now());
+      t.timestamp("updatedAd").defaultTo(null);
     });
   }
 }

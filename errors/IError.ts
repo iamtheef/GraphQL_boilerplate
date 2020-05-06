@@ -1,9 +1,9 @@
 export interface Error {
   path: string;
-  message: string;
+  messages: string[];
 }
 
-export const throwNewError = (errors: [Error]) => {
+export const throwNewError = (errors: string[]) => {
   return {
     success: false,
     errors,

@@ -30,6 +30,6 @@ export const login: GQL_MutationResolvers["login"] = async (
     }
     return WrongCredits.throwError();
   } catch (e) {
-    return throwNewError([{ path: "LOGIN", message: `${e.message}` }]);
+    return throwNewError([`${e.message}`]);
   }
 };

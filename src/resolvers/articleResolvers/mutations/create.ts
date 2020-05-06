@@ -28,6 +28,6 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
     //   errors: [],
     // };
   } catch (e) {
-    return throwNewError([{ path: "NEW ARTICLE", message: `${e.message}` }]); // server error handling
+    return throwNewError([`${e.message}`]); // server error handling
   }
 };

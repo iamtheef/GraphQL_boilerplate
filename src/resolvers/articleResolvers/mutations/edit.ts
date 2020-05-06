@@ -19,6 +19,6 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
 
     // return { success: !!(await foundArticle.save()), errors: [] }; // responds success edited
   } catch (e) {
-    return throwNewError([{ path: "EDIT", message: `${e.message}` }]);
+    return throwNewError([`${e.message}`]);
   }
 };

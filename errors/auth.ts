@@ -3,8 +3,8 @@ import { Error } from "./IError";
 
 class AuthError {
   success: boolean;
-  errors: [Error];
-  constructor(error: Error) {
+  errors: string[];
+  constructor(error: string) {
     this.errors = [error];
   }
   throwError(): GQL_AuthResponse {
@@ -16,20 +16,12 @@ class AuthError {
 }
 
 // error for weak password
-export const WeakPassword = new AuthError({
-  path: "PASSWORD",
-  message:
-    "Your password is too weak. Must be at least 8 characters long, must contains at least a letter, a number and a special character.",
-});
+export const WeakPassword = new AuthError(
+  "Your password is too weak. Must be at least 8 characters long, must contains at least a letter, a number and a special character."
+);
 
 // error for wrong credentials
-export const WrongCredits = new AuthError({
-  path: "LOGIN",
-  message: "Wrong Credentials",
-});
+export const WrongCredits = new AuthError("Wrong Credentials");
 
 // error for already singed user
-export const AlreadySigned = new AuthError({
-  path: "REGISTER",
-  message: "Wow! You are already signed!",
-});
+export const AlreadySigned = new AuthError("Wow! You are already signed!");
