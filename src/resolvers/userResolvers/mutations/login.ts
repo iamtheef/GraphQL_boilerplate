@@ -18,10 +18,11 @@ export const login: GQL_MutationResolvers["login"] = async (
 
     if (foundUser) {
       req.logout();
-      const passwordMatch = await bcrypt.compare(
-        password,
-        foundUser.password.toString()
-      );
+      const passwordMatch = password === foundUser.password;
+      // await bcrypt.compare(
+      //   password,
+      //   foundUser.password.toString()
+      // );
 
       if (passwordMatch) {
         return Access(req, foundUser);

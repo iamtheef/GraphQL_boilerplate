@@ -8,4 +8,6 @@ type Query {
 
 type Mutation {
   _: String @deprecated
+  migrateUp: String
+  migrateDown: String
 }

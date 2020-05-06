@@ -2,6 +2,8 @@ import { mergeResolvers } from "merge-graphql-schemas";
 import { userMutations, userQueries } from "./userResolvers/index";
 import { articleMutations, articleQueries } from "./articleResolvers/index";
 
+import { migrateUp, migrateDown } from "./db_control";
+
 const resolversArray = [
   {
     Query: {
@@ -10,6 +12,8 @@ const resolversArray = [
     },
 
     Mutation: {
+      migrateUp,
+      migrateDown,
       ...userMutations,
       ...articleMutations,
     },
