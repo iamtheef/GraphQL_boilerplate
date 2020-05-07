@@ -20,7 +20,7 @@ input LoginInput {
 
 input UserUpdates {
   fullName: String
-  password: Password
+  password: Password!
 }
 
 input Password {
@@ -32,11 +32,6 @@ input Password {
 # RESPONSES
 
 type AuthResponse {
-  success: Boolean
-  errors: [String]
-}
-
-type UpdateAccResponse {
   success: Boolean
   errors: [String]
 }

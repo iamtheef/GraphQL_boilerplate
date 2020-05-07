@@ -1,7 +1,7 @@
 import { Access } from "@utils/auth";
 import { WrongCredits, throwNewError } from "@errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
-import knex from "@config/knex";
+import { Users } from "@models/User";
 import { compare } from "bcryptjs";
 
 export const login: GQL_MutationResolvers["login"] = async (
@@ -12,9 +12,7 @@ export const login: GQL_MutationResolvers["login"] = async (
   const { email, password } = input;
 
   try {
-    const foundUser = await knex("users")
-      .where("email", email)
-      .first();
+    const foundUser = await Users.where("email", email).first();
 
     if (foundUser) {
       req.logout();

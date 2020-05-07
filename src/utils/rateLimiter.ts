@@ -12,6 +12,7 @@ export const exceedsRateLimit = async (
   info: GraphQLResolveInfo
 ) => {
   const key = `rate-limit:${info.fieldName}:${req.ip}`;
+
   const current = await incrementKey(key);
 
   if (current > LIMIT) return true;

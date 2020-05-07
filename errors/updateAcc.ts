@@ -1,4 +1,4 @@
-import { GQL_UpdateAccResponse } from "../schema/schema";
+import { GQL_AuthResponse } from "../schema/schema";
 import { Error } from "./IError";
 
 // exporting custom messages in the form of update account response
@@ -9,7 +9,7 @@ class UpdateAccError {
     this.errors = [];
     this.success = !this.errors;
   }
-  throwError(): GQL_UpdateAccResponse {
+  throwError(): GQL_AuthResponse {
     return {
       success: this.success,
       errors: this.errors,

@@ -21,7 +21,7 @@ export async function up(knex: Knex): Promise<any> {
       t.string("googleID").defaultTo(null);
       t.boolean("isGoogle").defaultTo(false);
       t.timestamp("createdAt");
-      t.timestamp("updatedAd").defaultTo(null);
+      t.timestamp("updatedAt").defaultTo(null);
     });
   }
 }

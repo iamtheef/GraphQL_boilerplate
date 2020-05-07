@@ -1,3 +1,5 @@
+import knex from "@config/knex";
+
 export interface User {
   id: number;
   fullName: string;
@@ -9,3 +11,5 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export const Users = knex("users");

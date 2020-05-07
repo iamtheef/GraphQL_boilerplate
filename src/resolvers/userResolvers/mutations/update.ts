@@ -1,14 +1,15 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import knex from "knex";
-import bcrypt from "bcryptjs";
+import { Users } from "@models/User";
+import knex from "@config/knex";
+import { compare, hashSync } from "bcryptjs";
 import { isPasswordValid } from "@utils/isPasswordValid";
 import {
   InvalidPassword,
   MismatchedPasswords,
   throwNewError,
   WeakPassword,
-  UnauthorizedAction,
 } from "@errors/index";
+import { Access } from "@utils/auth";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,
@@ -19,33 +20,32 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   const { oldPassword, newPassword, confirmPassword } = password;
 
   try {
-    // // checks which have been passed and updates accordingly (if the .oldPassword is right)
-    // const foundUser = await Users.findById(req.user._id);
+    // checks which have been passed and updates accordingly (if the .oldPassword is right)
+    const foundUser = await Users.where("id", req.user.id);
 
-    // if (req.user.id !== foundUser.id) return UnauthorizedAction.throwError();
+    if (!(await compare(oldPassword, foundUser.password.toString()))) {
+      return InvalidPassword.throwError(); // return error if the in use password is wrong
+    }
 
-    // if (!(await bcrypt.compare(oldPassword, foundUser.password.toString()))) {
-    //   return InvalidPassword.throwError(); // return error if the in use password is wrong
-    // }
+    if (fullName) {
+      foundUser.fullName = fullName;
+    }
 
-    // if (fullName) {
-    //   foundUser.fullName = fullName;
-    // }
+    if (newPassword) {
+      if (!isPasswordValid(newPassword)) return { ...WeakPassword }; // checks for weak password
 
-    // if (newPassword) {
-    //   if (!isPasswordValid(newPassword)) return { ...WeakPassword }; // checks for weak password
+      if (newPassword !== confirmPassword) {
+        return MismatchedPasswords.throwError();
+      }
+      foundUser.password = hashSync(password.newPassword, 10);
+    }
 
-    //   if (newPassword !== confirmPassword) {
-    //     return MismatchedPasswords.throwError();
-    //   }
-    //   // if all ok, updates the user
-    //   foundUser.password = bcrypt.hashSync(password.newPassword, 10);
-    // }
-
-    // await foundUser.save();
-
-    // return { success: true, errors: [] }; // Account Updated
-    return null;
+    // if all ok, updates the user
+    const newUser = await Users.where("id", req.user.id).update({
+      ...foundUser,
+      updatedAt: knex.fn.now(),
+    });
+    return Access(req, newUser); // Account Updated & Regenerate a cookie
   } catch (e) {
     return throwNewError([`${e.message}`]); // server error handling
   }
