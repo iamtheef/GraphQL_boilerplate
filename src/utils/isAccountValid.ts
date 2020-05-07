@@ -13,7 +13,7 @@ export const isAccountValid = (user: GQL_RegisterInput) => {
   if (!isEmail(email)) messages.push("Email is not valid");
 
   return {
-    isValid: messages.length > 0,
+    isValid: !(messages.length > 0),
     messages,
   };
 };

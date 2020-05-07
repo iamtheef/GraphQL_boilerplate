@@ -18,6 +18,7 @@ export const register: GQL_MutationResolvers["register"] = async (
   if (isSigned) return AlreadySigned.throwError();
 
   const { isValid, messages } = isAccountValid(input);
+  console.log(isAccountValid(input));
   if (!isValid) return throwNewError(messages);
 
   try {

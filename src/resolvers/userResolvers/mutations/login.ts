@@ -2,7 +2,7 @@ import { Access } from "@utils/auth";
 import { WrongCredits, throwNewError } from "@errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 import knex from "@config/knex";
-import bcrypt, { compareSync } from "bcryptjs";
+import { compare } from "bcryptjs";
 
 export const login: GQL_MutationResolvers["login"] = async (
   _,
@@ -19,7 +19,7 @@ export const login: GQL_MutationResolvers["login"] = async (
     if (foundUser) {
       req.logout();
 
-      const passwordMatch = await bcrypt.compare(
+      const passwordMatch = await compare(
         password,
         foundUser.password.toString()
       );

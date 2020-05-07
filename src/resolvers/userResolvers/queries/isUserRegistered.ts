@@ -6,7 +6,7 @@ export const isUserRegistered: GQL_QueryResolvers["isUserRegistered"] = async (
   { email }
 ) => {
   try {
-    return !!(await knex("users").where("email", email));
+    return !!(await knex("users").where("email", email)).length;
   } catch (e) {
     throw Error(e.message);
   }
