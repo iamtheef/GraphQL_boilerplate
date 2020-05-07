@@ -20,7 +20,7 @@ input LoginInput {
 
 input UserUpdates {
   fullName: String
-  password: Password
+  password: Password!
 }
 
 input Password {

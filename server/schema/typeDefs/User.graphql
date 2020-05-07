@@ -23,5 +23,5 @@ extend type Mutation {
   login(input: LoginInput!): AuthResponse
   logout: Boolean
   updateAcc(input: UserUpdates!): UpdateAccResponse
-  deleteAcc(id: String): UpdateAccResponse
+  deleteAcc(id: String!): UpdateAccResponse
 }
