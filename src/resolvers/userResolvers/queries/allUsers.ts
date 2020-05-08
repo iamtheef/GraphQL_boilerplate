@@ -8,12 +8,22 @@ export const allUsers: GQL_QueryResolvers["allUsers"] = async (
   ___,
   info
 ) => {
+  function hydrate(books: any) {
+    return books.map((x: any) => ({
+      ...x,
+      articles: {
+        id: x.authorID,
+        title: x.title,
+        body: x.body,
+      },
+    }));
+  }
   try {
-    // let Query = knex.select("*").from("users");
-    // isArticleQueried(info) && Query.populate("articles");
+    let Query = knex("users");
+    isArticleQueried(info) &&
+      Query.leftJoin("articles", "articles.authorID", "users.id");
 
-    // return await Query;
-    return null;
+    return hydrate(await Query);
   } catch (e) {
     throw Error(e.message);
   }

@@ -7,6 +7,7 @@ export async function seed(knex: Knex): Promise<any> {
   return knex("articles")
     .del()
     .then(() => {
+      console.log(ids);
       // Inserts seed entries
       return knex("articles").insert([
         {

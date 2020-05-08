@@ -1,4 +1,4 @@
-import { Users } from "@models/User";
+import knex from "@config/knex";
 import { GQL_MutationResolvers } from "schema/schema";
 import { UnauthorizedAction } from "@errors/index";
 
@@ -11,7 +11,8 @@ export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
     if (req.user.id !== id && !req.user.isAdmin) return UnauthorizedAction;
     req.logout();
     return {
-      success: !!(await Users.where("id", id)
+      success: !!(await knex("users")
+        .where("id", id)
         .first()
         .del()),
       errors: [],

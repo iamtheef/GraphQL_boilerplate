@@ -1,5 +1,4 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import { Users } from "@models/User";
 import knex from "@config/knex";
 import { compare, hashSync } from "bcryptjs";
 import { isPasswordValid } from "@utils/isPasswordValid";
@@ -9,7 +8,6 @@ import {
   throwNewError,
   WeakPassword,
 } from "@errors/index";
-import { Access } from "@utils/auth";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
   _,
@@ -21,7 +19,9 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
 
   try {
     // checks which have been passed and updates accordingly (if the .oldPassword is right)
-    const foundUser = await Users.where("id", req.user.id);
+    const foundUser = await knex("users")
+      .where("id", req.user.id)
+      .first();
 
     if (!(await compare(oldPassword, foundUser.password.toString()))) {
       return InvalidPassword.throwError(); // return error if the in use password is wrong
@@ -41,11 +41,13 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
     }
 
     // if all ok, updates the user
-    const newUser = await Users.where("id", req.user.id).update({
-      ...foundUser,
-      updatedAt: knex.fn.now(),
-    });
-    return Access(req, newUser); // Account Updated & Regenerate a cookie
+    await knex("users")
+      .where("id", req.user.id)
+      .update({
+        ...foundUser,
+        updatedAt: knex.fn.now(),
+      });
+    return { success: true, errors: [] }; // Account Updated
   } catch (e) {
     return throwNewError([`${e.message}`]); // server error handling
   }

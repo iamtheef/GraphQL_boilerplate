@@ -1,4 +1,3 @@
-import { Users } from "@models/User";
 import { Access } from "@utils/auth";
 import { hashSync } from "bcryptjs";
 import { isAccountValid } from "@utils/isAccountValid";
@@ -12,14 +11,16 @@ export const register: GQL_MutationResolvers["register"] = async (
   { input },
   { req }
 ) => {
-  const isSigned = !!(await Users.where("email", input.email).first());
+  const isSigned = !!(await knex("users")
+    .where("email", input.email)
+    .first());
   if (isSigned) return AlreadySigned.throwError();
 
   const { isValid, messages } = isAccountValid(input);
   if (!isValid) return throwNewError(messages);
 
   try {
-    const newUser = await Users.insert(
+    const newUser = await knex("users").insert(
       {
         ...input,
         id: uuidv4(),

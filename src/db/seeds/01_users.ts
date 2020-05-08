@@ -9,6 +9,7 @@ function passHash() {
 }
 
 export async function seed(knex: Knex): Promise<any> {
+  console.log(ids);
   // Deletes ALL existing entries
   return knex("users")
     .del()
