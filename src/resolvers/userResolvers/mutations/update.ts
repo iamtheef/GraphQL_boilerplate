@@ -7,6 +7,7 @@ import {
   MismatchedPasswords,
   throwNewError,
   WeakPassword,
+  unexpectedError,
 } from "@errors/index";
 
 export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
@@ -49,6 +50,7 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
       });
     return { success: true, errors: [] }; // Account Updated
   } catch (e) {
-    return throwNewError([`${e.message}`]); // server error handling
+    console.error(e.message); // server error handling
+    throw unexpectedError;
   }
 };

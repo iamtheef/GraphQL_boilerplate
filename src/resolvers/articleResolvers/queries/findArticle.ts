@@ -3,6 +3,7 @@ import { GQL_QueryResolvers } from "schema/schema";
 import { isAuthorQueried } from "@utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
 import { paginator } from "@utils/paginator";
+import { unexpectedError } from "@errors/index";
 
 // filter search for articles
 export const findArticle: GQL_QueryResolvers["findArticle"] = async (
@@ -44,6 +45,7 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
     // });
     return null;
   } catch (e) {
-    throw new Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

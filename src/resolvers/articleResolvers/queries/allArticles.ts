@@ -2,6 +2,7 @@ import knex from "knex";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isAuthorQueried } from "@utils/isFieldQueried";
 import { paginator } from "@utils/paginator";
+import { unexpectedError } from "@errors/index";
 
 export const allArticles: GQL_QueryResolvers["allArticles"] = async (
   _,
@@ -23,6 +24,7 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
     //   sorting,
     // });
   } catch (e) {
-    throw Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

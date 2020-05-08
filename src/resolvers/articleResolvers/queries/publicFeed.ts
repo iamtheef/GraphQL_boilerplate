@@ -1,6 +1,7 @@
 import knex from "knex";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isAuthorQueried } from "@utils/isFieldQueried";
+// import { isAuthorQueried } from "@utils/isFieldQueried";
+import { unexpectedError } from "@errors/index";
 
 export const publicFeed: GQL_QueryResolvers["publicFeed"] = async (
   _,
@@ -15,6 +16,7 @@ export const publicFeed: GQL_QueryResolvers["publicFeed"] = async (
 
     // return await Query;
   } catch (e) {
-    throw Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

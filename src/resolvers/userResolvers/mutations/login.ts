@@ -1,5 +1,5 @@
 import { Access } from "@utils/auth";
-import { WrongCredits, throwNewError } from "@errors/index";
+import { WrongCredits, unexpectedError } from "@errors/index";
 import { GQL_MutationResolvers } from "schema/schema";
 import knex from "@config/knex";
 import { compare } from "bcryptjs";
@@ -30,6 +30,7 @@ export const login: GQL_MutationResolvers["login"] = async (
     }
     return WrongCredits.throwError();
   } catch (e) {
-    return throwNewError([`${e.message}`]);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

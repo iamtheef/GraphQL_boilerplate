@@ -1,6 +1,7 @@
 import knex from "knex";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isArticleQueried } from "@utils/isFieldQueried";
+import { unexpectedError } from "@errors/index";
 
 // multiple fields search for users
 export const findUser: GQL_QueryResolvers["findUser"] = async (
@@ -17,6 +18,7 @@ export const findUser: GQL_QueryResolvers["findUser"] = async (
     // return await Query;
     return null;
   } catch (e) {
-    throw new Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

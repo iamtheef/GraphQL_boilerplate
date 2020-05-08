@@ -5,3 +5,5 @@ export const rateLimitError = Error(
 export const AuthenticatedError = Error(
   "You are already authenticated. Logout to use another account."
 );
+
+export const unexpectedError = Error("Ooooops! Something was wrong.");

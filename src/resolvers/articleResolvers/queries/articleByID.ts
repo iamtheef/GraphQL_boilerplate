@@ -1,5 +1,6 @@
 import knex from "knex";
 import { GQL_QueryResolvers } from "schema/schema";
+import { unexpectedError } from "@errors/index";
 
 export const articleByID: GQL_QueryResolvers["articleByID"] = async (
   _,
@@ -9,6 +10,7 @@ export const articleByID: GQL_QueryResolvers["articleByID"] = async (
     // return await Articles.findById(id).populate("author");
     return null;
   } catch (e) {
-    throw Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

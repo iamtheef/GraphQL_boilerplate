@@ -1,6 +1,7 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import knex from "knex";
 import { throwNewError } from "@errors/index";
+import { unexpectedError } from "@errors/index";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   _,
@@ -28,6 +29,7 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
     //   errors: [],
     // };
   } catch (e) {
-    return throwNewError([`${e.message}`]); // server error handling
+    console.error(e.message);
+    throw unexpectedError; // server error handling
   }
 };

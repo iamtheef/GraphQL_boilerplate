@@ -1,6 +1,6 @@
 import knex from "@config/knex";
 import { GQL_MutationResolvers } from "schema/schema";
-import { UnauthorizedAction } from "@errors/index";
+import { UnauthorizedAction, unexpectedError } from "@errors/index";
 
 export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
   _,
@@ -18,6 +18,7 @@ export const deleteAcc: GQL_MutationResolvers["deleteAcc"] = async (
       errors: [],
     };
   } catch (e) {
-    throw Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

@@ -1,6 +1,6 @@
 import knex from "knex";
 import { GQL_MutationResolvers } from "schema/schema";
-import { UnauthorizedAction, throwNewError } from "@errors/index";
+import { UnauthorizedAction, unexpectedError } from "@errors/index";
 
 export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
   _,
@@ -15,6 +15,7 @@ export const removeArticle: GQL_MutationResolvers["removeArticle"] = async (
 
     // return { success: !!(await toBeDeleted.remove()), errors: [] };
   } catch (e) {
-    return throwNewError([`${e.message}`]);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

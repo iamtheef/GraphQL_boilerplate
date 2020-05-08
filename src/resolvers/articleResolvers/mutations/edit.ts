@@ -1,6 +1,10 @@
 import { GQL_MutationResolvers } from "schema/schema";
 import knex from "knex";
-import { UnauthorizedAction, throwNewError } from "@errors/index";
+import {
+  UnauthorizedAction,
+  throwNewError,
+  unexpectedError,
+} from "@errors/index";
 
 export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   _,
@@ -19,6 +23,7 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
 
     // return { success: !!(await foundArticle.save()), errors: [] }; // responds success edited
   } catch (e) {
-    return throwNewError([`${e.message}`]);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };

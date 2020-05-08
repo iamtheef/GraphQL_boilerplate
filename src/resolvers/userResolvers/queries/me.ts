@@ -1,5 +1,6 @@
 import { GQL_QueryResolvers } from "schema/schema";
 import knex from "@config/knex";
+import { unexpectedError } from "@errors/index";
 
 export const me: GQL_QueryResolvers["me"] = async (
   _,
@@ -15,6 +16,7 @@ export const me: GQL_QueryResolvers["me"] = async (
       .where("id", id)
       .first();
   } catch (e) {
-    throw Error(e.message);
+    console.error(e.message);
+    throw unexpectedError;
   }
 };
