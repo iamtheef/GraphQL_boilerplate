@@ -7,22 +7,19 @@ import { unexpectedError } from "@errors/index";
 export const allArticles: GQL_QueryResolvers["allArticles"] = async (
   _,
   __,
-  ___,
-  info
+  ___
 ) => {
   try {
-    return null;
-    // const { nodesPerPage, pageNumber, sorting } = __.pageSpecs;
+    const { nodesPerPage, pageNumber, sorting } = __.pageSpecs;
 
-    // let Query = Articles.find();
-    // isAuthorQueried(info) && Query.populate("author");
+    let Query = knex("articles");
 
-    // return paginator({
-    //   Query,
-    //   nodesPerPage,
-    //   pageNumber,
-    //   sorting,
-    // });
+    return paginator({
+      Query,
+      nodesPerPage,
+      pageNumber,
+      sorting,
+    });
   } catch (e) {
     console.error(e.message);
     throw unexpectedError;

@@ -12,6 +12,7 @@ import morgan from "morgan";
 import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { pingDB } from "@utils/pingDB";
 import { initDB } from "config/server-config";
+import * as loaders from "src/dataloaders/index";
 
 const app = express();
 const maintenance = require("./src/routes/maintenance");
@@ -41,6 +42,7 @@ const maintenance = require("./src/routes/maintenance");
     context: ({ req }) => {
       return {
         req,
+        loaders,
       };
     },
   });

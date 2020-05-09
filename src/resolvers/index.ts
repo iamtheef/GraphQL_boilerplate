@@ -18,16 +18,14 @@ const resolversArray = [
       ...articleMutations,
     },
     User: {
-      articles: async (_: any) => {
-        const articles = await knex("articles").where("authorID", _.id);
-        return articles;
+      articles: async ({ _, __, ctx }: any) => {
+        console.log("CAME HERE");
+        console.log(ctx.loaders.articlesLoader());
+        ctx.loaders.articlesLoader();
       },
     },
     Article: {
-      author: async (_: any) => {
-        const author = knex("users").where("id", _.authorID);
-        return author.first();
-      },
+      author: async ({ _, __, ctx }: any) => ctx.loaders.userLoader(),
     },
   },
 ];
