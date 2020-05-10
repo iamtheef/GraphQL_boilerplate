@@ -10,7 +10,8 @@ export async function up(knex: Knex): Promise<any> {
       t.uuid("id").primary();
       t.string("title", 100);
       t.text("body");
-      t.timestamps();
+      t.timestamp("createdAt");
+      t.timestamp("updatedAt").defaultTo(null);
 
       t.uuid("authorID")
         .references("id")

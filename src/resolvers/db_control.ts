@@ -1,4 +1,5 @@
 import knex from "../../config/knex";
+import { GQL_MutationResolvers } from "schema/schema";
 import { seed as seed_users } from "../db/seeds/01_users";
 import { seed as seed_articles } from "../db/seeds/02_articles";
 import {
@@ -24,8 +25,13 @@ export const migrateUp = async () => {
 };
 
 // drops db
-export const migrateDown = async () => {
+export const migrateDown: GQL_MutationResolvers["migrateUp"] = async (
+  _,
+  __,
+  ___
+) => {
   try {
+    ___.req.logout();
     await drop_articles(knex);
     await drop_users(knex);
     return "DONE!";

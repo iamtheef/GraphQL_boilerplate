@@ -9,7 +9,6 @@ function passHash() {
 }
 
 export async function seed(knex: Knex): Promise<any> {
-  console.log(ids);
   // Deletes ALL existing entries
   return knex("users")
     .del()
@@ -24,6 +23,7 @@ export async function seed(knex: Knex): Promise<any> {
           isAdmin: true,
           googleID: null,
           isGoogle: false,
+          createdAt: knex.fn.now(),
         },
         {
           id: ids[1],
@@ -33,6 +33,7 @@ export async function seed(knex: Knex): Promise<any> {
           isAdmin: false,
           googleID: null,
           isGoogle: false,
+          createdAt: knex.fn.now(),
         },
         {
           id: ids[2],
@@ -42,6 +43,7 @@ export async function seed(knex: Knex): Promise<any> {
           isAdmin: false,
           googleID: null,
           isGoogle: false,
+          createdAt: knex.fn.now(),
         },
       ]);
     });

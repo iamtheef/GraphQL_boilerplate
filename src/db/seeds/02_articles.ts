@@ -15,24 +15,28 @@ export async function seed(knex: Knex): Promise<any> {
           title: "lol",
           body: "random text here, lorem ipsum",
           authorID: ids[0],
+          createdAt: knex.fn.now(),
         },
         {
           id: `${uuidv4()}`,
           title: "lol2",
           body: "random textsa here, lorem ipsum",
           authorID: ids[1],
+          createdAt: knex.fn.now(),
         },
         {
           id: `${uuidv4()}`,
           title: "lol3",
           body: "lorem ipsum333",
           authorID: ids[0],
+          createdAt: knex.fn.now(),
         },
         {
           id: `${uuidv4()}`,
           title: "lol4",
           body: "random 444lorem ipsum",
           authorID: ids[2],
+          createdAt: knex.fn.now(),
         },
       ]);
     });
