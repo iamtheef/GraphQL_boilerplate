@@ -1,4 +1,4 @@
-import knex from "knex";
+import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
 // import { isAuthorQueried } from "@utils/isFieldQueried";
 import { unexpectedError } from "@errors/index";
@@ -10,11 +10,9 @@ export const publicFeed: GQL_QueryResolvers["publicFeed"] = async (
   info
 ) => {
   try {
-    return null;
-    // let Query = Articles.find().sort({ createdAt: -1 });
-    // isAuthorQueried(info) && Query.populate("author");
+    let Query = knex("articles").orderBy("createdAt", "desc");
 
-    // return await Query;
+    return await Query;
   } catch (e) {
     console.error(e.message);
     throw unexpectedError;

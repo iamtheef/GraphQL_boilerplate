@@ -1,4 +1,4 @@
-import knex from "knex";
+import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
 import { isAuthorQueried } from "@utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
@@ -13,37 +13,35 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   info
 ) => {
   try {
-    // const { keywords, authorID, createdAt } = __.input;
-    // const { pageNumber, nodesPerPage, sorting } = __.pageSpecs;
-    // let Query;
+    const { keywords, authorID, createdAt } = __.input;
+    const { pageNumber, nodesPerPage, sorting } = __.pageSpecs;
+    let whereClause: { [key: string]: any } = {};
+    let Query = knex("articles");
+    console.log(keywords);
+    if (keywords) {
+      Query.where("body", "like", `%${keywords}%`).orWhere(
+        "title",
+        "like",
+        `%${keywords}%`
+      );
+    }
 
-    // if (keywords) {
-    //   Query = Articles.find({
-    //     $text: { $search: `${keywords}`, $caseSensitive: false },
-    //   });
-    // }
+    if (authorID) {
+      whereClause["authorID"] = authorID;
+    }
 
-    // if (authorID) {
-    //   keywords
-    //     ? Query.find({ authorID })
-    //     : (Query = Articles.find({ authorID }));
-    // }
+    if (createdAt) {
+      whereClause["createdAt"] = createdAt;
+    }
 
-    // if (createdAt) {
-    //   keywords || authorID
-    //     ? Query.find({ createdAt })
-    //     : (Query = Articles.find({ createdAt }));
-    // }
+    Query.where(whereClause);
 
-    // isAuthorQueried(info) && Query.populate("author"); // checks if author is queried and populates
-
-    // return paginator({
-    //   Query,
-    //   pageNumber,
-    //   nodesPerPage,
-    //   sorting,
-    // });
-    return null;
+    return paginator({
+      Query,
+      pageNumber,
+      nodesPerPage,
+      sorting,
+    });
   } catch (e) {
     console.error(e.message);
     throw unexpectedError;

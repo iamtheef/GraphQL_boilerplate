@@ -10,10 +10,9 @@ export const userFeed: GQL_QueryResolvers["userFeed"] = async (
   info
 ) => {
   try {
-    // let Query = Articles.find().sort({ createdAt: -1 });
-    // isAuthorQueried(info) && Query.populate("author");
+    let Query = knex("articles").orderBy("createdAt", "desc");
 
-    // return await Query;
+    return await Query;
     return null;
   } catch (e) {
     console.error(e.message);
