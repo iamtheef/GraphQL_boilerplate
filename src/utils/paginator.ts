@@ -2,7 +2,6 @@ import { GQL_PageInfo } from "schema/schema";
 import { getResults } from "@utils/getArticles";
 
 interface paginatorInput {
-  db: string;
   Query: any;
   pageNumber: number;
   nodesPerPage: number;
@@ -10,7 +9,7 @@ interface paginatorInput {
 }
 
 export const paginator = async (input: paginatorInput) => {
-  const { db, Query, pageNumber, nodesPerPage, sorting } = input;
+  const { Query, pageNumber, nodesPerPage, sorting } = input;
   const results = await getResults(Query);
 
   if (pageNumber > 1) {
@@ -18,10 +17,10 @@ export const paginator = async (input: paginatorInput) => {
   }
   Query.limit(nodesPerPage);
 
-  if (sorting) Query.orderBy(`${db}.createdAt", "desc`);
+  if (sorting) Query.orderBy("createdAt", "desc");
 
   return {
-    nodes: Query,
+    nodes: await Query,
     hasNextPage: Math.floor(results / nodesPerPage) > pageNumber,
     hasPreviousPage: Math.ceil(results / nodesPerPage) < pageNumber,
     totalNodes: results,

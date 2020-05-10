@@ -15,10 +15,6 @@ export const allArticles: GQL_QueryResolvers["allArticles"] = async (
     let Query = knex("articles");
 
     return paginator({
-<<<<<<< HEAD
-      db: "articles",
-=======
->>>>>>> 5c633c9d04fb972dd02bc028a6af51a5d6102036
       Query,
       nodesPerPage,
       pageNumber,

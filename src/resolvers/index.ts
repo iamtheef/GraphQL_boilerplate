@@ -18,20 +18,13 @@ const resolversArray = [
       ...articleMutations,
     },
     User: {
-<<<<<<< HEAD
       // articles: async (_: any) => knex("articles").where("authorID", _.id),
       articles: async (_: any, __: any, ctx: any) =>
-        await ctx.loaders.articlesLoader.load(_.id),
-=======
-      articles: async ({ _, __, ctx }: any) => {
-        console.log("CAME HERE");
-        console.log(ctx.loaders.articlesLoader());
-        ctx.loaders.articlesLoader();
-      },
->>>>>>> 5c633c9d04fb972dd02bc028a6af51a5d6102036
+        ctx.loaders.articlesLoader.load(_.id),
     },
     Article: {
-      author: async ({ _, __, ctx }: any) => ctx.loaders.userLoader(),
+      author: async (_: any, __: any, ctx: any) =>
+        ctx.loaders.userLoader.load(_.authorID),
     },
   },
 ];
