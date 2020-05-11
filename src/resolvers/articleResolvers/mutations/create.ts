@@ -1,7 +1,7 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import knex from "knex";
-import { throwNewError } from "@errors/index";
+import knex from "@config/knex";
 import { unexpectedError } from "@errors/index";
+import { v4 as uuidv4 } from "uuid";
 
 export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   _,
@@ -9,25 +9,21 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   { req }
 ) => {
   try {
-    return null;
-    // const foundUser = await Users.findById(req.user.id);
+    const newArticle = await knex("articles").insert(
+      {
+        id: uuidv4(),
+        ...input,
+        createdAt: knex.fn.now(),
+        authorID: req.user.id,
+      },
+      ["*"]
+    );
 
-    // const newArticle = {
-    //   ...input,
-    //   author: req.user.id,
-    //   authorID: req.user.id,
-    // };
-
-    // const newArticleID = (await Articles.create(newArticle))._id;
-    // // foundUser.articles.push(newArticleID);
-    // await foundUser.save();
-
-    // // responds
-    // return {
-    //   success: true,
-    //   articleID: newArticleID,
-    //   errors: [],
-    // };
+    return {
+      success: true,
+      articleID: newArticle[0].id,
+      errors: [],
+    };
   } catch (e) {
     console.error(e.message);
     throw unexpectedError; // server error handling

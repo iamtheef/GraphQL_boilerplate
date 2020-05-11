@@ -17,7 +17,7 @@ export const findArticle: GQL_QueryResolvers["findArticle"] = async (
     const { pageNumber, nodesPerPage, sorting } = __.pageSpecs;
     let whereClause: { [key: string]: any } = {};
     let Query = knex("articles");
-    console.log(keywords);
+
     if (keywords) {
       Query.where("body", "like", `%${keywords}%`).orWhere(
         "title",

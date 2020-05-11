@@ -12,9 +12,7 @@ export const login: GQL_MutationResolvers["login"] = async (
   const { email, password } = input;
 
   try {
-    const foundUser = await knex("users")
-      .where("email", email)
-      .first();
+    const foundUser = (await knex("users").where("email", email))[0];
 
     if (foundUser) {
       req.logout();

@@ -18,6 +18,7 @@ export type GQL_Article = {
   title?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
   author?: Maybe<GQL_User>;
 };
 
@@ -358,6 +359,7 @@ export type GQL_ArticleResolvers<ContextType = any, ParentType extends GQL_Resol
   title?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   body?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>,
   createdAt?: Resolver<Maybe<GQL_ResolversTypes['Date']>, ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<GQL_ResolversTypes['Date']>, ParentType, ContextType>,
   author?: Resolver<Maybe<GQL_ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };

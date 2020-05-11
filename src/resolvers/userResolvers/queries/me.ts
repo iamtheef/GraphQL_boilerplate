@@ -12,9 +12,7 @@ export const me: GQL_QueryResolvers["me"] = async (
   }
 ) => {
   try {
-    return await knex("users")
-      .where("id", id)
-      .first();
+    return (await knex("users").where("id", id))[0];
   } catch (e) {
     console.error(e.message);
     throw unexpectedError;

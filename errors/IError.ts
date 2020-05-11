@@ -1,5 +1,4 @@
 export interface Error {
-  path: string;
   messages: string[];
 }
 

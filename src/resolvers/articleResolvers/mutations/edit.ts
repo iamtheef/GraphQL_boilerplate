@@ -1,10 +1,6 @@
 import { GQL_MutationResolvers } from "schema/schema";
-import knex from "knex";
-import {
-  UnauthorizedAction,
-  throwNewError,
-  unexpectedError,
-} from "@errors/index";
+import knex from "@config/knex";
+import { UnauthorizedAction, unexpectedError } from "@errors/index";
 
 export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   _,
@@ -12,16 +8,22 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
   { req }
 ) => {
   try {
-    return null;
-    // let foundArticle = await Articles.findById(id).populate("author"); // throws server error if the id is wrong or changed
+    let article = await knex("articles")
+      .select("authorID")
+      .where("id", id)
+      .first();
 
-    // if (req.user.id !== foundArticle.authorID) {
-    //   return UnauthorizedAction.throwError();
-    // }
+    // throws server error if the id is wrong or changed
+    if (req.user.id !== article.authorID) {
+      return UnauthorizedAction;
+    }
 
-    // foundArticle.set({ ...changes });
+    const wasUpdated = !!(await knex("articles").update(
+      { ...changes, updatedAt: knex.fn.now() },
+      ["id"]
+    ));
 
-    // return { success: !!(await foundArticle.save()), errors: [] }; // responds success edited
+    return { success: wasUpdated, errors: [] }; // responds success edited
   } catch (e) {
     console.error(e.message);
     throw unexpectedError;

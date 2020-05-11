@@ -20,9 +20,7 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
 
   try {
     // checks which have been passed and updates accordingly (if the .oldPassword is right)
-    const foundUser = await knex("users")
-      .where("id", req.user.id)
-      .first();
+    const foundUser = (await knex("users").where("id", req.user.id))[0];
 
     if (!(await compare(oldPassword, foundUser.password.toString()))) {
       return InvalidPassword.throwError(); // return error if the in use password is wrong

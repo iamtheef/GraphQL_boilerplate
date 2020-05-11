@@ -2,7 +2,6 @@ import { mergeResolvers } from "merge-graphql-schemas";
 import { userMutations, userQueries } from "./userResolvers/index";
 import { articleMutations, articleQueries } from "./articleResolvers/index";
 import { migrateUp, migrateDown } from "./db_control";
-import knex from "@config/knex";
 
 const resolversArray = [
   {

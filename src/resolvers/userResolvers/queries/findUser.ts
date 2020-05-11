@@ -1,22 +1,22 @@
-import knex from "knex";
+import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isArticleQueried } from "@utils/isFieldQueried";
 import { unexpectedError } from "@errors/index";
 
 // multiple fields search for users
 export const findUser: GQL_QueryResolvers["findUser"] = async (
   _,
-  __,
-  ___,
-  info
+  { input }
 ) => {
   try {
-    // let Query = Users.find(__.input);
+    const { email, fullName, googleID, createdAt } = input;
+    let whereClause: { [key: string]: any } = {};
 
-    // isArticleQueried(info) && Query.populate("articles");
+    if (email) whereClause["email"] = email;
+    if (fullName) whereClause["fullName"] = fullName;
+    if (googleID) whereClause["googleID"] = googleID;
+    if (createdAt) whereClause["createdAt"] = createdAt;
 
-    // return await Query;
-    return null;
+    return await knex("users").where(whereClause);
   } catch (e) {
     console.error(e.message);
     throw unexpectedError;
