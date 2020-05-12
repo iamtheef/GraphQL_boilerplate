@@ -7,9 +7,9 @@ type BatchArticles = (ids: any) => Promise<Article[]>;
 
 const batchArticles: BatchArticles = async (ids) => {
   const articles = await knex("articles").whereIn("authorID", ids);
-  const groupedByAuthor = groupBy(articles, "authorID");
+  const groupedById = groupBy(articles, "authorID");
 
-  return ids.map((id: string) => groupedByAuthor[id] || []);
+  return ids.map((id: string) => groupedById[id] || []);
 };
 
 export const articlesLoader = new DataLoader<string, Article>(batchArticles);
