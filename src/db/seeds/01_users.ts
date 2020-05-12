@@ -1,6 +1,6 @@
 import * as Knex from "knex";
 import { v4 as uuidv4 } from "uuid";
-import { compare, hashSync } from "bcryptjs";
+import { hashSync } from "bcryptjs";
 
 export const ids = [`${uuidv4()}`, `${uuidv4()}`, `${uuidv4()}`];
 

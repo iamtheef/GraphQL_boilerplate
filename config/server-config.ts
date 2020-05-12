@@ -14,8 +14,8 @@ export const sessionMiddleware = () => {
   return session({
     name: "qid",
     secret: process.env.SECRET,
-    saveUninitialized: false,
-    resave: false,
+    saveUninitialized: true,
+    resave: true,
 
     cookie: {
       httpOnly: true,
