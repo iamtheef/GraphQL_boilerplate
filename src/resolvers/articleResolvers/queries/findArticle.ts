@@ -1,6 +1,6 @@
 import knex from "@config/knex";
 import { GQL_QueryResolvers } from "schema/schema";
-import { isAuthorQueried } from "@utils/isFieldQueried";
+// import { isAuthorQueried } from "@utils/isFieldQueried";
 // import { merge, mergeUpdates } from "../../../utils/mergeArticles";
 import { paginator } from "@utils/paginator";
 import { unexpectedError } from "@errors/index";
@@ -9,8 +9,7 @@ import { unexpectedError } from "@errors/index";
 export const findArticle: GQL_QueryResolvers["findArticle"] = async (
   _,
   __,
-  ___,
-  info
+  ___
 ) => {
   try {
     const { keywords, authorID, createdAt } = __.input;
