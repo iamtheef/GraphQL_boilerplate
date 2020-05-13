@@ -19,7 +19,7 @@ export const sessionMiddleware = () => {
 
     cookie: {
       httpOnly: true,
-      secure: process.env.ENV === "prod",
+      secure: process.env.ENV === "PROD",
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
     store: new RedisStore({ client: redisClient }),
@@ -27,17 +27,21 @@ export const sessionMiddleware = () => {
 };
 
 export const corsOptions = {
-  origin: "http://localhost:4000/graphql",
+  // this is used to prevent csrf attcaks so we check where the request come from
+  // we only whitelist our client server here
+  origin: [/localhost/], // add here any other url you want to receive request from
+
+  // also set your client option "credentials" to "include"
   credentials: true,
 };
 
 // initialising db
 export const initDB = async () => {
-  if (!(await knex.schema.hasTable("users")) && process.env.ENV === "dev") {
+  if (!(await knex.schema.hasTable("users")) && process.env.ENV === "DEV") {
     await migrateUp();
     console.log("DB CREATED AND SEEDED");
   } else if (
-    !((await knex.schema.hasTable("users")) && process.env.ENV === "prod")
+    !((await knex.schema.hasTable("users")) && process.env.ENV === "PROD")
   ) {
     await create_users(knex);
   }

@@ -1,23 +1,24 @@
 import "tsconfig-paths/register";
-import "./config/passport-config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import passport from "passport";
-import cors from "cors";
-import helmet from "helmet";
+import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { schema } from "./schema";
+import { pingDB } from "@utils/pingDB";
+import { initDB } from "config/server-config";
+import { setEnv } from "@config/enviroment";
+import helmet from "helmet";
+import passport from "passport";
 import compression from "compression";
 import depthLimit from "graphql-depth-limit";
 import morgan from "morgan";
-import { sessionMiddleware, corsOptions } from "@config/server-config";
-import { pingDB } from "@utils/pingDB";
-import { initDB } from "config/server-config";
+import cors from "cors";
 import * as loaders from "src/dataloaders/index";
+import "./config/passport-config";
 
 const app = express();
-const maintenance = require("./src/routes/maintenance");
 
 (async () => {
+  if (!setEnv()) return;
   app.use(cors(corsOptions));
   app.use(helmet());
   app.use(morgan("short"));
@@ -35,8 +36,8 @@ const maintenance = require("./src/routes/maintenance");
   await initDB();
 
   const server = new ApolloServer({
-    introspection: process.env.ENV !== "prod",
-    playground: process.env.ENV !== "prod",
+    introspection: process.env.ENV !== "PROD",
+    playground: process.env.ENV !== "PROD",
     schema,
     validationRules: [depthLimit(5)],
     context: ({ req }) => {
@@ -51,5 +52,5 @@ const maintenance = require("./src/routes/maintenance");
   app.listen(process.env.PORT, () =>
     console.log(`🚀 --- :${process.env.PORT}`)
   );
-  app.use("/", maintenance);
+  app.use("/", require("./src/routes/maintenance"));
 })();
