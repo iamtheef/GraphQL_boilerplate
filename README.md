@@ -40,12 +40,15 @@ A server using Graphql technology on the top of Node/Express stack written in Ty
 
 Assuming you have installed the prerequisites as listed above :
 
-- Open the `docker-compose.yml` file to set the necessary values such as : - ENV (line 17, enter one of the allowed values `"DEV","TEST","PROD")` defaults to `DEV` - SECRET (line 18, enter your salt string for hashing the passwords) - Set your db credits (line 36, `USER` `PASSWORD`). The defaults are :
+- Open the `docker-compose.yml` file to set the necessary values such as : 
+  - ENV (line 17, enter one of the allowed values `"DEV","TEST","PROD")` defaults to `DEV` 
+  - SECRET (line 18, enter your salt string for hashing the passwords) 
+  - Set your db credits (line 36, `USER` `PASSWORD`). The defaults are :
   ```
   POSTGRES_USER: admin
   POSTGRES_PASSWORD: password - Set the same values for the environment on line 19.
 
-* Build the server
+- Build the server
 
 ```
 docker-compose build
