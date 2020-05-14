@@ -115,7 +115,8 @@ Although it is mostly separated to these very folders :
     - `tsconfig.json` TypeScript configuration file. 
     - `Dockerfile`the initial steps to build and run the server. 
     - `docker-compose.yml` docker configuration file. - `knexfile.ts` this file configures the connection to the db as well as the routes for migrations and seeding files. 
-    - `index.ts` this file is the server itself. The function that executes when you run the server and sticks all the pieces together. - `package.json`project dependencies and scripts can be found in this file.
+    - `index.ts` this file is the server itself. The function that executes when you run the server and sticks all the pieces together. 
+    - `package.json`project dependencies and scripts can be found in this file.
 
 ## Future plans
 
