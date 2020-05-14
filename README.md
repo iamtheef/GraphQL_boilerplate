@@ -20,9 +20,9 @@ A server using Graphql technology on the top of Node/Express stack written in Ty
 - Redis for Caching
 - RedisCommander for managing the Redis Database
 - Input Validations
--     Rate Limiter (limits request per field per ip per day)
--     Pagination
--     Error Handling
+- Rate Limiter (limits request per field per ip per day)
+- Pagination
+- Error Handling
 - Logging
 
 ## _Prerequisites_
@@ -44,6 +44,7 @@ Assuming you have installed the prerequisites as listed above :
   ```
   POSTGRES_USER: admin
   POSTGRES_PASSWORD: password - Set the same values for the environment on line 19.
+  ```
 
 * Build the server
 
