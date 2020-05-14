@@ -109,8 +109,10 @@ Although it is mostly separated to these very folders :
   - `db` this folder contains all the db related files including migration functions and seed functions. Available as resolvers in the schema but you can also use the [Migration CLI tool](https://knexjs.org/#Migrations) of knex. 
   - `models` this folder holds the models of the project for mongoDB version or just interfaces for the SQL version. 
   - `resolvers` holds all the resolvers divided per models and sub-divided per queries/mutations each. You will also find `db_controls.ts`(only in the SQL version) file which contains the custom functions for migrating, seeding, dropping the db when needed. And finally the `index.ts` file which is responsible for merging and exporting everything and for the field level resolvers. 
-  - `routes` a place for all the external Express routes that may be needed. Currently contains the maintenance route. - `utils` this folder holds all the utils used in this project. 
-  - `root directory files` - `tsconfig.json` TypeScript configuration file. 
+  - `routes` a place for all the external Express routes that may be needed. Currently contains the maintenance route. 
+  - `utils` this folder holds all the utils used in this project. 
+- `root directory files` 
+    - `tsconfig.json` TypeScript configuration file. 
     - `Dockerfile`the initial steps to build and run the server. 
     - `docker-compose.yml` docker configuration file. - `knexfile.ts` this file configures the connection to the db as well as the routes for migrations and seeding files. 
     - `index.ts` this file is the server itself. The function that executes when you run the server and sticks all the pieces together. - `package.json`project dependencies and scripts can be found in this file.
