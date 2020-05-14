@@ -1,15 +1,15 @@
 require("dotenv").config();
 
-const enviroments = ["DEV", "PROD", "TEST"];
+const environments = ["DEV", "PROD", "TEST"];
 
 export const setEnv = () => {
-  if (!enviroments.includes(process.env.ENV)) {
+  if (!environments.includes(process.env.ENV)) {
     console.error(
       `Your enviroment '${process.env.ENV}' is no available. Please set your enviroment to one of these values : \n`,
-      enviroments.map((x, i) => `${i + 1}) ${x}`).join("\n")
+      environments.map((x, i) => `${i + 1}) ${x}`).join("\n")
     );
     return false;
   }
-  console.log("CURRENT ENVIROMENT : ", process.env.ENV);
+  console.log("CURRENT ENVIRONMENT : ", process.env.ENV);
   return true;
 };

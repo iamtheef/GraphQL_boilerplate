@@ -5,7 +5,7 @@ import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { schema } from "./schema";
 import { pingDB } from "@utils/pingDB";
 import { initDB } from "config/server-config";
-import { setEnv } from "@config/enviroment";
+import { setEnv } from "@config/environment";
 import helmet from "helmet";
 import passport from "passport";
 import compression from "compression";
