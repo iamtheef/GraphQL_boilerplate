@@ -20,9 +20,9 @@ A server using Graphql technology on the top of Node/Express stack written in Ty
 - Redis for Caching
 - RedisCommander for managing the Redis Database
 - Input Validations
--     Rate Limiter (limits request per field per ip per day)
--     Pagination
--     Error Handling
+- Rate Limiter (limits request per field per ip per day)
+- Pagination
+- Error Handling
 - Logging
 
 ## _Prerequisites_
