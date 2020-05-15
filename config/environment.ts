@@ -2,14 +2,19 @@ require("dotenv").config();
 
 const environments = ["DEV", "PROD", "TEST"];
 
-export const setEnv = () => {
-  if (!environments.includes(process.env.ENV)) {
+export const isEnv = () => {
+  const currentEnv = process.env.ENV.toLocaleUpperCase();
+  const formattedEnvs = environments.map((x, i) => `${i + 1}) ${x}`).join("\n");
+  if (!environments.includes(currentEnv)) {
+    console.info(`${"=".repeat(40)}`);
     console.error(
-      `Your enviroment '${process.env.ENV}' is no available. Please set your enviroment to one of these values : \n`,
-      environments.map((x, i) => `${i + 1}) ${x}`).join("\n")
+      `Your environment '${currentEnv}' is no available. Please set your environment to one of these values:\n${formattedEnvs}`
     );
+    console.info(`${"=".repeat(40)}`);
     return false;
   }
-  console.log("CURRENT ENVIRONMENT : ", process.env.ENV);
+  console.info(`${"=".repeat(40)}`);
+  console.log("CURRENT ENVIRONMENT: ", currentEnv);
+  console.info(`${"=".repeat(40)}`);
   return true;
 };
