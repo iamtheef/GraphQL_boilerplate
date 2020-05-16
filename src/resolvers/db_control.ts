@@ -25,11 +25,7 @@ export const migrateUp = async () => {
 };
 
 // drops db
-export const migrateDown: GQL_MutationResolvers["migrateUp"] = async (
-  _,
-  __,
-  ___
-) => {
+export const migrateDown = async (_?: any, __?: any, ___?: any) => {
   try {
     ___.req.logout();
     await drop_articles(knex);

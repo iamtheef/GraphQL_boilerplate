@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node index.ts",
     "dev": "concurrently \"ts-node index.ts\"\"npm run generate\"",
     "generate": "graphql-codegen --config codegen.yml --watch",
-    "graphql-codegen init": "./node_modules/.bin/graphql-codegen init"
+    "graphql-codegen init": "./node_modules/.bin/graphql-codegen init",
+    "test": "npm run seed && npx jest && npm run drop",
+    "seed": "ts-node ./tests/createDB.ts && echo \"DB SEEDED\"",
+    "drop": "ts-node ./tests/dropDB.ts && echo \"DB DROPPED\""
   },
   "author": "th",
   "license": "ISC",
@@ -43,7 +45,6 @@
     "redis-server": "^1.2.2",
     "reflect-metadata": "^0.1.13",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.8.3",
     "uuid": "^8.0.0",
     "validator": "^13.0.0"
   },
@@ -60,6 +61,7 @@
     "@types/graphql-depth-limit": "^1.1.2",
     "@types/graphql-resolvers": "^0.2.2",
     "@types/helmet": "0.0.45",
+    "@types/jest": "^25.2.2",
     "@types/lodash": "^4.14.150",
     "@types/morgan": "^1.9.0",
     "@types/passport": "^1.0.3",
@@ -69,6 +71,8 @@
     "@types/validator": "^12.0.1",
     "jest": "^26.0.1",
     "nodemon": "^2.0.3",
-    "ts-node": "^8.6.2"
+    "ts-jest": "^26.0.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.9.2"
   }
 }
