@@ -3,6 +3,7 @@ import redis from "redis";
 import knex from "@config/knex";
 import { up as create_users } from "../src/db/migrations/20200504130026_create_users_table";
 import { migrateUp } from "../src/resolvers/db_control";
+import { currentEnv } from "@config/environment";
 
 let RedisStore = require("connect-redis")(session);
 export let redisClient = redis.createClient({
@@ -19,7 +20,7 @@ export const sessionMiddleware = () => {
 
     cookie: {
       httpOnly: true,
-      secure: process.env.ENV === "PROD",
+      secure: currentEnv === "PROD",
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
     store: new RedisStore({ client: redisClient }),

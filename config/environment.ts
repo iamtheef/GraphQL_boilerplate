@@ -1,9 +1,10 @@
 require("dotenv").config();
 
+export const currentEnv = process.env.ENV.toLocaleUpperCase();
+
 const environments = ["DEV", "PROD", "TEST"];
 
-export const isEnv = () => {
-  const currentEnv = process.env.ENV.toLocaleUpperCase();
+export const checkEnv = () => {
   const formattedEnvs = environments.map((x, i) => `${i + 1}) ${x}`).join("\n");
   if (!environments.includes(currentEnv)) {
     console.info(`${"=".repeat(40)}`);

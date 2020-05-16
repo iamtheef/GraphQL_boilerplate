@@ -5,7 +5,7 @@ import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { schema } from "./schema";
 import { pingDB } from "@utils/pingDB";
 import { initDB } from "config/server-config";
-import { isEnv } from "@config/environment";
+import { checkEnv, currentEnv } from "@config/environment";
 import helmet from "helmet";
 import passport from "passport";
 import compression from "compression";
@@ -17,7 +17,7 @@ import "./config/passport-config";
 
 const app = express();
 
-isEnv() &&
+checkEnv() &&
   (async () => {
     app.use(cors(corsOptions));
     app.use(helmet());
@@ -36,8 +36,8 @@ isEnv() &&
     await initDB();
 
     const server = new ApolloServer({
-      introspection: process.env.ENV !== "PROD",
-      playground: process.env.ENV !== "PROD",
+      introspection: currentEnv !== "PROD",
+      playground: currentEnv !== "PROD",
       schema,
       validationRules: [depthLimit(5)],
       context: ({ req }) => {
