@@ -38,11 +38,11 @@ export const corsOptions = {
 
 // initialising db
 export const initDB = async () => {
-  if (!(await knex.schema.hasTable("users")) && process.env.ENV === "DEV") {
+  if (!(await knex.schema.hasTable("users")) && currentEnv === "DEV") {
     await migrateUp();
     console.log("DB CREATED AND SEEDED");
   } else if (
-    !((await knex.schema.hasTable("users")) && process.env.ENV === "PROD")
+    !((await knex.schema.hasTable("users")) && currentEnv === "PROD")
   ) {
     await create_users(knex);
   }

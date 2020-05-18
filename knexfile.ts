@@ -1,16 +1,24 @@
 import "tsconfig-paths/register";
-import { Config, MySqlConnectionConfig } from "knex";
+import { Config, MySqlConnectionConfig, Sqlite3ConnectionConfig } from "knex";
+import { currentEnv } from "./config/environment";
 
-const connectionConfig: MySqlConnectionConfig = {
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  host: process.env.POSTGRES_HOST,
-  port: 5432,
+// let connectionConfig: MySqlConnectionConfig | Sqlite3ConnectionConfig = {};
+
+const testConfig: Config = {
+  client: "sqlite3",
+  connection: {
+    filename: "./tests/testdb.sqlite",
+  },
 };
 
 const config: Config = {
   client: "pg",
-  connection: connectionConfig,
+  connection: {
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    host: process.env.POSTGRES_HOST,
+    port: 5432,
+  },
   useNullAsDefault: true,
   migrations: {
     directory: "./src/db/migrations",
@@ -23,5 +31,5 @@ const config: Config = {
   debug: false,
 };
 
-export default config; // for the app
+export default currentEnv === "TEST" ? testConfig : config;
 module.exports = config; // for cli use

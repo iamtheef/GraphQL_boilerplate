@@ -7,14 +7,19 @@ services:
     depends_on:
       - redis
       - db
-    command: npm start
-    restart: always
+    # -- uncomment this command to run the tests
+    command: npm test
+    #
+    # -- uncomment these two commands to start the server
+    # command: npm start
+    # restart: always
+    #
     working_dir: /usr/src/app
     environment:
       PORT: "4000"
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      ENV: dev
+      ENV: test
       SECRET: insertyoursalthere
       # db config
       POSTGRES_USER: admin

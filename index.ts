@@ -40,9 +40,10 @@ checkEnv() &&
       playground: currentEnv !== "PROD",
       schema,
       validationRules: [depthLimit(5)],
-      context: ({ req }) => {
+      context: ({ req, res }) => {
         return {
           req,
+          res,
           loaders,
         };
       },

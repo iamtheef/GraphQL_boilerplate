@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+process.env.ENV = "test";
 export const currentEnv = process.env.ENV.toLocaleUpperCase();
 
 const environments = ["DEV", "PROD", "TEST"];
