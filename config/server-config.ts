@@ -28,11 +28,11 @@ export const sessionMiddleware = () => {
 };
 
 export const corsOptions = {
-  // this is used to prevent csrf attcaks so we check where the request come from
+  // this is used to prevent csrf attcaks so we check where the request comes from
   // we only whitelist our client server here
-  origin: [/localhost/], // add here any other url you want to receive request from
+  origin: [/localhost/], // add here any other url you want to receive requests from
 
-  // also set your client option "credentials" to "include"
+  // also set your client option "credentials" to "include" in order for cookies to work
   credentials: true,
 };
 

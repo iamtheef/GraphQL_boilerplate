@@ -45,7 +45,8 @@ export const updateAcc: GQL_MutationResolvers["updateAcc"] = async (
       .update({
         ...foundUser,
         updatedAt: knex.fn.now(),
-      });
+      })
+      .timeout(1000, { cancel: true });
     return { success: true, errors: [] }; // Account Updated
   } catch (e) {
     console.error(e.message); // server error handling

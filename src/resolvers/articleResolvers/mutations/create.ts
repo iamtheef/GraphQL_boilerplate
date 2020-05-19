@@ -9,15 +9,17 @@ export const createArticle: GQL_MutationResolvers["createArticle"] = async (
   { req }
 ) => {
   try {
-    const newArticle = await knex("articles").insert(
-      {
-        id: uuidv4(),
-        ...input,
-        createdAt: knex.fn.now(),
-        authorID: req.user.id,
-      },
-      ["*"]
-    );
+    const newArticle = await knex("articles")
+      .insert(
+        {
+          id: uuidv4(),
+          ...input,
+          createdAt: knex.fn.now(),
+          authorID: req.user.id,
+        },
+        ["*"]
+      )
+      .timeout(1000, { cancel: true });
 
     return {
       success: true,

@@ -20,15 +20,17 @@ export const register: GQL_MutationResolvers["register"] = async (
   if (!isValid) return throwNewError(messages);
 
   try {
-    const newUser = await knex("users").insert(
-      {
-        ...input,
-        id: uuidv4(),
-        createdAt: knex.fn.now(),
-        password: hashSync(input.password, 10),
-      },
-      ["*"]
-    );
+    const newUser = await knex("users")
+      .insert(
+        {
+          ...input,
+          id: uuidv4(),
+          createdAt: knex.fn.now(),
+          password: hashSync(input.password, 10),
+        },
+        ["*"]
+      )
+      .timeout(1000, { cancel: true });
 
     return Access(req, newUser[0]); // return the cookie for the newly create user
   } catch (e) {

@@ -20,7 +20,7 @@ export const paginator = async (input: paginatorInput) => {
   if (sorting) Query.orderBy("createdAt", "desc");
 
   return {
-    nodes: await Query,
+    nodes: await Query.timeout(1000, { cancel: true }),
     hasNextPage: Math.floor(results / nodesPerPage) > pageNumber,
     hasPreviousPage: Math.ceil(results / nodesPerPage) < pageNumber,
     totalNodes: results,

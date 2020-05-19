@@ -1,15 +1,7 @@
 import "tsconfig-paths/register";
 import { Config, MySqlConnectionConfig, Sqlite3ConnectionConfig } from "knex";
-import { currentEnv } from "./config/environment";
 
 // let connectionConfig: MySqlConnectionConfig | Sqlite3ConnectionConfig = {};
-
-const testConfig: Config = {
-  client: "sqlite3",
-  connection: {
-    filename: "./tests/testdb.sqlite",
-  },
-};
 
 const config: Config = {
   client: "pg",
@@ -30,6 +22,5 @@ const config: Config = {
   // see the actual SQL queries executed
   debug: false,
 };
-
-export default currentEnv === "TEST" ? testConfig : config;
+export default config;
 module.exports = config; // for cli use
