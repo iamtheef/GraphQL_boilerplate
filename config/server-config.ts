@@ -1,7 +1,6 @@
 import session from "express-session";
 import redis from "redis";
 import knex from "@config/knex";
-import { up as create_users } from "../src/db/migrations/20200504130026_create_users_table";
 import { migrateUp } from "../src/resolvers/db_control";
 import { currentEnv } from "@config/environment";
 
@@ -41,9 +40,5 @@ export const initDB = async () => {
   if (!(await knex.schema.hasTable("users")) && currentEnv === "DEV") {
     await migrateUp();
     console.log("DB CREATED AND SEEDED");
-  } else if (
-    !((await knex.schema.hasTable("users")) && currentEnv === "PROD")
-  ) {
-    await create_users(knex);
   }
 };

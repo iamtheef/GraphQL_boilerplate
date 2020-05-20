@@ -1,28 +1,34 @@
 import knex from "../config/knex";
 import { migrateDown, migrateUp } from "../src/resolvers/db_control";
-import * as userResolvers from "@resolvers/userResolvers/index";
+import { graphqlTestCall } from "./gqlTestCall";
+import * as queries from "./Queries";
+import { redisClient } from "@config/server-config";
 
-it("seeding db", async () => {
+beforeAll(async () => {
   await migrateUp();
+});
+
+afterAll(async () => {
+  await migrateDown();
+  redisClient.end(true);
 });
 
 it("hello", () => {
   expect("hello all possible words").toBe("hello all possible words");
 });
 
+// tests migration
 it("count users", async () => {
   expect(await knex("users")).toHaveLength(3);
 });
 
-it("is user registered", async () => {
-  const output = userResolvers.userQueries.isUserRegistered(
-    {},
-    { email: "mai@mail.com" },
-    {}
-  );
-});
-
-it("finishing & cleaning db", async () => {
-  await migrateDown();
-  await knex.destroy();
+// tests
+describe("users", () => {
+  it("is user registered", async () => {
+    const output = await graphqlTestCall(queries.isUserRegistered, {
+      email: "mail@mail.com",
+    });
+    expect(knex("users").where("email", "mail@mail.com")).toBeDefined();
+    expect(output).toEqual({ data: { isUserRegistered: true } });
+  });
 });
