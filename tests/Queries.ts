@@ -4,11 +4,20 @@ query isUserRegistered($email:String!) {
 }`;
 
 const allUsers = `
-query allUsers() {
-    allUsers(){
-        name
+query allUsers {
+    allUsers{
+        id
         email
     }
 }`;
 
-export { isUserRegistered };
+const findUser = `
+query findUser($input: {$email: String!,$fullName: String! }) {
+    findUser($email, $fullName){
+        id
+        email
+        fullName
+    }
+}`;
+
+export { isUserRegistered, allUsers, findUser };
