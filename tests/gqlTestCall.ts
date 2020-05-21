@@ -8,7 +8,7 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 export const graphqlTestCall = async (
   query: any,
   variables?: any,
-  userID?: number | string
+  id?: number | string
 ) => {
   return graphql(
     schema,
@@ -16,8 +16,13 @@ export const graphqlTestCall = async (
     undefined,
     {
       req: {
+        login: () => {},
+        logout: () => {},
+        user: {
+          id,
+        },
         session: {
-          userID,
+          destroy: () => {},
         },
       },
       res: {

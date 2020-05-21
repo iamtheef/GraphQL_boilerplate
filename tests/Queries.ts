@@ -17,7 +17,18 @@ query findUser($input: UserQueryInput!) {
         id
         email
         fullName
+        isAdmin
     }
 }`;
 
-export { isUserRegistered, allUsers, findUser };
+const me = `
+query me {
+    me {
+        id
+        email
+        fullName
+        isAdmin
+    }
+}`;
+
+export { isUserRegistered, allUsers, findUser, me };

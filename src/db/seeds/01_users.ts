@@ -3,7 +3,7 @@ import { hashSync } from "bcryptjs";
 // import { v4 as uuidv4 } from "uuid";
 import { ids, email, fullName } from "./mockData";
 
-function passHash() {
+export function passHash() {
   return hashSync("password", 10);
 }
 
