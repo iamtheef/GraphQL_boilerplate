@@ -12,8 +12,8 @@ query allUsers {
 }`;
 
 const findUser = `
-query findUser($input: {$email: String!,$fullName: String! }) {
-    findUser($email, $fullName){
+query findUser($input: UserQueryInput!) {
+    findUser(input: $input){
         id
         email
         fullName

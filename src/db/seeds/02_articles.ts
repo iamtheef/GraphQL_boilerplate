@@ -1,6 +1,5 @@
 import * as Knex from "knex";
-import { ids } from "./01_users";
-import { v4 as uuidv4 } from "uuid";
+import { ids, title, body, articlesIds } from "./mockData";
 
 export async function seed(knex: Knex): Promise<any> {
   // Deletes ALL existing entries
@@ -10,30 +9,30 @@ export async function seed(knex: Knex): Promise<any> {
       // Inserts seed entries
       return knex("articles").insert([
         {
-          id: `${uuidv4()}`,
-          title: "lol",
-          body: "random text here, lorem ipsum",
+          id: articlesIds[0],
+          title: title[0],
+          body: body[0],
           authorID: ids[0],
           createdAt: knex.fn.now(),
         },
         {
-          id: `${uuidv4()}`,
-          title: "lol2",
-          body: "random textsa here, lorem ipsum",
+          id: articlesIds[1],
+          title: title[1],
+          body: body[1],
           authorID: ids[1],
           createdAt: knex.fn.now(),
         },
         {
-          id: `${uuidv4()}`,
-          title: "lol3",
-          body: "lorem ipsum333",
+          id: articlesIds[2],
+          title: title[2],
+          body: body[2],
           authorID: ids[0],
           createdAt: knex.fn.now(),
         },
         {
-          id: `${uuidv4()}`,
-          title: "lol4",
-          body: "random 444lorem ipsum",
+          id: articlesIds[3],
+          title: title[3],
+          body: body[3],
           authorID: ids[2],
           createdAt: knex.fn.now(),
         },

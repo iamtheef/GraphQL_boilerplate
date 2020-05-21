@@ -1,19 +1,18 @@
-import knex from "../config/knex";
 import { migrateDown, migrateUp } from "../src/resolvers/db_control";
 import { graphqlTestCall } from "./gqlTestCall";
 import * as queries from "./Queries";
 import { redisClient } from "@config/server-config";
-import { ids } from "../src/db/seeds/01_users";
+import { ids, email, fullName } from "../src/db/seeds/mockData";
 
 beforeAll(async () => {
-  await migrateUp();
-  // for now we don't use redis client anywhere so we close it early in order for jest to be able to exit
   redisClient.end(true);
+
+  await migrateUp();
+  // // for now we don't use redis client anywhere so we close it early in order for jest to be able to exit
 });
 
 afterAll(async () => {
   await migrateDown();
-  redisClient.end(true);
 });
 
 it("hello", () => {
@@ -22,26 +21,25 @@ it("hello", () => {
 
 // tests
 describe("users", () => {
-  it("is user registered", async () => {
-    const output = await graphqlTestCall(queries.isUserRegistered, {
-      email: "mail@mail.com",
-    });
-    expect(knex("users").where("email", "mail@mail.com")).toBeDefined();
-    expect(output).toEqual({ data: { isUserRegistered: true } });
-  });
-  it("allUsers", async () => {
-    const output = await graphqlTestCall(queries.allUsers); // we query only email and fullName
-    expect(output.data.allUsers).toHaveLength(3);
-  });
+  // it("is user registered", async () => {
+  //   const output = await graphqlTestCall(queries.isUserRegistered, {
+  //     email: email[0],
+  //   });
+  //   expect(output).toEqual({ data: { isUserRegistered: true } });
+  // });
+  // it("allUsers", async () => {
+  //   const output = await graphqlTestCall(queries.allUsers); // we query only email and fullName
+  //   expect(output.data.allUsers).toHaveLength(3);
+  // });
 
   it("findUser", async () => {
     const output = await graphqlTestCall(queries.findUser, {
-      input: { email: "mail@mail.com" },
+      input: { email: email[0] },
     });
-    console.log(output);
+
     expect(output.data.findUser).toHaveLength(1);
     expect(output.data.findUser).toEqual([
-      { id: ids[0], email: "mail@mail.com", fullName: "th" },
+      { id: ids[0], email: email[0], fullName: fullName[0] },
     ]);
   });
 });

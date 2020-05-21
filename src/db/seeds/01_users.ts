@@ -1,8 +1,7 @@
 import * as Knex from "knex";
-import { v4 as uuidv4 } from "uuid";
 import { hashSync } from "bcryptjs";
-
-export const ids = [`${uuidv4()}`, `${uuidv4()}`, `${uuidv4()}`];
+// import { v4 as uuidv4 } from "uuid";
+import { ids, email, fullName } from "./mockData";
 
 function passHash() {
   return hashSync("password", 10);
@@ -17,8 +16,8 @@ export async function seed(knex: Knex): Promise<any> {
       return knex("users").insert([
         {
           id: ids[0],
-          fullName: "th",
-          email: "mail@mail.com",
+          fullName: fullName[0],
+          email: email[0],
           password: passHash(),
           isAdmin: true,
           googleID: null,
@@ -27,8 +26,8 @@ export async function seed(knex: Knex): Promise<any> {
         },
         {
           id: ids[1],
-          fullName: "the",
-          email: "mail2@mail.com",
+          fullName: fullName[1],
+          email: email[1],
           password: passHash(),
           isAdmin: false,
           googleID: null,
@@ -37,8 +36,8 @@ export async function seed(knex: Knex): Promise<any> {
         },
         {
           id: ids[2],
-          fullName: "t",
-          email: "mail3@mail.com",
+          fullName: fullName[2],
+          email: email[2],
           password: passHash(),
           isAdmin: false,
           googleID: null,
