@@ -1,4 +1,4 @@
-import knex from "../../config/knex";
+import knex from "@config/knex";
 import { seed as seed_users } from "../db/seeds/01_users";
 import { seed as seed_articles } from "../db/seeds/02_articles";
 import {

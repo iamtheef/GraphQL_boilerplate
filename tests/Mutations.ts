@@ -11,4 +11,12 @@ mutation logout{
     logout
 }`;
 
-export { login, logout };
+const register = `
+mutation register($input:RegisterInput!) {
+    register(input: $input){
+        success
+        errors
+    }
+}`;
+
+export { login, logout, register };

@@ -1,71 +1,85 @@
 import { migrateDown, migrateUp } from "../src/resolvers/db_control";
 import { graphqlTestCall } from "./gqlTestCall";
 import * as queries from "./Queries";
-import * as mutations from "./Mutations";
 import { redisClient } from "@config/server-config";
+import * as mutations from "./Mutations";
 import { ids, email, fullName } from "../src/db/seeds/mockData";
+import knex from "@config/knex";
 
 beforeAll(async () => {
   redisClient.end(true);
-
+  await migrateDown();
   await migrateUp();
-  // // for now we don't use redis client anywhere so we close it early in order for jest to be able to exit
 });
 
 afterAll(async () => {
   await migrateDown();
+  redisClient.end(true);
 });
 
-it("hello", () => {
+it("hello", async () => {
   expect("hello all possible words").toBe("hello all possible words");
 });
 
 // tests
-// describe("users", () => {
-// it("is user registered", async () => {
-//   const output = await graphqlTestCall(queries.isUserRegistered, {
-//     email: email[0],
-//   });
-//   expect(output).toEqual({ data: { isUserRegistered: true } });
-// });
-// it("allUsers", async () => {
-//   const output = await graphqlTestCall(queries.allUsers); // we query only email and fullName
-//   expect(output.data.allUsers).toHaveLength(3);
-// });
-// });
+describe("users", () => {
+  it("is user registered", async () => {
+    const output = await graphqlTestCall(queries.isUserRegistered, {
+      email: email[0],
+    });
+    expect(output).toEqual({ data: { isUserRegistered: true } });
+  });
+  it("is user registered with wrong main", async () => {
+    const output = await graphqlTestCall(queries.isUserRegistered, {
+      email: "this@email.com",
+    });
+    expect(output).toEqual({ data: { isUserRegistered: false } });
+  });
+  it("allUsers", async () => {
+    const output = await graphqlTestCall(queries.allUsers); // we query only email and fullName
+    expect(output.data.allUsers).toHaveLength(3);
+  });
+});
 
-// describe("findUser", () => {
-//   it("find by email", async () => {
-//     const output = await graphqlTestCall(queries.findUser, {
-//       input: { email: email[0] },
-//     });
+describe("findUser", () => {
+  it("find by email", async () => {
+    const output = await graphqlTestCall(queries.findUser, {
+      input: { email: email[0] },
+    });
 
-//     expect(output.data.findUser).toHaveLength(1);
-//     expect(output.data.findUser).toEqual([
-//       { id: ids[0], email: email[0], fullName: fullName[0], isAdmin: true },
-//     ]);
-//   });
+    expect(output.data.findUser).toHaveLength(1);
+    expect(output.data.findUser).toEqual([
+      { id: ids[0], email: email[0], fullName: fullName[0], isAdmin: true },
+    ]);
+  });
 
-//   it("find by fullName", async () => {
-//     const output = await graphqlTestCall(queries.findUser, {
-//       input: { fullName: fullName[1] },
-//     });
+  it("find by fullName", async () => {
+    const output = await graphqlTestCall(queries.findUser, {
+      input: { fullName: fullName[1] },
+    });
 
-//     expect(output.data.findUser).toHaveLength(1);
-//     expect(output.data.findUser).toEqual([
-//       { id: ids[1], email: email[1], fullName: fullName[1], isAdmin: false },
-//     ]);
-//   });
-// });
+    expect(output.data.findUser).toHaveLength(1);
+    expect(output.data.findUser).toEqual([
+      { id: ids[1], email: email[1], fullName: fullName[1], isAdmin: false },
+    ]);
+  });
 
-describe("login & me", () => {
+  it("user by id", async () => {
+    const output = await graphqlTestCall(queries.userById, { id: ids[2] });
+    expect(output.data.userById).toEqual({
+      email: email[2],
+      fullName: fullName[2],
+    });
+  });
+});
+
+describe("login & me & logout", () => {
   it("successful login function", async () => {
     const login = await graphqlTestCall(mutations.login, {
       input: { email: email[0], password: "password" },
     });
     expect(login.data.login).toEqual({ success: true, errors: [] });
     expect(login.data.login).not.toBe(null);
-
     const me = await graphqlTestCall(queries.me, {}, ids[0]);
 
     expect(me.data.me).toEqual({
@@ -93,5 +107,40 @@ describe("login & me", () => {
     });
     const me = await graphqlTestCall(queries.me, {}, null);
     expect(me).toEqual({ data: { me: null } });
+  });
+});
+
+describe("register", () => {
+  it("valid user", async () => {
+    const res = await graphqlTestCall(mutations.register, {
+      input: {
+        email: "testmail@mail.com",
+        password: "Password!2",
+        fullName: "any name",
+      },
+    });
+    expect(res.data.register).toEqual({ success: true, errors: [] });
+    expect(res.data.register).not.toBe(null);
+    const newUser = (
+      await knex("users").where("email", "testmail@mail.com")
+    )[0];
+    expect(newUser).toBeDefined();
+  });
+
+  it("invalid user", async () => {
+    const res = await graphqlTestCall(mutations.register, {
+      input: {
+        email: "testmailmailcom",
+        password: "pssw",
+        fullName: "no 1",
+      },
+    });
+    expect(res.data.register.success).toBe(false);
+    expect(res.data.register.errors).toHaveLength(3);
+    expect(res.data.register.errors).toEqual([
+      "Password is not valid",
+      "Name is not valid",
+      "Email is not valid",
+    ]);
   });
 });

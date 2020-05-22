@@ -31,4 +31,13 @@ query me {
     }
 }`;
 
-export { isUserRegistered, allUsers, findUser, me };
+const userById = `
+query userById($id: ID!) {
+    userById (id:$id){
+        email
+        fullName
+        
+    }
+}`;
+
+export { isUserRegistered, allUsers, findUser, me, userById };

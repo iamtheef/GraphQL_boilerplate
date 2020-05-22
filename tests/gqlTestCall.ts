@@ -3,7 +3,13 @@ import { makeExecutableSchema } from "graphql-tools";
 import { typeDefs } from "../schema/typeDefs";
 import { resolvers } from "../src/resolvers";
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+  resolverValidationOptions: {
+    requireResolversForResolveType: false,
+  },
+});
 
 export const graphqlTestCall = async (
   query: any,

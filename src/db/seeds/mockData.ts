@@ -8,10 +8,10 @@ export const fullName = ["th", "the", "t"];
 
 export const title = ["lol", "lol2", "lol3", "lol4"];
 export const articlesIds = [
-  "gv98c6b9-5b34-4dac-b0cf-12304cb473fg",
-  "fg54e251-c340-492e-b9ff-ed71ab659045",
-  "kl45dcd4-5860-4e28-b239-579df6f67t3e",
-  "joe4dcd4-8549-u8er-7d8s-dj8er8e9wepl",
+  "6a4afdf2-87ef-42e8-bd66-4bd388f9571e",
+  "966dd4d9-24e6-430d-b24e-0b7496171ea5",
+  "756ad1c3-55be-4478-865b-d50d8291cc55",
+  "9ab369e1-9db1-4c49-ae55-c42ad1abf71a",
 ];
 export const body = [
   "random text here, lorem ipsum",
