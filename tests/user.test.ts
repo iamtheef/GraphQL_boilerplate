@@ -141,3 +141,47 @@ describe("register", () => {
     ]);
   });
 });
+
+describe("update acc", () => {
+  it("wrong password", async () => {
+    const res = await graphqlTestCall(
+      mutations.updateAcc,
+      {
+        input: {
+          fullName: "new name",
+          password: {
+            oldPassword: "wrong password",
+          },
+        },
+      },
+      ids[1]
+    );
+    console.log(res.errors);
+
+    expect(res.data.updateAcc).toEqual({
+      success: false,
+      errors: ["Password was invalid, try again."],
+    });
+    const updatedUser = (await knex("users").where("email", email[1]))[0];
+    expect(updatedUser.fullName).toEqual(fullName[1]);
+  });
+
+  it("updating name", async () => {
+    const res = await graphqlTestCall(
+      mutations.updateAcc,
+      {
+        input: {
+          fullName: "new name",
+          password: {
+            oldPassword: "password",
+          },
+        },
+      },
+      ids[1]
+    );
+
+    expect(res.data.updateAcc).toEqual({ success: true, errors: [] });
+    const updatedUser = (await knex("users").where("email", email[1]))[0];
+    expect(updatedUser.fullName).toEqual("new name");
+  });
+});

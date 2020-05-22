@@ -19,6 +19,14 @@ mutation register($input:RegisterInput!) {
     }
 }`;
 
+const updateAcc = `
+mutation updateAcc($input:UserUpdates!) {
+    updateAcc(input: $input){
+        success
+        errors
+    }
+}`;
+
 const migrateUp = `mutation migrateUp{
     migrateUp
 }`;
@@ -26,4 +34,4 @@ const migrateUp = `mutation migrateUp{
 const migrateDown = `mutation migrateDown{
     migrateDown
 }`;
-export { login, logout, register, migrateDown, migrateUp };
+export { login, logout, register, migrateDown, migrateUp, updateAcc };

@@ -5,28 +5,27 @@ import { Error } from "./IError";
 class UpdateAccError {
   success: boolean;
   errors: string[];
-  constructor(error: string[]) {
-    this.errors;
-    this.success = !this.errors;
+  constructor(error: string) {
+    this.errors = [error];
   }
   throwError(): GQL_AuthResponse {
     return {
-      success: this.success,
+      success: false,
       errors: this.errors,
     };
   }
 }
 
 // error for preventing updating from forgotten login profile (checks the already in use password)
-export const InvalidPassword = new UpdateAccError([
-  "Password was invalid, try again.",
-]);
+export const InvalidPassword = new UpdateAccError(
+  "Password was invalid, try again."
+);
 
 // error for mismatched passwords
-export const MismatchedPasswords = new UpdateAccError([
-  "Passwords have to match!",
-]);
+export const MismatchedPasswords = new UpdateAccError(
+  "Passwords have to match!"
+);
 
-export const Unauthorized = new UpdateAccError([
-  "You are unauthorized for this action, please login in first.",
-]);
+export const Unauthorized = new UpdateAccError(
+  "You are unauthorized for this action, please login in first."
+);

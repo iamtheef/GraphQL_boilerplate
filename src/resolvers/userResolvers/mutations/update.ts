@@ -5,7 +5,6 @@ import { isPasswordValid } from "@utils/isPasswordValid";
 import {
   InvalidPassword,
   MismatchedPasswords,
-  throwNewError,
   WeakPassword,
   unexpectedError,
 } from "@errors/index";
