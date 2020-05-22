@@ -8,17 +8,17 @@ services:
       - redis
       - db
     # -- should be either "npm start" & "npm test"
-    command: npm test
+    command: npm start
     #
     # this should be on for dev and prod modes only
-    # restart: always
+    restart: always
     #
     working_dir: /usr/src/app
     environment:
       PORT: 4000
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      ENV: dev
+      ENV: prod
       SECRET: insertyoursalthere
       # db config
       POSTGRES_USER: admin
@@ -58,15 +58,15 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
-  # redis-commander:
-  #   image: rediscommander/redis-commander:latest
-  #   restart: always
-  #   ports:
-  #     - "8889:8081"
-  #   environment:
-  #     - REDIS_HOSTS=local:redis:6379
-  #     # clean all containers WARNING -- CLEANS ALL CONTAINERS
-  #     # docker volume rm `docker volume ls -q -f dangling=true`
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    restart: always
+    ports:
+      - "8889:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      # clean all containers WARNING -- CLEANS ALL CONTAINERS
+      # docker volume rm `docker volume ls -q -f dangling=true`
 
 volumes:
   postgres-data:
