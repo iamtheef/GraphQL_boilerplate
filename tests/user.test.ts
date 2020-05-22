@@ -1,4 +1,3 @@
-import { migrateDown, migrateUp } from "../src/resolvers/db_control";
 import { graphqlTestCall } from "./gqlTestCall";
 import * as queries from "./Queries";
 import { redisClient } from "@config/server-config";
@@ -7,18 +6,16 @@ import { ids, email, fullName } from "../src/db/seeds/mockData";
 import knex from "@config/knex";
 
 beforeAll(async () => {
+  // cleaning and seeding the db
+  await graphqlTestCall(mutations.migrateUp);
+  // redis isn't used anywhere for now
+  // redis connection throws error on exiting so we close it ealry here
   redisClient.end(true);
-  await migrateDown();
-  await migrateUp();
 });
 
 afterAll(async () => {
-  await migrateDown();
-  redisClient.end(true);
-});
-
-it("hello", async () => {
-  expect("hello all possible words").toBe("hello all possible words");
+  // dropping the db
+  await graphqlTestCall(mutations.migrateDown);
 });
 
 // tests

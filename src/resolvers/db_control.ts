@@ -14,8 +14,8 @@ import {
 export const migrateUp = async () => {
   try {
     await create_users(knex);
-    await seed_users(knex);
     await create_articles(knex);
+    await seed_users(knex);
     await seed_articles(knex);
     return "DONE!";
   } catch (e) {

@@ -19,4 +19,11 @@ mutation register($input:RegisterInput!) {
     }
 }`;
 
-export { login, logout, register };
+const migrateUp = `mutation migrateUp{
+    migrateUp
+}`;
+
+const migrateDown = `mutation migrateDown{
+    migrateDown
+}`;
+export { login, logout, register, migrateDown, migrateUp };
