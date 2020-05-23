@@ -48,7 +48,7 @@ Assuming you have installed the prerequisites as listed above :
   POSTGRES_USER: admin
   POSTGRES_PASSWORD: password - Set the same values for the environment on line 19.
   ```
-  Build the server
+ - Build the server
 
 ```
 docker-compose build
