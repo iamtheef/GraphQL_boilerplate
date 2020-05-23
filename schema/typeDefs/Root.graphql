@@ -10,4 +10,5 @@ type Mutation {
   _: String @deprecated
   migrateUp: String
   migrateDown: String
+  seedDB: String
 }

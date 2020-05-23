@@ -1,7 +1,5 @@
 import session from "express-session";
 import redis from "redis";
-import knex from "@config/knex";
-import { migrateUp } from "../src/resolvers/db_control";
 import { currentEnv } from "@config/environment";
 
 let RedisStore = require("connect-redis")(session);
@@ -33,12 +31,4 @@ export const corsOptions = {
 
   // also set your client option "credentials" to "include" in order for cookies to work
   credentials: true,
-};
-
-// initialising db
-export const initDB = async () => {
-  if (!(await knex.schema.hasTable("users")) && currentEnv === "DEV") {
-    await migrateUp();
-    console.log("DB CREATED AND SEEDED");
-  }
 };

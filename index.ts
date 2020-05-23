@@ -4,7 +4,6 @@ import { ApolloServer } from "apollo-server-express";
 import { sessionMiddleware, corsOptions } from "@config/server-config";
 import { schema } from "./schema";
 import { pingDB } from "@utils/pingDB";
-import { initDB } from "config/server-config";
 import { checkEnv, currentEnv } from "@config/environment";
 import helmet from "helmet";
 import passport from "passport";
@@ -33,11 +32,9 @@ checkEnv() &&
         : console.log(res.message);
     });
 
-    await initDB();
-
     const server = new ApolloServer({
       introspection: currentEnv !== "PROD",
-      playground: currentEnv !== "PROD",
+      playground: true,
       schema,
       validationRules: [depthLimit(5)],
       context: ({ req, res }) => {

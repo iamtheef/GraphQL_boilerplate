@@ -20,13 +20,13 @@ afterAll(async () => {
 
 // tests
 describe("users", () => {
-  it("is user registered", async () => {
+  it("is user registered, correct email", async () => {
     const output = await graphqlTestCall(queries.isUserRegistered, {
       email: email[0],
     });
     expect(output).toEqual({ data: { isUserRegistered: true } });
   });
-  it("is user registered with wrong main", async () => {
+  it("is user registered, wrong email", async () => {
     const output = await graphqlTestCall(queries.isUserRegistered, {
       email: "this@email.com",
     });
@@ -61,7 +61,7 @@ describe("findUser", () => {
     ]);
   });
 
-  it("user by id", async () => {
+  it("find by id", async () => {
     const output = await graphqlTestCall(queries.userById, { id: ids[2] });
     expect(output.data.userById).toEqual({
       email: email[2],
@@ -71,7 +71,7 @@ describe("findUser", () => {
 });
 
 describe("login & me & logout", () => {
-  it("successful login function", async () => {
+  it("valid credits", async () => {
     const login = await graphqlTestCall(mutations.login, {
       input: { email: email[0], password: "password" },
     });
@@ -90,7 +90,7 @@ describe("login & me & logout", () => {
     expect(logout.data).toEqual({ logout: true });
   });
 
-  it("wrong login function", async () => {
+  it("invalid credits", async () => {
     const login = await graphqlTestCall(mutations.login, {
       input: { email: email[0], password: "wrong password" },
     });

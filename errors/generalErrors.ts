@@ -7,3 +7,7 @@ export const AuthenticatedError = Error(
 );
 
 export const unexpectedError = Error("Ooooops! Something was wrong.");
+
+export const productionWarning = Error(
+  "This action is not available in production mode. You should try new things on test databases rather than production databases."
+);

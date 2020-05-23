@@ -18,7 +18,7 @@ services:
       PORT: 4000
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      ENV: prod
+      ENV: dev
       SECRET: insertyoursalthere
       # db config
       POSTGRES_USER: admin

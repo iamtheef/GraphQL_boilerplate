@@ -116,9 +116,12 @@ Although it is mostly separated to these very folders :
   - `index.ts` this file is the server itself. The function that executes when you run the server and sticks all the pieces together.
   - `package.json`project dependencies and scripts can be found in this file.
 
-## Future plans
+## Tests
 
-- Testing and any other corrections, bug fixes that may arise. I will try to keep both versions fresh and up to date.
+- First make sure you are not connected to your production database. If you need to run the tests build a new database or use the one that is being built when running docker. **Never run tests on actual databases as they destroy all the data.**
+- To run the tests set the `ENV` variable in `docker-compose.yml` file to `TEST` and in `api` service set the command from `npm start` to `npm test` & re-run docker. Don't forget to turn off the restart option (or comment it out before running the tests).
+
+**WARNING** : **_only run tests in fake databases as they drop all the data before running so they will drop all tables if you are connected to a real database._**
 
 ## Tips
 
@@ -128,6 +131,8 @@ Although it is mostly separated to these very folders :
 - Use the `paths` property in `tsconfig.json` file to group related functionalities and for [pretty imports](https://stackoverflow.com/questions/43281741/how-to-use-paths-in-tsconfig-json).
 - To update dependencies just add/remove them from the `package.json` and re-build the server or add/remove them while the server is running in `DEV` environment.
 - If you ever run into problems with docker container space capacity you can use any of these commands
+
+- Docker doesn't always run on the first try. If so try `docker-compose down` and then `docker-compose up`
 
 ```
 docker volume rm `docker volume ls -q -f dangling=true`
