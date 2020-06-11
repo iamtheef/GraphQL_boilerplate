@@ -8,6 +8,7 @@ import knex from "@config/knex";
 beforeAll(async () => {
   // cleaning and seeding the db
   await graphqlTestCall(mutations.migrateUp);
+  await graphqlTestCall(mutations.seedDB);
   // redis isn't used anywhere for now
   // redis connection throws error on exiting so we close it ealry here
   redisClient.end(true);

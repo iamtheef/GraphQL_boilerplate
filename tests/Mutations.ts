@@ -31,7 +31,11 @@ const migrateUp = `mutation migrateUp{
     migrateUp
 }`;
 
+const seedDB = `mutation seedDB{
+    seedDB
+}`;
+
 const migrateDown = `mutation migrateDown{
     migrateDown
 }`;
-export { login, logout, register, migrateDown, migrateUp, updateAcc };
+export { login, logout, register, migrateDown, migrateUp, updateAcc, seedDB };

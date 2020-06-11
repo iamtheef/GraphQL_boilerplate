@@ -34,7 +34,7 @@ checkEnv() &&
 
     const server = new ApolloServer({
       introspection: currentEnv !== "PROD",
-      playground: true,
+      playground: currentEnv !== "PROD",
       schema,
       validationRules: [depthLimit(5)],
       context: ({ req, res }) => {

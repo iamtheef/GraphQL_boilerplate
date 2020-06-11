@@ -8,7 +8,7 @@
     "dev": "concurrently \"ts-node index.ts\"\"npm run generate\"",
     "generate": "graphql-codegen --config codegen.yml --watch",
     "graphql-codegen init": "./node_modules/.bin/graphql-codegen init",
-    "test": "npx jest --detectOpenHandles"
+    "test": "npx jest --detectOpenHandles --coverage"
   },
   "author": "th",
   "license": "ISC",
