@@ -33,6 +33,7 @@ checkEnv() &&
     });
 
     const server = new ApolloServer({
+      subscriptions: false,
       introspection: currentEnv !== "PROD",
       playground: currentEnv !== "PROD",
       schema,
