@@ -41,14 +41,14 @@ A server using Graphql technology on the top of Node/Express stack written in Ty
 Assuming you have installed the prerequisites as listed above :
 
 - Open the `docker-compose.yml` file to set the necessary values such as :
-  - ENV (line 17, enter one of the allowed values `"DEV","TEST","PROD")` defaults to `DEV`
-  - SECRET (line 18, enter your salt string for hashing the passwords)
-  - Set your db credits (line 36, `USER` & `PASSWORD`). The defaults are :
+  - ENV (enter one of the allowed values `"DEV","TEST","PROD")` defaults to `DEV`
+  - SECRET (enter your salt string for hashing the passwords)
+  - Set your db credits (`USER` & `PASSWORD`). The defaults are :
   ```
   POSTGRES_USER: admin
   POSTGRES_PASSWORD: password - Set the same values for the environment on line 19.
   ```
-  Build the server
+ - Build the server
 
 ```
 docker-compose build
@@ -130,17 +130,16 @@ Although it is mostly separated to these very folders :
 - To add new resolvers go the the `/src/resolvers/` folder and navigate to the right folder for your resolver (query/mutation). Then make sure to export the resolver as a `const` and don't forget to mention the resolver to the corresponding `index.ts` file.
 - Use the `paths` property in `tsconfig.json` file to group related functionalities and for [pretty imports](https://stackoverflow.com/questions/43281741/how-to-use-paths-in-tsconfig-json).
 - To update dependencies just add/remove them from the `package.json` and re-build the server or add/remove them while the server is running in `DEV` environment.
+- Docker doesn't always run on the first try. If so try `docker-compose down` and then `docker-compose up`
 - If you ever run into problems with docker container space capacity you can use any of these commands
 
-- Docker doesn't always run on the first try. If so try `docker-compose down` and then `docker-compose up`
-
-```
-docker volume rm `docker volume ls -q -f dangling=true`
-OR
-docker image prune
-OR
-docker image prune -af
-```
+  ```
+  docker volume rm `docker volume ls -q -f dangling=true`
+  OR
+  `docker image prune`
+  OR
+  docker image prune -af
+  ```
 
 **\*although use them very carefully as they will erase every docker image, container and cache in your machine**
 [more info here](https://docs.docker.com/engine/reference/commandline/image_prune/).
