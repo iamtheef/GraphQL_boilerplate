@@ -18,10 +18,9 @@ export const editArticle: GQL_MutationResolvers["editArticle"] = async (
       return UnauthorizedAction;
     }
 
-    const wasUpdated = !!(await knex("articles").update(
-      { ...changes, updatedAt: knex.fn.now() },
-      ["id"]
-    ));
+    const wasUpdated = !!(await knex("articles")
+      .where("id", id)
+      .update({ ...changes, updatedAt: knex.fn.now() }, ["id"]));
 
     return { success: wasUpdated, errors: [] }; // responds success edited
   } catch (e) {
